@@ -16,12 +16,9 @@ const useStyles = createUseStyles({
   results: {},
   continue: {
     marginTop: 32,
-    '& > button': {
-      backgroundColor: [colors.stationBlue, '!important'],
-    },
     '& > button.invalid': {
       '&:focus': {
-        outlineColor: 'red',
+        outlineColor: colors.danger,
         animation: '$shake .5s linear',
       },
     },

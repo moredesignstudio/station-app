@@ -24,8 +24,8 @@ const useStyles = createUseStyles({
     bottom: -6,
     right: -7,
     ...theme.mixins.size(22),
-    backgroundColor: '#BBB',
-    border: '2px solid white',
+    backgroundColor: theme.surface.elevated,
+    border: `2px solid ${theme.surface.base}`,
     borderRadius: '100%',
   },
 });
@@ -56,7 +56,7 @@ const ApplicationLogo = ({
       {
         applicationIsExtension &&
         <div className={classes!.iconPin}>
-          <Icon symbolId={IconSymbol.EXTENSION} size={25} color={'#5d5d5d'} />
+          <Icon symbolId={IconSymbol.EXTENSION} size={25} color={theme.text.secondary} />
         </div>
       }
     </div>

@@ -5,47 +5,70 @@ import { Icon, IconSymbol } from '@getstation/theme';
 
 @injectSheet(theme => ({
   container: {
-    borderRadius: `0 0 0 ${theme.$borderRadius}`,
-    display: 'flex',
-    height: '34px !important',
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: 8,
+    right: 12,
     zIndex: theme.$zIndexUltime,
-    backgroundColor: props => theme.mixinDarkenColor(props.themeColors[0])
+    display: 'flex',
+    alignItems: 'center',
+    gap: 4,
+    // `.l-webview__tab > div` forces height: 100% in webview.scss; keep the bar at its own height
+    height: '36px !important',
+    padding: [6, 8],
+    backgroundColor: theme.surface.elevated,
+    borderRadius: theme.radius.lg,
+    boxShadow: theme.shadow.panel,
   },
   searchIcon: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    ...theme.avatarMixin('24px'),
-    margin: '5px',
+    flexShrink: 0,
+    color: theme.text.tertiary,
   },
   input: {
-    backgroundColor: 'transparent',
+    flexGrow: 1,
+    width: 200,
+    height: 24,
     border: 'none',
-    borderRadius: `0 0 0 ${theme.$borderRadius}`,
-    height: '20px',
-    marginTop: '7px',
-    padding: '0 45px 0 4px',
-    width: '220px',
-    color: 'rgba(255, 255, 255, 0.6)',
-    caretColor: 'rgba(255, 255, 255, 0.6)',
-    ...theme.fontMixin(14),
+    outline: 'none',
+    padding: [0, 4],
+    backgroundColor: 'transparent',
+    color: theme.text.primary,
+    caretColor: theme.accent.default,
+    ...theme.fontMixin(13),
+    '&::placeholder': {
+      color: theme.text.tertiary,
+    },
     '&::selection': {
-      background: 'white'
-    }
+      backgroundColor: theme.fill.strong,
+    },
   },
   number: {
-    position: 'absolute',
-    right: '34px',
-    marginTop: '9px',
-    height: '20px',
-    lineHeight: '20px',
-    color: 'rgba(255, 255, 255, 0.2)',
-    ...theme.fontMixin(12)
+    flexShrink: 0,
+    padding: [0, 6],
+    lineHeight: '24px',
+    whiteSpace: 'nowrap',
+    color: theme.text.tertiary,
+    ...theme.fontMixin(11),
+  },
+  separator: {
+    flexShrink: 0,
+    width: 1,
+    height: 16,
+    margin: [0, 2],
+    backgroundColor: theme.border.subtle,
   },
   closeIcon: {
-    margin: '5px'
-  }
+    flexShrink: 0,
+    boxSizing: 'content-box',
+    padding: 3,
+    borderRadius: theme.radius.md,
+    color: theme.text.secondary,
+    cursor: 'pointer',
+    transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}`,
+    '&:hover': {
+      color: theme.text.primary,
+      backgroundColor: theme.fill.hover,
+    },
+  },
 }))
 export default class TabSearchInput extends PureComponent {
   static propTypes = {
@@ -82,14 +105,15 @@ export default class TabSearchInput extends PureComponent {
     return (
       <div className={classes.container}>
         <Icon
-          color="rgba(255, 255, 255, 0.6)"
-          size={24}
+          color="currentColor"
+          size={18}
           symbolId={IconSymbol.SEARCH}
           className={classes.searchIcon}
         />
         <input
           className={classes.input}
           type="text"
+          placeholder="Find in page"
           onKeyDown={this.handleKeyDown}
           value={this.props.searchString}
           onChange={this.handleSearchStringChange}
@@ -98,10 +122,11 @@ export default class TabSearchInput extends PureComponent {
         { resultsInfo &&
           <span className={classes.number}>{resultsInfo.activeMatchOrdinal} of {resultsInfo.matchesCount}</span>
         }
+        <span className={classes.separator} />
         <Icon
           symbolId={IconSymbol.CROSS}
-          size={24}
-          color="rgba(255, 255, 255, 0.6)"
+          size={18}
+          color="currentColor"
           className={classes.closeIcon}
           onClick={this.props.onClose}
         />

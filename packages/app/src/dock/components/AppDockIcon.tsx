@@ -3,12 +3,12 @@ import * as React from 'react';
 import injectSheet from 'react-jss';
 import * as classNames from 'classnames';
 import * as shortid from 'shortid';
+import { accent, fill as fillTokens, status, surface, transition } from '@getstation/theme';
 
 interface Classes {
   anchor: string,
   appDockIcon: string,
   imageLowOpacity: string,
-  SVGIcon: string,
   appDockIconActive: string,
   iconBg: string,
   scaleUpAnimation: string,
@@ -49,38 +49,27 @@ type Props = OwnProps & GraphQLProps;
   },
   appDockIcon: {
     display: 'block',
+    paddingTop: '8px',
     '&:hover:not($appDockIconActive)': {
-      '& $iconBg': { fillOpacity: 0.2 },
-    },
-    '&:hover': {
-      '& $SVGIcon': { fillOpacity: 1 },
+      '& $iconBg': { fill: fillTokens.hover },
+      '& $imageLowOpacity': { opacity: 0.9 },
     },
     '&$appDockIconActive': {
-      '& $iconBg': { fillOpacity: 1 },
-      '& $SVGIcon': { fillOpacity: 1 },
+      '& $iconBg': { fill: fillTokens.selected },
     },
-    paddingTop: '8px',
     '&$scaleUpAnimation': {
       animation: 'app-dock-icon-scale-up .5s cubic-bezier(0.2, 0, 0, 1)',
     },
   },
   imageLowOpacity: {
-    opacity: 0.4,
-  },
-  SVGIcon: {
-    fill: '#fff',
-    fillOpacity: 0.6,
-    transition: 'all 250ms ease-out',
-    transform: 'scale(0.7)',
+    opacity: 0.55,
+    transition: `opacity ${transition.normal}`,
   },
   appDockIconActive: {},
   scaleUpAnimation: {},
   iconBg: {
-    fill: '#fff',
-    fillOpacity: 0.1,
-    '&:not($appDockIconActive)': {
-      transition: 'all 250ms ease-out',
-    },
+    fill: 'transparent',
+    transition: `fill ${transition.normal}`,
   },
   '@keyframes app-dock-icon-scale-up': {
     '0%': { transform: 'scale(0)' },
@@ -168,7 +157,7 @@ export class AppDockIcon extends React.PureComponent<Props> {
     return (
       <g className={classes!.iconBg}>
         <rect width="34" height="34" x="6" y="0" rx="17" />
-        {logoURL && <rect width="16" height="16" {...position} rx="8" fill="#fff" />}
+        {logoURL && <rect width="16" height="16" {...position} rx="8" fill={surface.sidebar} />}
       </g>
     );
   }
@@ -181,7 +170,7 @@ export class AppDockIcon extends React.PureComponent<Props> {
     if (isInstanceLogoInDockIcon) {
       return (
         <g>
-          <rect width="30" height="30" x="8" y="2" rx="15" fill={active ? themeColor : '#00000000'} />
+          <rect width="30" height="30" x="8" y="2" rx="15" fill={active ? themeColor : 'transparent'} />
           <circle cx="23" cy="17" r="15" fill={`url(#${this.secondaryLogo})`} />
         </g>
       );
@@ -190,7 +179,7 @@ export class AppDockIcon extends React.PureComponent<Props> {
     if (iconURL) {
       return (
         <g>
-          <rect width="30" height="30" x="8" y="2" rx="15" fill={active ? themeColor : '#00000000'} />
+          <rect width="30" height="30" x="8" y="2" rx="15" fill={active ? themeColor : 'transparent'} />
           <circle cx="23" cy="17" r="15" fill={`url(#${this.primaryLogo})`} />
         </g>
       );
@@ -231,17 +220,27 @@ export class AppDockIcon extends React.PureComponent<Props> {
   }
 
   renderBadge() {
-    const { badge, snoozed, active } = this.props;
+    const { badge, snoozed } = this.props;
 
     if (badge && !snoozed) {
       return (
         <g>
-          {active && <circle r="3" cx="36" cy="6" fill="#fff" />}
-          <circle r="2" cx="36" cy="6" fill="#EF5757" />
+          <circle r="4.5" cx="36" cy="6" fill={surface.sidebar} />
+          <circle r="2.5" cx="36" cy="6" fill={status.badge} />
         </g>
       );
     }
     return null;
+  }
+
+  renderActiveIndicator() {
+    const { active } = this.props;
+
+    if (!active) return null;
+
+    return (
+      <rect x="0" y="7" width="2" height="20" rx="1" fill={accent.default} />
+    );
   }
 
   render() {
@@ -261,6 +260,7 @@ export class AppDockIcon extends React.PureComponent<Props> {
           {this.renderPrimaryIcon()}
           {this.renderSecondaryIcon()}
           {this.renderBadge()}
+          {this.renderActiveIndicator()}
         </g>
       </svg>
     );

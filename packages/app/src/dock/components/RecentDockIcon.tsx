@@ -1,4 +1,4 @@
-import { Icon, IconSymbol, ThemeTypes } from '@getstation/theme';
+import { Icon, IconSymbol, text, ThemeTypes } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -28,12 +28,12 @@ const styles = (theme: ThemeTypes) => ({
     position: 'relative',
     margin: '12px auto 8px',
     borderRadius: 100,
-    opacity: 0.6,
+    opacity: 0.55,
     filter: 'grayscale(60%)',
-    transition: '300ms',
+    transition: `opacity ${theme.transition.normal}, filter ${theme.transition.normal}`,
     '&:hover': {
-      opacity: 1,
-      filter: 'grayscale(20%)',
+      opacity: 0.9,
+      filter: 'grayscale(0%)',
     },
     '&:hover $hoverIcon': {
       opacity: 1,
@@ -61,7 +61,7 @@ const styles = (theme: ThemeTypes) => ({
     position: 'absolute',
     top: 0,
     borderRadius: 100,
-    backgroundColor: 'rgba(0, 0, 0, .3)',
+    backgroundColor: theme.surface.scrim,
     opacity: 0,
     transition: 'opacity 300ms cubic-bezier(0.37, 1.21, 0.89, 0.87)',
     cursor: 'pointer',
@@ -91,7 +91,12 @@ export default class RecentDockIcon extends React.PureComponent<Props, {}> {
           </>
         }
 
-        <Icon className={classes!.recentApplicationArrow} symbolId={IconSymbol.RECENT_ARROW} size={33} color={'#FFF'} />
+        <Icon
+          className={classes!.recentApplicationArrow}
+          symbolId={IconSymbol.RECENT_ARROW}
+          size={33}
+          color={text.primary}
+        />
       </div>
     );
   }

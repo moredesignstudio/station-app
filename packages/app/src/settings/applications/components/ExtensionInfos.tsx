@@ -38,13 +38,15 @@ type State = {
     paddingBottom: 10,
   },
   description: {
-    fontSize: 12,
-    marginLeft: 15,
+    ...theme.fontMixin(12),
+    lineHeight: '1.4em',
+    color: theme.text.secondary,
+    marginLeft: 12,
     maxWidth: '75%',
   },
   subtitle: {
-    ...theme.fontMixin(12, 600),
-    margin: [20, 0, 10],
+    ...theme.mixins.sectionLabel(),
+    margin: [16, 0, 8],
   },
   update: {
     display: 'flex',

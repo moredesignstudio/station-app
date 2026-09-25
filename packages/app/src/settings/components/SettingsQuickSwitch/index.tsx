@@ -22,29 +22,27 @@ type OwnProps = Pick<FindBoostedAppsButtonOwnProps, 'closeSettings'>;
 
 const styles = (theme: Theme) => createStyles({
   title: {
-    ...theme.titles.h1,
-    marginBottom: 10,
+    ...theme.titles.h2,
+    marginBottom: 12,
     display: 'inline-block',
   },
   description: {
-    marginBottom: 30,
+    ...theme.fontMixin(13),
+    lineHeight: '1.5em',
+    color: theme.text.secondary,
+    maxWidth: 600,
+    marginBottom: 24,
   },
   boostedAppsButton: {
-    marginTop: 20,
+    marginTop: 16,
   },
   navigation: {
     display: 'inline-block',
     paddingLeft: 10,
     transform: 'translateY(-3px)',
-    fontSize: 10,
-    color: 'rgba(255, 255, 255, .6)',
   },
   navigationIcon: {
-    marginRight: 4,
-    padding: [2, 4],
-    background: 'rgba(255, 255, 255, .2)',
-    borderRadius: 2,
-    fontSize: 10,
+    ...theme.mixins.kbd(),
   },
 });
 

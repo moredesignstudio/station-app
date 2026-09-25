@@ -5,29 +5,31 @@
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import { debounce } from 'lodash';
-import { colors } from '@src/theme';
+import { colors, inputMixin, radius } from '@src/theme';
 
 const useStyles = createUseStyles({
   textarea: {
+    ...inputMixin(),
     resize: 'none',
     textAlign: 'justify',
     padding: [12, 14],
-    borderRadius: 10,
-    borderColor: 'lightgray',
-    '&:focus': {
-      boxShadow: [0, 0, 4, 0, colors.blueGlowing],
-      border: [1, 'solid', colors.blueGlowing],
-      outline: 'none',
+    borderRadius: radius.lg,
+    fontFamily: 'inherit',
+    fontSize: 13,
+    lineHeight: '20px',
+    '&:disabled': {
+      color: colors.textSecondary,
     },
   },
   textAreaLabel: {
     display: 'block',
-    fontWeight: 'bold',
-    fontSize: 15,
-    marginBottom: 10,
+    fontWeight: 600,
+    fontSize: 13,
+    color: colors.textPrimary,
+    marginBottom: 8,
   },
   textareaExplanation: {
-    color: 'gray',
+    color: colors.textSecondary,
   },
 });
 

@@ -1,3 +1,4 @@
+import { ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -18,22 +19,28 @@ export interface Props {
   setActiveTab: (title: string) => void,
 }
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   titlesContainer: {
-    width: 130,
+    width: 160,
+    flexShrink: 0,
   },
   titles: {
     listStyle: 'none',
     padding: 0,
     margin: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
   },
   panel: {
     flex: 1,
+    minWidth: 0,
     height: '100%',
-    marginLeft: 20,
-    padding: [0, 20],
-    borderLeft: '1px solid rgba(255, 255, 255, .20)',
+    marginLeft: 24,
+    padding: [0, 32],
+    borderLeft: `1px solid ${theme.border.subtle}`,
     overflowY: 'auto',
+    ...theme.mixins.scrollbar(),
   },
 });
 

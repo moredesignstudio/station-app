@@ -1,3 +1,4 @@
+import { ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore no declaration file
 import injectSheet from 'react-jss';
@@ -34,16 +35,18 @@ interface Props {
   handleHideSubdock: () => void,
 }
 
-@injectSheet(() => ({
+@injectSheet((theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
     width: 280,
     zIndex: 4,
-    borderRadius: 4,
+    borderRadius: theme.radius.lg,
     maxHeight: '98vh',
-    backgroundColor: '#254969',
-    backgroundAttachment: 'fixed',
+    overflow: 'hidden',
+    backgroundColor: theme.surface.panel,
+    boxShadow: theme.shadow.panel,
+    color: theme.text.primary,
   },
   panels: {
     flex: '1 1 auto',

@@ -1,4 +1,4 @@
-import { Button, Size } from '@getstation/theme';
+import { Button, Size, Style, ThemeTypes as Theme } from '@getstation/theme';
 import ms = require('ms');
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -28,7 +28,7 @@ export interface State {
   justCheckedForUpdate: boolean,
 }
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   checking: {
     display: 'inline-block',
     position: 'relative',
@@ -38,7 +38,7 @@ const styles = () => ({
     marginRight: 5,
     borderRadius: '100%',
     backgroundColor: 'transparent',
-    border: '2px solid white',
+    border: `2px solid ${theme.text.secondary}`,
     animation: '3s ease-in-out 0s infinite checking',
   },
   '@keyframes checking': {
@@ -47,13 +47,13 @@ const styles = () => ({
     '100%': { transform: 'scale(0.8)' },
   },
   info: {
-    marginTop: 5,
-    fontSize: 11,
-    color: 'rgba(#FFF, .5)',
+    ...theme.fontMixin(12),
+    marginTop: 6,
+    color: theme.text.tertiary,
     textAlign: 'center',
   },
   updateButton: {
-    minWidth: '200px',
+    minWidth: 200,
     marginTop: 2,
   },
 });
@@ -85,7 +85,12 @@ class SettingsUpdatesButton extends React.PureComponent<Props, State> {
 
     if (this.props.isCheckingUpdate) {
       return (
-        <Button className={classes!.updateButton} btnSize={Size.SMALL} disabled={this.props.isCheckingUpdate}>
+        <Button
+          className={classes!.updateButton}
+          btnSize={Size.SMALL}
+          btnStyle={Style.SECONDARY}
+          disabled={this.props.isCheckingUpdate}
+        >
           <span className={classes!.checking} />
           {this.props.isDownloadingUpdate ? 'Downloading...' : 'Checking...'}
         </Button>
@@ -107,7 +112,12 @@ class SettingsUpdatesButton extends React.PureComponent<Props, State> {
     if (!this.props.isUpdateAvailable && this.state.justCheckedForUpdate) {
       return (
         <div>
-          <Button className={classes!.updateButton} btnSize={Size.SMALL} onClick={this.props.checkForUpdates}>
+          <Button
+            className={classes!.updateButton}
+            btnSize={Size.SMALL}
+            btnStyle={Style.SECONDARY}
+            onClick={this.props.checkForUpdates}
+          >
             No new updates
           </Button>
 
@@ -118,7 +128,12 @@ class SettingsUpdatesButton extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Button className={classes!.updateButton} btnSize={Size.SMALL} onClick={this.props.checkForUpdates}>
+      <Button
+        className={classes!.updateButton}
+        btnSize={Size.SMALL}
+        btnStyle={Style.SECONDARY}
+        onClick={this.props.checkForUpdates}
+      >
         Check for updates
       </Button>
     );

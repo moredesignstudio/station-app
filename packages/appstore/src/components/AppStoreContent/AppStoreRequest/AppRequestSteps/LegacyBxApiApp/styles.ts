@@ -1,4 +1,5 @@
 import { animStylesData } from '@src/shared/constants/constants';
+import { colors } from '@src/theme';
 
 const styles = {
   stepContainer: {
@@ -25,8 +26,9 @@ const styles = {
     marginBottom: 38,
   },
   text: {
-    fontSize: 17,
-    color: '#4a4a4a',
+    fontSize: 14,
+    lineHeight: '22px',
+    color: colors.textSecondary,
     textAlign: 'center',
   },
 };

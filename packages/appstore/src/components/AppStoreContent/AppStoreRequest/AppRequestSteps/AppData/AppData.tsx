@@ -9,6 +9,7 @@ import AppRequestStepsButtons
 import AppRequestStepsInput
   from '@src/components/AppStoreContent/AppStoreRequest/AppRequestStepsInput/AppRequestStepsInput';
 import { svgIconsURLs } from '@src/shared/constants/constants';
+import { colors } from '@src/theme';
 
 import styles, { IClasses } from './styles';
 
@@ -146,7 +147,10 @@ export default class AppData extends React.PureComponent<IProps, IState> {
             <div className={classes!.itemContainer}>
               {errorInputColor && <div className={classes!.subLabelError}>{errorInputColor}</div>}
               <div className={classes!.inputColorWrapper}>
-                <div className={classes!.themeColorRender} style={{ background: themeColor || '#292929' }} />
+                <div
+                  className={classes!.themeColorRender}
+                  style={{ background: themeColor || colors.surfaceElevated }}
+                />
                 <input
                   className={classes!.inputColorText}
                   type="text"

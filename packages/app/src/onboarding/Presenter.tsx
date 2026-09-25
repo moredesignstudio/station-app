@@ -68,6 +68,9 @@ const styles = (theme: ThemeTypes) => ({
     left: 0,
     ...theme.mixins.size('100%'),
     zIndex: 101,
+    backgroundColor: theme.surface.base,
+    color: theme.text.primary,
+    fontFamily: theme.font.sans,
   },
   section: {
     display: 'flex',
@@ -76,11 +79,17 @@ const styles = (theme: ThemeTypes) => ({
     flexDirection: 'column',
     width: 490,
     height: '100%',
-    backgroundColor: 'white',
+    backgroundColor: theme.surface.base,
+    color: theme.text.primary,
   },
   sectionHeader: {
     padding: [60, 60, 0, 60],
     width: '100%',
+    // the only logo asset is black on transparent: invert it for the dark pane
+    '& img': {
+      filter: 'invert(1)',
+      opacity: 0.92,
+    },
   },
   trafficLights: {
     position: 'fixed',
@@ -89,21 +98,24 @@ const styles = (theme: ThemeTypes) => ({
   },
   illustration: {
     flex: 1,
-    backgroundImage: (props: Props) =>
-      `url("static/illustrations/illustration--onboarding@2x.png"), ${props.themeGradient}`,
+    backgroundColor: theme.surface.panel,
+    backgroundImage: 'url("static/illustrations/illustration--onboarding@2x.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
+    borderLeft: `1px solid ${theme.border.subtle}`,
   },
   onboardingDock: {
     width: 60,
     height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, .8)',
+    backgroundColor: theme.surface.sidebar,
+    borderRight: `1px solid ${theme.border.subtle}`,
     padding: [60, 15, 20],
     transition: '300ms ease-in-out',
   },
   hideOnboardingDock: {
     width: 0,
     padding: 0,
+    borderRightWidth: 0,
   },
 });
 

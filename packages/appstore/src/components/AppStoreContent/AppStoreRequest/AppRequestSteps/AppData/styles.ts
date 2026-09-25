@@ -5,6 +5,12 @@ import { animStylesData } from '@src/shared/constants/constants';
 // tslint:disable-next-line:max-line-length
 const StripeImg = 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJUlEQVQoU2N89+7dfwY0ICQkxIguxjgUFKI7GsTH5m4M3w1ChQDSWCb4Kwsr/AAAAABJRU5ErkJggg==)';
 
+/**
+ * Monochrome custom-app icons are shipped as dark glyphs; this filter
+ * re-inks them to (almost) `text.primary` so they read on dark surfaces.
+ */
+const lightGlyphFilter = 'brightness(0) invert(0.92)';
+
 const styles = (theme: ThemeTypes) => ({
   stepContainer: {
     maxWidth: 310,
@@ -40,24 +46,23 @@ const styles = (theme: ThemeTypes) => ({
   },
   label: {
     display: 'block',
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#363636',
+    fontSize: 13,
+    fontWeight: 600,
+    color: theme.text.primary,
   },
   itemContainer: {
     position: 'relative',
   },
   subLabel: {
-    fontFamily: 'Asap',
     fontSize: 12,
-    color: '#949494',
+    color: theme.text.secondary,
   },
   subLabelError: {
     position: 'absolute',
     top: '-20px',
     left: 0,
     fontSize: 12,
-    color: theme.colors.error,
+    color: theme.status.danger,
   },
   inputColorWrapper: {
     display: 'flex',
@@ -65,22 +70,30 @@ const styles = (theme: ThemeTypes) => ({
   },
   themeColorRender: {
     display: 'inline-flex',
-    ...theme.mixins.size(35),
-    border: '1px solid rgba(146, 166, 184, .30)',
-    borderRadius: 6,
+    ...theme.mixins.size(32),
+    boxShadow: `inset 0 0 0 1px ${theme.border.default}`,
+    borderRadius: theme.radius.md,
     marginRight: 10,
     background: StripeImg,
   },
   inputColorText: {
     width: 80,
-    height: 35,
+    height: 32,
     padding: [0, 10],
-    border: '1px solid rgba(146, 166, 184, .30)',
-    borderRadius: 6,
+    border: 'none',
+    boxShadow: `inset 0 0 0 1px ${theme.border.default}`,
+    borderRadius: theme.radius.md,
+    backgroundColor: theme.fill.subtle,
+    color: theme.text.primary,
+    fontFamily: theme.font.sans,
     fontSize: 13,
     outline: 'none',
-    '&::-webkit-input-placeholder': {
-      color: 'rgba(1, 1, 1, 0.3)',
+    transition: `box-shadow ${theme.transition.fast}`,
+    '&::placeholder': {
+      color: theme.text.tertiary,
+    },
+    '&:focus': {
+      boxShadow: `inset 0 0 0 1px ${theme.accent.border}, ${theme.shadow.focus}`,
     },
   },
   colorWheelWrapper: {
@@ -89,8 +102,8 @@ const styles = (theme: ThemeTypes) => ({
   },
   inputColor: {
     ...theme.mixins.size(20),
-    border: '1px solid rgba(146, 166, 184, .30)',
-    borderRadius: 6,
+    border: `1px solid ${theme.border.default}`,
+    borderRadius: theme.radius.md,
     verticalAlign: 'middle',
     marginTop: 6,
     outline: 'none',
@@ -110,13 +123,13 @@ const styles = (theme: ThemeTypes) => ({
     borderRadius: 100,
     border: 0,
     outline: 'none',
-    backgroundColor: '#333',
+    backgroundColor: theme.surface.elevated,
     cursor: 'pointer',
   },
   uploadInfo: {
     fontSize: 12,
     lineHeight: '18px',
-    color: '#949494',
+    color: theme.text.secondary,
     marginLeft: 35,
   },
   imageUploadedWrapper: {
@@ -146,12 +159,17 @@ const styles = (theme: ThemeTypes) => ({
   selectContainer: {
     maxWidth: 67,
     height: 30,
-    backgroundColor: '#e7ecf0',
+    backgroundColor: theme.fill.subtle,
+    boxShadow: `inset 0 0 0 1px ${theme.border.default}`,
     paddingLeft: 4,
-    borderRadius: 7,
+    borderRadius: theme.radius.md,
     margin: [6, 0, 20],
     cursor: 'pointer',
     position: 'relative',
+    transition: `background-color ${theme.transition.fast}`,
+    '&:hover': {
+      backgroundColor: theme.fill.hover,
+    },
     '&:after' : {
       content: '""',
       display: 'inline-block',
@@ -159,7 +177,7 @@ const styles = (theme: ThemeTypes) => ({
       top: 10,
       left: 43,
       padding: 3,
-      border: 'solid black',
+      border: `solid ${theme.text.secondary}`,
       borderWidth: '0 2px 2px 0',
       transform: 'rotate(45deg)',
     },
@@ -167,17 +185,17 @@ const styles = (theme: ThemeTypes) => ({
   selectIcon: {
     width: 30,
     height: 30,
-    filter: 'brightness(0) saturate(0%) invert(0%) sepia(0%) hue-rotate(0) brightness(100%) contrast(100%)',
+    filter: lightGlyphFilter,
   },
   selectList: {
     display: 'none',
     flexWrap: 'wrap',
     minWidth: 330,
     maxWidth: 330,
-    backgroundColor: '#e7ecf0',
+    backgroundColor: theme.surface.elevated,
     padding: [5, 9, 3, 9],
-    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
-    borderRadius: 7,
+    boxShadow: theme.shadow.panel,
+    borderRadius: theme.radius.lg,
     position: 'absolute',
     top: 56,
     zIndex: 1,
@@ -189,17 +207,18 @@ const styles = (theme: ThemeTypes) => ({
     display: 'flex',
     width: 36,
     height: 36,
-    opacity: 0.5,
+    opacity: 0.6,
     cursor: 'pointer',
-    transition: 'opacity .2s',
+    borderRadius: theme.radius.sm,
+    transition: `opacity ${theme.transition.fast}, background-color ${theme.transition.fast}`,
     margin: [0, 3, 2, 0],
     '&:hover': {
       opacity: 1,
-      transition: 'opacity .2s',
+      backgroundColor: theme.fill.hover,
     },
   },
   selectItemIcon: {
-    filter: 'brightness(0) saturate(0%) invert(0%) sepia(0%) hue-rotate(0) brightness(100%) contrast(100%)',
+    filter: lightGlyphFilter,
     width: '100%',
   },
   inputContainer: {

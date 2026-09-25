@@ -1,3 +1,5 @@
+import { colors, transition } from '@src/theme';
+
 const styles = {
   stepContainer: {
     maxWidth: 300,
@@ -5,9 +7,9 @@ const styles = {
     marginBottom: 42,
   },
   subTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#363636',
+    fontSize: 13,
+    fontWeight: 600,
+    color: colors.textPrimary,
     marginBottom: 10,
   },
   deleteButton: {
@@ -15,15 +17,16 @@ const styles = {
     alignItems: 'center',
     marginLeft: -5,
     cursor: 'pointer',
-    color: '#797979',
-    transition: 'color .2s',
+    color: colors.textSecondary,
+    transition: `color ${transition.fast}`,
+    '& > svg': {
+      transition: `fill ${transition.fast}`,
+    },
     '&:hover': {
-      color: '#E75858',
-      transition: 'color .2s',
+      color: colors.danger,
     },
     '&:hover > svg': {
-      fill: '#E75858',
-      transition: 'fill .2s',
+      fill: colors.danger,
     },
   },
   deleteButtonText: {

@@ -1,11 +1,12 @@
 import { ThemeTypes } from '@getstation/theme';
-import { colors } from '@src/theme';
 
-const styles = (_: ThemeTypes) => ({
+const styles = (theme: ThemeTypes) => ({
   appRequestTooltip: {
     width: 100,
-    borderRadius: 5,
-    backgroundColor: 'gray',
+    borderRadius: theme.radius.md,
+    backgroundColor: theme.surface.elevated,
+    boxShadow: theme.shadow.tooltip,
+    color: theme.text.primary,
     position: 'absolute',
     right: 60,
     padding: [6, 0, 8],
@@ -16,9 +17,6 @@ const styles = (_: ThemeTypes) => ({
     },
   },
   addAppBtn: {
-    fontSize: 12,
-    fontWeight: 600,
-    backgroundColor: [[`${colors.stationBlue}`], '!important'],
     cursor: 'pointer',
     '&.addAppBtn_small': {
       padding: [0, 21],

@@ -5,6 +5,7 @@ import { flowRight as compose } from 'lodash';
 import { IconSymbol, Icon } from '@getstation/theme';
 import { SET_APP_MODAL_STATUS } from '@src/graphql/schemes/appModalStatus';
 import { MutateSetAppModalStatusProps } from '@src/graphql/types/mutateSetAppModalStatus';
+import { colors } from '@src/theme';
 import styles, { DeleteClasses } from '@src/components/AppStoreContent/AppStoreRequestEdit/AppDelete/styles';
 
 interface IOwnProps {
@@ -34,7 +35,7 @@ class AppDelete extends React.Component<Props> {
           <Icon
             symbolId={IconSymbol.TRASH}
             size={23}
-            color={'#797979'}
+            color={colors.textSecondary}
           />
           <span className={classes!.deleteButtonText}>Delete this custom app</span>
         </div>

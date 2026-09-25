@@ -6,6 +6,7 @@ import injectSheet from 'react-jss';
 
 interface Classes {
   container: string,
+  allHover: string,
   dot: string,
   close: string,
   minimize: string,
@@ -18,6 +19,10 @@ interface Props {
   handleClose: () => any,
   handleMinimize: () => any,
   handleExpand: () => any,
+  /**
+   * Kept for API compatibility: the dark theme has a single
+   * idle style, so `dark` renders the same as the default.
+   */
   dark?: boolean,
   allHover?: boolean,
 }
@@ -30,42 +35,33 @@ interface Props {
     padding: 6,
     paddingBottom: 4,
     width: 50,
+    '&:hover $close, &$allHover $close': {
+      backgroundColor: theme.traffic.close,
+    },
+    '&:hover $minimize, &$allHover $minimize': {
+      backgroundColor: theme.traffic.minimize,
+    },
+    '&:hover $expand, &$allHover $expand': {
+      backgroundColor: theme.traffic.zoom,
+    },
   },
+  allHover: {},
   dot: {
     ...theme.avatarMixin('10px'),
-    backgroundColor: ({ dark }: Props) => dark ? `#000` : `#FFF`,
-    opacity: ({ focused, allHover }: Props) => allHover ? 1 : (focused ? 0.5 : 0.2),
     flex: '0 0 auto',
-    transition: 'all 100ms ease-out',
-    '&:hover': {
-      opacity: 1,
-    },
+    backgroundColor: ({ focused }: Props) => focused ? theme.text.disabled : theme.traffic.idle,
+    transition: `background-color ${theme.transition.fast}`,
   },
-  close: {
-    backgroundColor: ({ allHover }: Props) => allHover ? '#FF6059' : 'parent',
-    '&:hover': {
-      backgroundColor: '#FF6059',
-    },
-  },
-  minimize: {
-    backgroundColor: ({ allHover }: Props) => allHover ? '#FFBD2E' : 'parent',
-    '&:hover': {
-      backgroundColor: '#FFBD2E',
-    },
-  },
-  expand: {
-    backgroundColor: ({ allHover }: Props) => allHover ? '#29C941' : 'parent',
-    '&:hover': {
-      backgroundColor: '#29C941',
-    },
-  },
+  close: {},
+  minimize: {},
+  expand: {},
 }))
 export default class TrafficLights extends React.PureComponent<Props, {}> {
   render() {
-    const { classes, handleClose, handleMinimize, handleExpand } = this.props;
+    const { classes, allHover, handleClose, handleMinimize, handleExpand } = this.props;
 
     return (
-      <div className={classes!.container}>
+      <div className={classNames(classes!.container, { [classes!.allHover]: allHover })}>
         <div className={classNames(classes!.dot, classes!.close)} onClick={handleClose} />
         <div className={classNames(classes!.dot, classes!.minimize)} onClick={handleMinimize} />
         <div className={classNames(classes!.dot, classes!.expand)} onClick={handleExpand} />

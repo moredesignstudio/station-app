@@ -1,4 +1,4 @@
-import { Icon, IconSymbol, ThemeTypes as Theme } from '@getstation/theme';
+import { Icon, IconSymbol, text, ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -69,7 +69,7 @@ const styles = (theme: Theme) => {
       top: 0,
       left: theme.dock.size,
       right: 0,
-      backgroundImage: (props: Props) => props.themeGradient,
+      backgroundColor: theme.surface.base,
       zIndex: 100,
       padding: '10px',
     },
@@ -79,10 +79,10 @@ const styles = (theme: Theme) => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(255,255,255, 0.1)',
-      borderRadius: '3px',
+      backgroundColor: 'transparent',
       height: '100%',
-      color: 'white',
+      color: theme.text.primary,
+      fontFamily: theme.font.sans,
       fontSize: '14px',
     },
     iconContainer: {
@@ -93,7 +93,7 @@ const styles = (theme: Theme) => {
       height: (props: Props) => smallIcon(props) ? 80 : 160,
       marginBottom: 30,
       borderRadius: 100,
-      backgroundColor: 'rgba(255, 255, 255, .3)',
+      backgroundColor: theme.fill.active,
       position: 'relative',
     },
     icon: {
@@ -154,6 +154,7 @@ class ApplicationContainer extends React.PureComponent<Props, {}> {
                 size={96}
                 symbolId={IconSymbol.UNHAPPY}
                 className={classes!.unhappyIcon}
+                color={text.secondary}
               />
             }
           </div>

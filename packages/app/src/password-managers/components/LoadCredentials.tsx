@@ -25,15 +25,12 @@ export interface Props {
     boxSizing: 'border-box',
     marginTop: -10,
     padding: [0, 20, 10],
-    backgroundColor: theme.colors.gray.light,
+    backgroundColor: theme.surface.elevated,
     zIndex: 1,
   },
   body: {
     marginTop: 50,
     height: 180,
-    '& input, input:hover:enabled, input:active:enabled': {
-      backgroundColor: 'white',
-    },
   },
 }))
 export default class LoadCredentials extends React.PureComponent<Props, {}> {

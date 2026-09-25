@@ -1,4 +1,4 @@
-import { colors } from '@src/theme';
+import { accentButtonMixin, colors, secondaryButtonMixin } from '@src/theme';
 import { AppRequestStepsButtonsClassesProps }
   from '@src/components/AppStoreContent/AppStoreRequest/AppRequestStepsButtons/AppRequestStepsButtons';
 
@@ -9,33 +9,23 @@ const styles = {
       isOnContinueBtn ? 'space-between' : 'center',
   },
   cancelBtn: {
+    ...secondaryButtonMixin(),
     width: ({ isOnContinueBtn = true }: AppRequestStepsButtonsClassesProps) =>
       isOnContinueBtn ? 'calc(100%/2 - 7px)' : 'calc(100% - 14px)',
-    backgroundColor: colors.blueGray30,
-    fontFamily: 'HelveticaNeue',
-    fontSize: 11,
-    fontWeight: 700,
-    color: 'rgba(41, 41, 41, .5)',
-    padding: [10, 0],
-    border: 0,
-    borderRadius: 40,
-    cursor: 'pointer',
-    outline: 'none',
   },
   onContinueBtn: {
+    ...accentButtonMixin(),
     width: ({ isOnContinueBtn = true }: AppRequestStepsButtonsClassesProps) =>
       isOnContinueBtn ? 'calc(100%/2 - 7px)' : 'calc(100% - 14px)',
-    backgroundColor: ({ bgColor }: AppRequestStepsButtonsClassesProps) => bgColor ? bgColor : colors.stationBlue,
-    fontFamily: 'HelveticaNeue',
-    fontSize: 11,
-    fontWeight: 700,
-    color: '#fff',
-    padding: [10, 0],
-    border: 0,
-    borderRadius: 40,
-    cursor: 'pointer',
-    outline: 'none',
-    opacity: .8,
+    // `bgColor` lets callers paint a destructive action (see AppDeleteModalBody).
+    backgroundColor: ({ bgColor }: AppRequestStepsButtonsClassesProps) => bgColor ? bgColor : colors.accent,
+    '&:hover': {
+      backgroundColor: ({ bgColor }: AppRequestStepsButtonsClassesProps) => bgColor ? bgColor : colors.accentHover,
+      filter: ({ bgColor }: AppRequestStepsButtonsClassesProps) => bgColor ? 'brightness(1.08)' : 'none',
+    },
+    '&:active': {
+      backgroundColor: ({ bgColor }: AppRequestStepsButtonsClassesProps) => bgColor ? bgColor : colors.accentActive,
+    },
   },
 };
 

@@ -1,4 +1,4 @@
-import { Icon, IconSymbol } from '@getstation/theme';
+import { Icon, IconSymbol, text, ThemeTypes } from '@getstation/theme';
 import * as classNames from 'classnames';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -26,26 +26,32 @@ export interface Props {
   onNotificationClick(notificationId: string): void
 }
 
-@injectSheet({
+@injectSheet((theme: ThemeTypes) => ({
   iconWrapper: {
     display: 'inline-block',
+    flexShrink: 0,
     width: 24,
     height: 24,
+    marginLeft: 8,
   },
   markAsReadIcon: {
     visibility: 'hidden',
-    borderRadius: '50%',
+    borderRadius: theme.radius.sm,
+    transition: `background-color ${theme.transition.fast}`,
     '&:hover': {
-      fill: 'white !important',
-      backgroundColor: 'rgba(255, 255, 255, 0.3)',
+      fill: `${theme.text.primary} !important`,
+      backgroundColor: theme.fill.hover,
     },
   },
   item: {
     '&:hover $markAsReadIcon': {
       visibility: 'visible',
     },
+    '& .l-notification-item__title': {
+      fontWeight: 500,
+    },
   },
-})
+}))
 class NotificationItem extends React.PureComponent<Props, {}> {
 
   handleClickMarkAsRead = (e: React.MouseEvent<any>) => {
@@ -94,7 +100,7 @@ class NotificationItem extends React.PureComponent<Props, {}> {
             symbolId={IconSymbol.CHECKMARK}
             onClick={this.handleClickMarkAsRead}
             size="24px"
-            color={'rgba(255, 255, 255, 0.6)'}
+            color={text.tertiary}
           />
         </span>
       </div>

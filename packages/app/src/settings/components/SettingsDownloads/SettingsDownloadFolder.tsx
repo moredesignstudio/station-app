@@ -1,4 +1,4 @@
-import { Switcher, Button, Size, ThemeTypes as Theme } from '@getstation/theme';
+import { Switcher, Button, Size, Style, ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -38,55 +38,66 @@ export type OwnProps = {
 
 export type Props = ClassesProps & QueryProps & MutationProps & OwnProps;
 
-const styles = (_theme: Theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: '600px',
-    paddingTop: '10px',
-    paddingBottom: '10px',
-    '& > *': {
-      marginBottom: '10px',
-    },
+    gap: 12,
+    maxWidth: 600,
+    padding: [14, 0],
+    borderTop: `1px solid ${theme.border.subtle}`,
   },
-  settings:{
+  settings: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'start',
   },
   settingName: {
+    ...theme.mixins.sectionLabel(),
     marginBottom: 8,
-    textTransform: 'uppercase',
-    fontSize: 14,
-    fontWeight: 'bold',
   },
   label: {
+    ...theme.fontMixin(13),
+    lineHeight: '1.4em',
+    color: theme.text.primary,
   },
-  downloadFolderSection:{
+  downloadFolderSection: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'start',
+    gap: 8,
+    minWidth: 0,
   },
   downloadFolderVal: {
-    cursor: 'pointer',
-    marginLeft: '10px',
+    ...theme.fontMixin(12),
+    fontFamily: theme.font.mono,
     lineHeight: '18px',
-    display: 'inline',
-    fontSize: 12,
-    opacity: 0.5,
-    transition: 'all 250ms ease-out',
+    display: 'inline-block',
+    minWidth: 0,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    padding: [2, 6],
+    borderRadius: theme.radius.sm,
+    color: theme.text.secondary,
+    backgroundColor: theme.fill.subtle,
+    cursor: 'pointer',
+    transition: `color ${theme.transition.fast}, background-color ${theme.transition.fast}`,
     '&:hover': {
-      opacity: 0.9,
+      color: theme.text.primary,
+      backgroundColor: theme.fill.hover,
     },
   },
-  promptDownloadSection:{
+  promptDownloadSection: {
     display: 'flex',
+    alignItems: 'center',
+    gap: 16,
   },
-  settingsValue:{
+  settingsValue: {
     marginLeft: 'auto',
+    flexShrink: 0,
   },
-  button: {
-    float: 'right',
-  },
+  button: {},
 });
 
 @injectSheet(styles)
@@ -112,7 +123,8 @@ class SettingsDownloadFolder extends React.PureComponent<Props> {
               <Button
                 onClick={onBrowseClick}
                 className={classes!.button}
-                btnSize={Size.XXSMALL}
+                btnSize={Size.XSMALL}
+                btnStyle={Style.SECONDARY}
               >
                 Change
               </Button>

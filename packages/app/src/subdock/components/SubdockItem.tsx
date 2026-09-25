@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Maybe from 'graphql/tsutils/Maybe';
-import { getHighlightGradient, Icon, IconSymbol, roundedBackground, ThemeTypes as Theme } from '@getstation/theme';
+import { Icon, IconSymbol, roundedBackground, ThemeTypes as Theme } from '@getstation/theme';
 import * as classNames from 'classnames';
 // @ts-ignore: no declaration file
 import * as isBlank from 'is-blank';
@@ -24,23 +24,25 @@ type OwnStyle = {
   link: string,
   buttons: string,
   unPinned: string,
+  pinned: string,
 };
 
-export const SUBDOCK_ITEM_HEIGHT = 40;
+export const SUBDOCK_ITEM_HEIGHT = 36;
 
 const styles = (theme: Theme) => ({
   item: {
-    padding: '0 20px 0 15px',
-    borderBottom: '2px solid rgba(255,255,255,0.1)',
+    boxSizing: 'border-box',
+    height: SUBDOCK_ITEM_HEIGHT,
+    margin: '0 6px',
+    padding: '0 8px 0 12px',
+    borderRadius: theme.radius.md,
     listStyleType: 'none',
+    transition: `background-color ${theme.transition.fast}`,
     '&:hover': {
-      backgroundImage: getHighlightGradient(undefined, .30),
+      backgroundColor: theme.fill.hover,
     },
     '&.isActive': {
-      backgroundImage: getHighlightGradient(undefined, .50),
-    },
-    '&:last-child': {
-      borderBottom: 'none',
+      backgroundColor: theme.fill.selected,
     },
     '& $buttons': {
       display: 'none',
@@ -53,72 +55,95 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     cursor: 'default',
-    height: SUBDOCK_ITEM_HEIGHT,
+    height: '100%',
     position: 'relative',
-    borderBottom: '1px solid rgba(white, 0.15)',
+    color: 'inherit',
+    textDecoration: 'none',
   },
   favoriteIcon: {
-    opacity: 0.4,
+    color: theme.text.tertiary,
     '&:hover': {
-      opacity: 0.7,
+      color: theme.text.secondary,
     },
     '$item.isActive &, $item.favorite &': {
-      opacity: 1,
+      color: theme.text.inverse,
     },
   },
   favoriteImg: {
     flex: '0 0 auto',
-    marginRight: '9px',
-    opacity: 1,
-    borderRadius: '8px',
+    marginRight: 8,
+    display: 'inline-flex',
+    borderRadius: theme.radius.sm,
     filter: 'grayscale(100%)',
-    '$link:hover &': {
-      filter: 'grayscale(30%)',
-    },
-    '$item.isActive &': {
+    opacity: 0.85,
+    transition: `filter ${theme.transition.fast}, opacity ${theme.transition.fast}`,
+    '$item:hover &, $item.isActive &': {
       filter: 'grayscale(0)',
+      opacity: 1,
     },
   },
   txt: {
-    color: 'white',
+    color: theme.text.secondary,
     flex: '1 1 auto',
-    marginRight: '5px',
+    minWidth: 0,
+    marginRight: 4,
     position: 'relative',
-    opacity: 0.8,
+    lineHeight: '18px',
+    transition: `color ${theme.transition.fast}`,
     ...theme.elipsisMixin(1),
     ...theme.fontMixin(13),
+    '$item:hover &': {
+      color: theme.text.primary,
+    },
     '$item.isActive &': {
-      opacity: 1,
-      ...theme.fontMixin(13, 700),
+      color: theme.text.primary,
+      fontWeight: 500,
     },
   },
   iconWrapper: {
+    flex: '0 0 auto',
     width: 24,
     height: 24,
-    opacity: 0.8,
     display: 'inline-flex',
-    marginLeft: '-8px',
-    '$item.isActive &': {
-      opacity: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: -6,
+    marginRight: 2,
+    color: theme.text.tertiary,
+    transition: `color ${theme.transition.fast}`,
+    '$item:hover &, $item.isActive &': {
+      color: theme.text.primary,
     },
   },
   favoriteIconWrapper: {
     width: 24,
     height: 24,
-    marginLeft: '-3px',
-    marginRight: '5px',
+    marginLeft: -3,
+    marginRight: 5,
     display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     '&:hover': {
-      ...roundedBackground('rgba(255,255,255,0.2)'),
+      ...roundedBackground(theme.fill.hover),
     },
     '$item.favorite &': {
-      ...roundedBackground('#EFC657'),
+      ...roundedBackground(theme.status.favorite),
     },
   },
   buttons: {
+    flex: '0 0 auto',
+    alignItems: 'center',
   },
   unPinned: {
-    transform: 'rotate(45deg)',
+    '& svg': {
+      transform: 'rotate(45deg)',
+    },
+  },
+  pinned: {
+    '$item &, $item &:hover': {
+      ...roundedBackground(theme.status.favorite),
+      color: theme.text.inverse,
+    },
   },
 });
 
@@ -196,7 +221,7 @@ const SubdockItem = (props: OwnProps & { classes: OwnStyle }) => {
 
         {icon &&
           <span className={classes!.iconWrapper}>
-            <Icon size={24} color="white" symbolId={icon as IconSymbol} />
+            <Icon size={20} color="currentColor" symbolId={icon as IconSymbol} />
           </span>
         }
 
@@ -207,7 +232,7 @@ const SubdockItem = (props: OwnProps & { classes: OwnStyle }) => {
         <span className={classes!.buttons}>
           {canPin &&
             <SubdockButton
-              className={isPinned ? '' : classes!.unPinned}
+              className={isPinned ? classes!.pinned : classes!.unPinned}
               tooltip={isPinned ? 'Unpin this page' : 'Pin this page'}
               size={24}
               symbolId={IconSymbol.PIN}

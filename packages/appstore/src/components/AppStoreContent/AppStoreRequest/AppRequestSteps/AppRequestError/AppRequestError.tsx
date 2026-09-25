@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
+import { colors } from '@src/theme';
 
 const astroAwkwardPath: string = require('./astr-awkward.png');
 
@@ -13,11 +14,20 @@ const useStyles = createUseStyles({
   title: {
     textAlign: 'center',
     marginTop: 0,
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: '24px',
+    letterSpacing: '-0.01em',
+    color: colors.textPrimary,
   },
   text: {
-    fontSize: 17,
-    color: '#4a4a4a',
+    fontSize: 14,
+    lineHeight: '22px',
+    color: colors.textSecondary,
     textAlign: 'center',
+    '& a': {
+      color: colors.accentText,
+    },
   },
   errorImage: {
     fontSize: 50,

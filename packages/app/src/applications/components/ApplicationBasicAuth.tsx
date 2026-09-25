@@ -1,4 +1,4 @@
-import { Button, Style, ThemeTypes as Theme } from '@getstation/theme';
+import { Button, Input, InputType, Style, ThemeTypes as Theme } from '@getstation/theme';
 import Maybe from 'graphql/tsutils/Maybe';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -27,48 +27,51 @@ export interface State {
   password: string,
 }
 
-const styles = (_theme: Theme) => ({
+const styles = (theme: Theme) => ({
   container: {
-    width: 240,
-    color: 'white',
+    width: 360,
+    padding: 24,
+    boxSizing: 'border-box',
+    backgroundColor: theme.surface.panel,
+    border: `1px solid ${theme.border.subtle}`,
+    borderRadius: theme.radius.lg,
+    color: theme.text.primary,
     textAlign: 'center',
   },
   title: {
-    fontSize: 30,
-    fontWeight: 300,
-    marginBottom: 5,
+    ...theme.fontMixin(16, 600),
+    letterSpacing: '-0.01em',
+    lineHeight: '24px',
+    marginBottom: 4,
+    color: theme.text.primary,
   },
   host: {
-    fontStyle: 'italic',
+    ...theme.fontMixin(12),
+    lineHeight: '18px',
+    color: theme.text.tertiary,
+    wordBreak: 'break-all',
   },
   realm: {
-    margin: '40px 0 20px',
-    fontSize: 17,
+    ...theme.fontMixin(13),
+    lineHeight: '20px',
+    margin: [16, 0, 20],
+    color: theme.text.secondary,
   },
   form: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
     flexDirection: 'column',
   },
   input: {
     width: '100%',
-    border: 0,
-    padding: 10,
-    color: 'white',
-    backgroundColor: 'rgba(255, 255, 255, .3)',
-    fontSize: 15,
-    borderRadius: 3,
-    '&::-webkit-input-placeholder': {
-      color: '#CCC',
-    },
-    '&:first-of-type': {
-      marginBottom: 10,
-    },
+    maxWidth: 'none',
+    marginBottom: 10,
+    textAlign: 'left',
   },
   button: {
     width: '100%',
-    marginTop: 20,
+    marginTop: 10,
   },
 });
 
@@ -114,28 +117,30 @@ export default class BasicAuth extends React.PureComponent<Props, State> {
         </div>
 
         <form className={classes!.form} onSubmit={e => this.handleBasicAuth(e)}>
-          <input
+          <Input
             className={classes!.input}
-            type="text"
+            forceHeader={false}
+            type={InputType.TEXT}
             name="login"
             placeholder="Login"
             value={this.state.username}
-            onChange={e => this.handleUsernameChange(e)}
+            onChange={(event: any) => this.handleUsernameChange(event)}
             autoFocus={true}
           />
 
-          <input
+          <Input
             className={classes!.input}
-            type="password"
+            forceHeader={false}
+            type={InputType.PASSWORD}
             name="password"
             placeholder="Password"
             value={this.state.password}
-            onChange={e => this.handlePasswordChange(e)}
+            onChange={(event: any) => this.handlePasswordChange(event)}
           />
 
           <Button
             className={classes!.button}
-            btnStyle={Style.SECONDARY}
+            btnStyle={Style.PRIMARY}
             type="submit"
           >
             Connect

@@ -1,3 +1,4 @@
+import { ThemeTypes as Theme } from '@getstation/theme';
 import { either, propEq, reject } from 'ramda';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -27,43 +28,38 @@ const rejectDisabledAndInvisible: Filter<KeyboardShortcut> = reject(
   )
 );
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   subtitle: {
-    color: 'rgba(255, 255, 255, 0.4)',
-    textTransform: 'uppercase',
-    fontSize: 11,
-    fontWeight: 'bold',
+    ...theme.mixins.sectionLabel(),
+    marginBottom: 8,
   },
   item: {
     display: 'flex',
+    alignItems: 'center',
+    gap: 16,
   },
   label: {
+    ...theme.fontMixin(13),
     display: 'inline-block',
     flexGrow: 1,
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: theme.text.primary,
   },
   kbd: {
-    display: 'inline-block',
-    color: 'black',
-    backgroundColor: 'white',
-    padding: '0 8px',
-    borderRadius: 20,
-    fontSize: 11,
-    fontWeight: 'bold',
-    height: 20,
+    ...theme.mixins.kbd(),
     alignSelf: 'center',
-    lineHeight: '20px',
+    whiteSpace: 'nowrap',
   },
   category: {
     display: 'inline-flex',
     flexDirection: 'column',
     marginBottom: '2em',
     width: '100%',
+    breakInside: 'avoid',
   },
   content: {
     columnCount: 2,
-    columnGap: '100px',
-    lineHeight: '2em',
+    columnGap: 64,
+    lineHeight: '2.2em',
   },
 });
 

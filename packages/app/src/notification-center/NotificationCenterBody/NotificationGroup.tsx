@@ -1,7 +1,9 @@
-import { Icon, IconSymbol } from '@getstation/theme';
+import { Icon, IconSymbol, ThemeTypes } from '@getstation/theme';
 import Maybe from 'graphql/tsutils/Maybe';
 import * as Immutable from 'immutable';
 import * as React from 'react';
+// @ts-ignore: no declaration file
+import injectSheet from 'react-jss';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { oc } from 'ts-optchain';
 import AppIcon from '../../dock/components/AppIcon';
@@ -28,7 +30,27 @@ type OwnProps = {
   toggleVisibility: () => void,
 };
 
-export type Props = OwnProps & InjectedProps;
+interface Classes {
+  count: string,
+}
+
+export type Props = OwnProps & InjectedProps & { classes?: Classes };
+
+const styles = (theme: ThemeTypes) => ({
+  count: {
+    display: 'inline-block',
+    minWidth: 16,
+    marginLeft: 6,
+    padding: [0, 5],
+    borderRadius: theme.radius.pill,
+    backgroundColor: theme.fill.active,
+    ...theme.fontMixin(10, 600),
+    lineHeight: '16px',
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    color: theme.text.secondary,
+  },
+});
 
 class NotificationGroup extends React.PureComponent<Props> {
   markAsReadGroup = () => {
@@ -38,7 +60,7 @@ class NotificationGroup extends React.PureComponent<Props> {
   }
 
   render() {
-    const { loading, notifications, icon, themeColor, badge, applicationName, label } = this.props;
+    const { classes, loading, notifications, icon, themeColor, badge, applicationName, label } = this.props;
 
     if (loading) return null;
 
@@ -51,6 +73,7 @@ class NotificationGroup extends React.PureComponent<Props> {
             <AppIcon
               imgUrl={icon!}
               themeColor={themeColor!}
+              size={24}
             />
             {badge &&
             <span className="l-dock__app__acco  unt">
@@ -59,7 +82,10 @@ class NotificationGroup extends React.PureComponent<Props> {
             }
           </div>
           <span className="l-notification-group__title-text">
-                  <span>{applicationName}</span>
+                  <span>
+                    {applicationName}
+                    <span className={classes!.count}>{notifications.size}</span>
+                  </span>
                   <small>{label}</small>
                 </span>
           <span className="l-notification-group__title-actions">
@@ -67,7 +93,6 @@ class NotificationGroup extends React.PureComponent<Props> {
                     symbolId={IconSymbol.MARK_READ}
                     size={24}
                     onClick={this.markAsReadGroup}
-                    color="white"
                   />
                 </span>
         </div>
@@ -93,6 +118,10 @@ class NotificationGroup extends React.PureComponent<Props> {
   }
 }
 
+// react-jss' HOC typings don't compose with the graphql HOC below: erase them here, as the theme package does.
+const StyledNotificationGroup = (injectSheet(styles) as unknown as
+  (component: React.ComponentType<Props>) => React.ComponentType<Props>)(NotificationGroup);
+
 const connector = withGetApplication<OwnProps, InjectedProps>({
   options: (props) => ({ variables: { applicationId: props.applicationId! } }),
   props: ({ data, ownProps }) => {
@@ -110,7 +139,7 @@ const connector = withGetApplication<OwnProps, InjectedProps>({
   },
 });
 
-const ConnectedNotificationGroup = connector(NotificationGroup);
+const ConnectedNotificationGroup = connector(StyledNotificationGroup);
 
 const NotificationGroupManager = (props: Props) => {
   if (props.applicationId) {
@@ -126,7 +155,7 @@ const NotificationGroupManager = (props: Props) => {
     );
   }
   return (
-    <NotificationGroup
+    <StyledNotificationGroup
       icon={props.icon}
       notifications={props.notifications}
       onNotificationClick={props.onNotificationClick}

@@ -8,6 +8,7 @@
   align-items: center;
   flex: 0 0 $osbar-height;
   display: flex;
+  background-color: $surface-sidebar;
 
   // enable window dragging
   -webkit-app-region: drag;
@@ -16,27 +17,26 @@
 .l-osbar--title {
   flex: 1;
   text-align: center;
-  color: #fff;
+  color: $text-secondary;
   font-size: 11px;
-  font-weight: bold;
-  opacity: .6;
+  font-weight: 600;
   margin-top: -1px;
 }
 
 .l-osbar__btn {
   background-position: center;
   background-repeat: no-repeat;
-  border: 1px solid rgba(#fff, 0.3);
+  border: 1px solid $border-default;
   border-radius: $border-radius;
   flex: 0 0 auto;
   height: 24px;
-  opacity: 0.8;
+  color: $text-secondary;
 
   //== States
   &:hover {
-    opacity: 1;
-    background-color: rgba(#fff, 0.1);
-    border-color: #fff;
+    color: $text-primary;
+    background-color: $fill-hover;
+    border-color: $border-strong;
   }
 
   //== Variants
@@ -47,9 +47,9 @@
   }
   &.l-osbar__btn--txt {
     background-position: 4px center;
-    color: #fff;
+    color: $text-primary;
     line-height: 22px;
     padding: 0 10px 0 16px;
-    @include font(14px, 600)
+    @include font(13px, 600)
   }
 }

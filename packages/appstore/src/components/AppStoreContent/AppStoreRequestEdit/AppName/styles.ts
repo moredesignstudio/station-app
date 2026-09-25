@@ -1,3 +1,5 @@
+import { colors } from '@src/theme';
+
 const styles = {
   stepContainer: {
     maxWidth: 300,
@@ -7,9 +9,9 @@ const styles = {
   },
   subTitle: {
     marginBottom: 23,
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#363636',
+    fontSize: 13,
+    fontWeight: 600,
+    color: colors.textPrimary,
   },
 };
 

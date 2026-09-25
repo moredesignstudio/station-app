@@ -1,4 +1,4 @@
-import { roundedBackground } from '@getstation/theme';
+import { ThemeTypes as Theme } from '@getstation/theme';
 import * as classNames from 'classnames';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -18,18 +18,29 @@ export interface Props {
   isActive?: boolean,
 }
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   tab: {
-    lineHeight: '24px',
-    marginBottom: 5,
-    padding: [0, 10],
+    ...theme.fontMixin(13),
+    lineHeight: '20px',
+    color: theme.text.secondary,
+    padding: [6, 10],
+    borderRadius: theme.radius.md,
     boxSizing: 'border-box',
     cursor: 'pointer',
     userSelect: 'none',
-    backgroundColor: 'none',
-    transition: '300ms',
-    '&.active, &:hover': {
-      ...roundedBackground('rgba(255, 255, 255, .1)'),
+    transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}`,
+    '& a': {
+      color: 'inherit',
+      textDecoration: 'none',
+    },
+    '&:hover': {
+      backgroundColor: theme.fill.hover,
+      color: theme.text.primary,
+    },
+    '&.active': {
+      backgroundColor: theme.fill.selected,
+      color: theme.text.primary,
+      fontWeight: 500,
     },
   },
 });

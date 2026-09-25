@@ -1,5 +1,34 @@
-import { colors } from '@src/theme';
+import { colors, radius, transition } from '@src/theme';
 import { block } from 'csstips';
+
+const categoryNavButton = {
+  display: 'none',
+  fontSize: 13,
+  fontWeight: 500,
+  color: colors.textSecondary,
+  position: 'relative',
+  cursor: 'pointer',
+  transition: `color ${transition.fast}`,
+  '&:hover': {
+    color: colors.textPrimary,
+  },
+  '&.isHidden': {
+    visibility: 'hidden',
+  },
+};
+
+const chevron = {
+  content: '""',
+  display: 'block',
+  position: 'absolute',
+  top: 3,
+  width: 3,
+  height: 3,
+  border: 'solid currentColor',
+  borderWidth: [0, 2, 2, 0],
+  borderRadius: '1.2px',
+  padding: 3,
+};
 
 const styles = {
   container: {
@@ -19,59 +48,21 @@ const styles = {
     alignItems: 'center',
   },
   resultsNavPrevCategoryBtn: {
-    display: 'none',
-    fontSize: 13,
-    fontWeight: 500,
-    color: colors.blueGray100,
+    ...categoryNavButton,
     paddingLeft: 20,
-    opacity: .77,
-    position: 'relative',
-    cursor: 'pointer',
     '&:before': {
-      content: '""',
-      display: 'block',
-      position: 'absolute',
-      top: 3,
+      ...chevron,
       left: 0,
-      width: 3,
-      height: 3,
-      border: `solid ${colors.blueGray100}`,
-      borderWidth: [0, 3, 3, 0],
-      borderRadius: '1.2px',
-      padding: 3,
-      opacity: .5,
       transform: 'rotate(135deg)',
-    },
-    '&.isHidden': {
-      visibility: 'hidden',
     },
   },
   resultsNavNextCategoryBtn: {
-    display: 'none',
-    fontSize: 13,
-    fontWeight: 500,
-    color: colors.blueGray100,
+    ...categoryNavButton,
     paddingRight: 17,
-    opacity: .77,
-    position: 'relative',
-    cursor: 'pointer',
     '&:after': {
-      content: '""',
-      display: 'block',
-      position: 'absolute',
-      top: 3,
+      ...chevron,
       right: 0,
-      width: 3,
-      height: 3,
-      border: `solid ${colors.blueGray100}`,
-      borderWidth: [0, 3, 3, 0],
-      borderRadius: '1.2px',
-      padding: 3,
-      opacity: .5,
       transform: 'rotate(-45deg)',
-    },
-    '&.isHidden': {
-      visibility: 'hidden',
     },
   },
   resultsNavScrollBtnContainer: {
@@ -81,14 +72,21 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    border: `1px solid ${colors.buttonBorder}`,
-    borderRadius: '50%',
+    boxShadow: `inset 0 0 0 1px ${colors.borderStrong}`,
+    borderRadius: radius.pill,
+    color: colors.textSecondary,
     textAlign: 'center',
     cursor: 'pointer',
+    transition: `background-color ${transition.fast}, color ${transition.fast}`,
+    '&:hover': {
+      backgroundColor: colors.fillHover,
+      color: colors.textPrimary,
+    },
   },
   resultNavScrollBtnIcon: {
     width: 12,
     height: 12,
+    fill: 'currentColor',
   },
   '@media (min-width: 600px)': {
     container: {

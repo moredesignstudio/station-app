@@ -5,6 +5,7 @@ import withSelectedCustomApp, { WithSelectedCustomAppProps } from '@src/HOC/with
 import AppRequestStepsButtons
   from '@src/components/AppStoreContent/AppStoreRequest/AppRequestStepsButtons/AppRequestStepsButtons';
 import { Application } from '@src/graphql/queries';
+import { colors } from '@src/theme';
 import styles, { AppStoreModalClasses } from '@src/components/AppStoreContent/AppStoreRequestEdit/AppDeleteModalBody/styles';
 
 interface IOwnProps {
@@ -42,7 +43,7 @@ class AppDeleteModalBody extends React.PureComponent<Props> {
           onCancelBtnText={'Cancel'}
           onCancel={closeModal}
           onContinue={this.deleteApplication}
-          bgColor={'#e75858'}
+          bgColor={colors.danger}
           onContinueBtnText={'Yes, remove app'}
         />
       </React.Fragment>

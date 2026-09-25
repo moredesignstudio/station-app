@@ -21,6 +21,7 @@ interface Classes {
   section: string;
   withResults: string;
   category: string;
+  categoryLabel: string;
   results: string;
   loading: string;
   expandSection: string;
@@ -73,33 +74,42 @@ const itemIsCollapsed = (
   list: {
     flex: 1,
     overflowY: 'auto',
+    padding: [4, 0],
+    ...theme.mixins.scrollbar(),
   },
   lastOpened: {
-    margin: [15, 20, 10],
-    color: 'rgba(255, 255, 255, .4)',
-    ...theme.fontMixin(11, 600),
+    ...theme.mixins.sectionLabel(),
+    padding: [8, 20, 4],
   },
   section: {
-    marginBottom: 12,
+    marginBottom: 8,
     '&.withResults': {
-      backgroundColor: 'rgba(0,0,0,0.15)',
+      backgroundColor: 'transparent',
     },
   },
   category: {
-    padding: [6, 20],
-    color: 'rgba(255,255,255,0.5)',
-    textTransform: 'uppercase',
-    fontSize: '.8em',
+    ...theme.mixins.sectionLabel(),
+    margin: 0,
+    padding: [8, 20, 4],
     display: 'flex',
     flexFlow: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    transition: `color ${theme.transition.fast}`,
     '&.clickable': {
       cursor: 'pointer',
     },
+    '&.clickable:hover': {
+      color: theme.text.secondary,
+    },
+  },
+  categoryLabel: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 6,
   },
   results: {
-    marginTop: 15,
+    marginTop: 4,
     '&.collapsed': {
       height: 0,
       overflow: 'hidden',
@@ -117,25 +127,29 @@ const itemIsCollapsed = (
   expandSection: {
     display: 'flex',
     alignItems: 'center',
+    gap: 6,
   },
   expandSectionIcon: {
-    fill: '#fff',
-    fillOpacity: '0.5',
+    display: 'block',
+    fill: theme.text.tertiary,
     transform: 'rotate(90deg)',
-    transitionProperty: 'transform',
-    transitionDuration: '25ms',
+    transition: `transform ${theme.transition.fast}`,
     '&.collapsed': {
       transform: 'rotate(0deg)',
     },
   },
   resultsCount: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: '50%',
+    display: 'inline-block',
+    backgroundColor: theme.fill.active,
+    borderRadius: theme.radius.pill,
+    color: theme.text.secondary,
+    fontSize: 10,
+    fontWeight: 600,
+    letterSpacing: 0,
+    lineHeight: '14px',
+    padding: [1, 6],
+    width: 'auto',
     textAlign: 'center',
-    color: 'rgba(255,255,255,0.8)',
-    width: 20,
-    height: 20,
-    paddingTop: 2,
   },
   '@keyframes bangLoading': {
     '0%': {
@@ -277,7 +291,10 @@ export default class BangList extends React.PureComponent<Props, State> {
         className={classNames(classes!.category, { clickable, collapsed })}
         onClick={() => this.toggleCollapse(item)}
       >
-        {item.sectionName} {showResultPart && ` (${item.results!.length})`}
+        <span className={classes!.categoryLabel}>
+          {item.sectionName}
+          {showResultPart && <span className={classes!.resultsCount}>{item.results!.length}</span>}
+        </span>
         <div className={classes!.expandSection}>
           {item.loading && <span className={classes!.loading}>loading</span>}
 

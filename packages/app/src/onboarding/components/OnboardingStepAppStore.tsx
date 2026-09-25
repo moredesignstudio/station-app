@@ -1,4 +1,4 @@
-import { Button, SearchInput, ServiceActionType, Size, theme } from '@getstation/theme';
+import { Button, SearchInput, ServiceActionType, Size, Style, theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -38,11 +38,12 @@ interface Props {
     position: 'relative',
     alignItems: 'flex-start',
     padding: [0, 50, 0, 50],
+    color: theme.text.primary,
   },
   title: {
     margin: [10, 0],
     ...theme.titles.h1,
-    color: theme.colors.gray.dark,
+    color: theme.text.primary,
   },
   appsContainer: {
     width: '100%',
@@ -54,17 +55,17 @@ interface Props {
     gridTemplateRows: '20% 20% 20% 20% 20%',
   },
   smallSubtitle: {
-    ...theme.titles.h3,
-    color: theme.colors.gray.middle,
     margin: [20, 0, 20, 10],
-    fontStyle: 'italic',
     ...theme.fontMixin(12, 500),
+    lineHeight: '16px',
+    color: theme.text.tertiary,
     visibility: ({ selectedApplications }: Props) => selectedApplications.length > 2 ? 'hidden' : 'initial',
   },
   subtitle: {
-    ...theme.titles.h3,
-    color: theme.colors.gray.middle,
-    marginBottom: 40,
+    ...theme.fontMixin(13),
+    lineHeight: '20px',
+    color: theme.text.tertiary,
+    marginBottom: 24,
   },
   buttonsContainer: {
     marginTop: 10,
@@ -75,9 +76,9 @@ interface Props {
     width: 390,
     marginTop: 15,
     textAlign: 'center',
-    ...theme.fontMixin(16),
-    lineHeight: '25px',
-    color: theme.colors.gray.dark,
+    ...theme.fontMixin(14),
+    lineHeight: '22px',
+    color: theme.text.secondary,
   },
 })
 export default class OnboardingStepAppStore extends React.PureComponent<Props> {
@@ -135,7 +136,13 @@ export default class OnboardingStepAppStore extends React.PureComponent<Props> {
           {selectedApplications.length > 14 && 'You have selected 15 apps. '}Don't worry, you can pick more later!
         </p>
 
-        <Button btnSize={Size.BIG} onClick={onValidSubmit} disabled={selectedApplications.length < 3} isLoading={isLoading}>
+        <Button
+          btnStyle={Style.PRIMARY}
+          btnSize={Size.BIG}
+          onClick={onValidSubmit}
+          disabled={selectedApplications.length < 3}
+          isLoading={isLoading}
+        >
           Start Station
         </Button>
 

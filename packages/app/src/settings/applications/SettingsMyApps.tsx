@@ -54,8 +54,8 @@ const getManifestsOrder = (manifestsUrls: string[]) =>
   container: {
   },
   title: {
-    ...theme.titles.h1,
-    marginBottom: 30,
+    ...theme.titles.h2,
+    marginBottom: 20,
   },
 }))
 class SettingsMyAppsImpl extends React.PureComponent<Props, State> {

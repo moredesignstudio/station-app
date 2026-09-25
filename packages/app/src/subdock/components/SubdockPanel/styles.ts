@@ -1,19 +1,26 @@
+import { ThemeTypes as Theme } from '@getstation/theme';
+
 export interface SubdockListStyle {
   container: string,
+  home: string,
   content: string,
   scrollOverlayTop: string,
   scrollOverlayBottom: string,
   title: string,
+  count: string,
   sectionHeader: string,
 }
 
-export const subdockListStyle = {
+export const subdockListStyle = (theme: Theme) => ({
   container: {
     position: 'relative',
     flex: '1 1 auto',
-    padding: '0 0 0 ($gutter * 2)',
+    padding: 0,
     width: '100%',
-    marginBottom: '10px',
+    marginBottom: 6,
+  },
+  home: {
+    padding: '6px 0 0',
   },
   content: {
     maxHeight: 200,
@@ -21,28 +28,41 @@ export const subdockListStyle = {
     '&::before, &::after': {
       content: '""',
       position: 'absolute',
+      left: 0,
       width: '100%',
-      height: 50,
+      height: 40,
       pointerEvents: 'none',
       zIndex: 1,
       opacity: 0,
-      transition: 'opacity 300ms ease-out',
+      transition: `opacity ${theme.transition.slow}`,
     },
     '&::before': {
-      background: 'linear-gradient(#254969, rgba(0,0,0,0))',
+      background: `linear-gradient(${theme.surface.panel}, transparent)`,
     },
     '&::after': {
       bottom: 0,
-      background: 'linear-gradient(rgba(0,0,0,0), #254969)',
+      background: `linear-gradient(transparent, ${theme.surface.panel})`,
     },
   },
   title: {
-    textTransform: 'uppercase',
-    padding: [10],
+    ...theme.mixins.sectionLabel(),
+    display: 'flex',
+    alignItems: 'center',
+    margin: 0,
+    padding: '10px 12px 4px',
+    lineHeight: '16px',
+  },
+  count: {
+    display: 'inline-block',
+    marginLeft: 6,
+    padding: '0 6px',
+    borderRadius: theme.radius.pill,
+    backgroundColor: theme.fill.active,
+    color: theme.text.secondary,
     fontSize: 10,
-    opacity: .3,
-    fontStyle: 'bold',
-    color: 'white',
+    fontWeight: 600,
+    lineHeight: '16px',
+    letterSpacing: 0,
   },
   sectionHeader: {
     display: 'flex',
@@ -60,4 +80,4 @@ export const subdockListStyle = {
       opacity: '1 !important',
     },
   },
-};
+});

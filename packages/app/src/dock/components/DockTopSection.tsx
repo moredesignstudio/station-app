@@ -1,3 +1,4 @@
+import { ThemeTypes } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -39,10 +40,11 @@ interface Props {
   hideRecentSubdock: (via: SearchPaneClosedVia) => void,
 }
 
-const styles = () => ({
+const styles = (theme: ThemeTypes) => ({
   container: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    paddingBottom: 2,
+    backgroundColor: 'transparent',
+    borderBottom: `1px solid ${theme.border.subtle}`,
+    paddingBottom: 4,
   },
 });
 

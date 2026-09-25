@@ -68,7 +68,19 @@ type Props = DefaultProps & {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginBottom: 10,
+    padding: '6px 8px',
+    borderRadius: theme.radius.md,
+    color: theme.text.primary,
+    transition: `background-color ${theme.transition.fast}`,
+    '&:hover': {
+      backgroundColor: theme.fill.hover,
+    },
+    '&.isSelected': {
+      backgroundColor: theme.fill.selected,
+    },
+    '& + &': {
+      borderTop: `1px solid ${theme.border.subtle}`,
+    },
   },
   actions: {
     width: '100%',
@@ -89,14 +101,18 @@ type Props = DefaultProps & {
   itemImg: (props: Props) => ({
     flexShrink: 0,
     ...theme.mixins.size(props.iconSize),
-    marginRight: 5,
+    marginRight: 8,
     display: 'inline-block',
     verticalAlign: 'middle',
-    borderRadius: 100,
-    border: '2px solid white',
+    borderRadius: theme.radius.pill,
+    border: `1px solid ${theme.border.default}`,
+    backgroundColor: theme.surface.elevated,
   }),
   itemBody: ({ item }: Props) => ({
-    textDecoration: item.onClick ? 'underline' : 'inherit',
+    ...theme.fontMixin(13),
+    color: theme.text.primary,
+    textDecoration: item.onClick ? 'underline' : 'none',
+    textDecorationColor: theme.border.strong,
     cursor: item.onClick ? 'pointer' : 'inherit',
     whiteSpace: 'nowrap',
     overflow: 'hidden',

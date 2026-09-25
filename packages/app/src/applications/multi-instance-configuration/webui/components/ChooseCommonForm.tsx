@@ -79,7 +79,7 @@ export default class ChooseCommonForm extends React.PureComponent<Props, State> 
             onChange={this.onInputChange}
             ref={this.textInput}
           />
-          <span>
+          <span className={classes.suffix}>
             {this.props.domainSuffix}
           </span>
           {this.props.withNavigationLink &&
@@ -100,7 +100,7 @@ export default class ChooseCommonForm extends React.PureComponent<Props, State> 
 
           <div className={classes.subContainer}>
             <Button
-              btnSize={Size.XSMALL}
+              btnSize={Size.SMALL}
               btnStyle={Style.PRIMARY}
               type="submit"
             >

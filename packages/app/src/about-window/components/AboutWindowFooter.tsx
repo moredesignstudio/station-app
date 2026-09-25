@@ -16,17 +16,24 @@ const styles = (theme: Theme) => ({
   footer: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
     position: 'absolute',
     bottom: 0,
     left: 0,
-    color: theme.colors.gray.middle,
-    fontSize: 11,
+    ...theme.fontMixin(12),
+    color: theme.text.tertiary,
   },
   link: {
-    marginLeft: 10,
-    fontWeight: 600,
-    textDecoration: 'underline',
+    marginLeft: 12,
+    fontWeight: 500,
+    color: theme.text.secondary,
+    textDecoration: 'none',
     cursor: 'pointer',
+    transition: `color ${theme.transition.fast}`,
+    '&:hover': {
+      color: theme.text.primary,
+      textDecoration: 'underline',
+    },
   },
 });
 

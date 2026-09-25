@@ -20,7 +20,7 @@ type Props = DefaultProps & {
 @injectSheet(() => ({
   container: {
     maxWidth: 300,
-    margin: [20, 0],
+    margin: [16, 0, 0],
   },
 }))
 class AddNewInstance extends React.PureComponent<Props> {

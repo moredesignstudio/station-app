@@ -1,3 +1,4 @@
+import { radius, shadow, surface } from '@getstation/theme';
 import * as React from 'react';
 import { DragLayer } from 'react-dnd';
 import SubdockItem from './SubdockItem';
@@ -36,10 +37,10 @@ function getItemStyles(props: Props) {
   return {
     transform: transform,
     WebkitTransform: transform,
-    backgroundColor: '#3070CD',
+    backgroundColor: surface.elevated,
     width: 280,
-    borderRadius: 6,
-    boxShadow: '2px 2px 9px #444',
+    borderRadius: radius.md,
+    boxShadow: shadow.panel,
   };
 }
 

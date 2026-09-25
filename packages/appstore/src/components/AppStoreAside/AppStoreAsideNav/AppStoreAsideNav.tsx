@@ -24,16 +24,15 @@ const useStyles = createUseStyles({
   nav: {
     visibility: 'visible',
     height: 'auto',
-    backgroundColor: colors.blueGray30,
+    backgroundColor: 'transparent',
     marginTop: 0,
     zIndex: 100,
   },
   divider: {
     width: 'auto',
     height: 1,
-    backgroundColor: colors.dividerColor,
-    opacity: 0.46,
-    margin: '23px 30px 30px',
+    backgroundColor: colors.borderSubtle,
+    margin: '16px 18px',
   },
   spacer: {
     width: 'auto',
@@ -45,7 +44,8 @@ const useStyles = createUseStyles({
     nav: {
       width: '100%',
       visibility: 'hidden',
-      backgroundColor: colors.blueGray40,
+      backgroundColor: colors.surfacePanel,
+      borderBottom: `1px solid ${colors.borderSubtle}`,
       maxHeight: 0,
       position: 'absolute',
       top: '60px',
@@ -61,19 +61,15 @@ const useStyles = createUseStyles({
       },
     },
     navContainer: {
-      margin: '25px 0',
+      margin: '16px 0',
     },
   },
   '@media (min-width: 600px)': {
     nav: {
-      padding: '23px 0',
+      padding: '12px 0',
     },
     divider: {
-      width: 148,
-
-      margin: '0 auto',
-      marginTop: 30,
-      marginBottom: 23,
+      margin: '16px 18px',
     },
   },
 });

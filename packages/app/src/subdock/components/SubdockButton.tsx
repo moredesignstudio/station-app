@@ -1,4 +1,4 @@
-import { Icon, IconSymbol, roundedBackground, Tooltip } from '@getstation/theme';
+import { Icon, IconSymbol, ThemeTypes as Theme, Tooltip } from '@getstation/theme';
 import * as React from 'react';
 import * as classNames from 'classnames';
 // @ts-ignore: no declaration file
@@ -20,16 +20,22 @@ export type Props = {
   tooltipPlacement?: string,
 };
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   iconWrapper: {
     display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: '0 0 auto',
     height: 24,
     width: 24,
-    opacity: 0.5,
-    marginLeft: 5,
+    marginLeft: 4,
+    borderRadius: theme.radius.sm,
+    color: theme.text.tertiary,
+    cursor: 'default',
+    transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}`,
     '&:hover': {
-      ...roundedBackground('rgba(255,255,255,0.2)'),
-      opacity: 1,
+      backgroundColor: theme.fill.hover,
+      color: theme.text.primary,
     },
   },
   icon: {
@@ -46,6 +52,7 @@ class SubdockButton extends React.PureComponent<Props> {
         <Icon
           className={classes!.icon}
           size={size}
+          color="currentColor"
           symbolId={symbolId}
           onClick={onClick}
         />

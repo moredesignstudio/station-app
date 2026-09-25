@@ -1,3 +1,4 @@
+import { accent } from '@getstation/theme';
 import * as React from 'react';
 import NativeAppDockIcon, { IconSymbol } from '../../dock/components/NativeAppDockIcon';
 import { osName } from '../../utils/process';
@@ -23,6 +24,7 @@ export default class FocusModeDockIcon extends React.PureComponent<Props, {}> {
         onClick={onClick}
         disabled={syncWithOS}
         tooltip={tooltipContent}
+        color={(isSnoozed && !syncWithOS) ? accent.default : undefined}
       />
     );
   }

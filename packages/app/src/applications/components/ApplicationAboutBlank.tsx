@@ -18,9 +18,12 @@ export interface Props {
   onDidMount: () => void,
 }
 
-const styles = (_theme: Theme) => ({
+const styles = (theme: Theme) => ({
   container: {
-    color: 'white',
+    maxWidth: 420,
+    ...theme.fontMixin(13),
+    lineHeight: '20px',
+    color: theme.text.secondary,
     textAlign: 'center',
   },
   button: {

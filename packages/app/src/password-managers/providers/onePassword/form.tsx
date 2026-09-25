@@ -37,14 +37,14 @@ export interface State {
 
 const styles = (theme: Theme) => ({
   onboard: {
-    marginBottom: 8,
-    fontSize: '12px',
-    color: 'rgba(255,255,255,1)',
+    marginBottom: 12,
+    ...theme.fontMixin(12),
+    lineHeight: '18px',
+    color: theme.text.secondary,
     textAlign: 'left',
-    fontStyle: 'italic',
-    fontWeight: 600,
     '& a': {
-      color: 'rgba(255,255,255,0.6)',
+      color: theme.accent.text,
+      textDecoration: 'none',
       '&:hover': {
         textDecoration: 'underline',
       },
@@ -63,8 +63,9 @@ const styles = (theme: Theme) => ({
   },
   error: {
     marginBottom: 15,
-    ...theme.fontMixin(12, 'bold'),
-    color: theme.colors.error,
+    ...theme.fontMixin(12, 600),
+    lineHeight: '18px',
+    color: theme.status.danger,
   },
 });
 

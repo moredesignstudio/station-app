@@ -1,5 +1,4 @@
 import {
-  getHighlightGradient,
   Icon,
   IconSymbol,
   ThemeTypes as Theme,
@@ -49,47 +48,52 @@ interface State {
 }
 
 @injectSheet((theme: Theme) => {
-  const labelSize = ({ smallSize }: OwnProps) => smallSize ? 13 : 16;
-  const contextSize = ({ smallSize }: OwnProps) => smallSize ? 10 : 12;
-  const imageSize = ({ smallSize }: OwnProps) => smallSize ? '24px' : '30px';
+  const labelSize = ({ smallSize }: OwnProps) => smallSize ? 12 : 13;
+  const contextSize = ({ smallSize }: OwnProps) => smallSize ? 10 : 11;
+  const imageSize = ({ smallSize }: OwnProps) => smallSize ? '22px' : '28px';
 
   return ({
     item: {
       display: 'flex',
-      height: ({ smallSize }: OwnProps) => smallSize ? 50 : 60,
+      height: ({ smallSize }: OwnProps) => smallSize ? 40 : 48,
       alignItems: 'center',
-      padding: 20,
+      gap: 10,
+      padding: [0, 12],
+      margin: [0, 8],
+      borderRadius: theme.radius.md,
+      listStyle: 'none',
+      transition: `background-color ${theme.transition.fast}`,
       '&.highlighted': {
-        backgroundImage: getHighlightGradient(undefined, .50),
+        backgroundColor: theme.fill.selected,
       },
       '&.mediumlighted': {
-        backgroundImage: getHighlightGradient(undefined, .30),
-      },
-      '& $shortcutsButton': {
-        display: 'none',
-      },
-      '&:hover $shortcutsButton': {
-        display: 'initial',
+        backgroundColor: theme.fill.hover,
       },
     },
     content: {
       display: 'flex',
       alignItems: 'center',
-      width: '92%',
-      marginLeft: 10,
-      color: 'white',
+      gap: 8,
+      flex: 1,
+      minWidth: 0,
+      color: theme.text.primary,
     },
     labelWrapper: {
-      width: '91%',
+      flex: 1,
+      minWidth: 0,
     },
     label: {
-      ...theme.fontMixin(labelSize, 600),
+      ...theme.fontMixin(labelSize, 500),
+      margin: 0,
+      lineHeight: '18px',
+      color: theme.text.primary,
       ...theme.mixins.ellipsis(1),
     },
     context: {
       ...theme.fontMixin(contextSize),
-      marginLeft: 2,
-      opacity: .5,
+      margin: 0,
+      lineHeight: '14px',
+      color: theme.text.tertiary,
       ...theme.mixins.ellipsis(1),
     },
     image: {
@@ -101,6 +105,8 @@ interface State {
     },
     caretIcon: {
       flexGrow: 0,
+      flexShrink: 0,
+      color: theme.text.tertiary,
     },
   });
 })
@@ -132,7 +138,7 @@ class BangItem extends React.PureComponent<OwnProps & InjectSheetProps, State> {
     }
 
     if (type === 'station-app') {
-      const iconSize = smallSize ? 24 : 30;
+      const iconSize = smallSize ? 22 : 28;
 
       return (
         <div className={classes!.image}>
@@ -160,8 +166,8 @@ class BangItem extends React.PureComponent<OwnProps & InjectSheetProps, State> {
           <Icon
             className={classes!.caretIcon}
             symbolId={IconSymbol.RETURN}
-            size={35}
-            color="rgba(255, 255, 255, .6)"
+            size={24}
+            color="currentColor"
           />
         )}
       </KeyHold>

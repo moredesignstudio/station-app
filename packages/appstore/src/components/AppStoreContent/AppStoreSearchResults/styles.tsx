@@ -1,5 +1,4 @@
 import { ThemeTypes } from '@getstation/theme';
-import { colors } from '@src/theme';
 
 const styles = (theme: ThemeTypes) => ({
   resultsSection: {
@@ -11,19 +10,18 @@ const styles = (theme: ThemeTypes) => ({
     alignItems: 'center',
     minHeight: 30,
     paddingBottom: 8,
-    borderBottom: '1px solid #e8ebec',
+    borderBottom: `1px solid ${theme.border.subtle}`,
   },
   resultsTitle: {
-    fontFamily: 'Asap',
-    fontSize: 18,
-    fontWeight: 500,
-    letterSpacing: 0.32,
-    color: colors.blueGray100,
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: '24px',
+    letterSpacing: '-0.01em',
+    color: theme.text.primary,
   },
   resultsAmount: {
-    fontSize: 14,
-    color: colors.blueGray100,
-    opacity: 0.7,
+    fontSize: 13,
+    color: theme.text.secondary,
   },
   resultsContent: {
     padding: '47px 0 32px 0',
@@ -38,16 +36,25 @@ const styles = (theme: ThemeTypes) => ({
     marginBottom: 52,
   },
   resultsButton: {
-    display: 'inline-block',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     alignSelf: 'center',
-    fontSize: 16,
+    height: 32,
+    lineHeight: '32px',
+    padding: [0, 16],
+    fontSize: 13,
     fontWeight: 500,
-    color: colors.stationBlue,
+    letterSpacing: '-0.01em',
+    color: theme.accent.text,
     textAlign: 'center',
-    padding: '9px 50px',
-    border: `1px solid ${colors.buttonBorder}`,
-    borderRadius: '18.5px',
+    boxShadow: `inset 0 0 0 1px ${theme.accent.border}`,
+    borderRadius: theme.radius.md,
     cursor: 'pointer',
+    transition: `background-color ${theme.transition.fast}`,
+    '&:hover': {
+      backgroundColor: theme.accent.subtle,
+    },
   },
   '@media (min-width: 600px)': {
     resultsSection: {

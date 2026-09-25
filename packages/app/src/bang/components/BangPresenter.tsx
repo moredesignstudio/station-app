@@ -1,4 +1,4 @@
-import { GradientType, withGradient } from '@getstation/theme';
+import { GradientType, ThemeTypes as Theme, withGradient } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -50,7 +50,7 @@ interface StateFromProps {
 
 type Props = OwnProps & StateFromProps;
 
-@injectSheet({
+@injectSheet((theme: Theme) => ({
   content: {
     width: 500,
     height: 640,
@@ -58,12 +58,12 @@ type Props = OwnProps & StateFromProps;
     flexDirection: 'column',
     alignSelf: 'flex-start',
     marginTop: 50,
-    backgroundImage: (props: Props) => props.themeGradient,
-    borderRadius: 5,
-    boxShadow: '0px 10px 60px 5px rgba(0, 0, 0, 0.6)',
+    backgroundColor: theme.surface.panel,
+    borderRadius: theme.radius.xl,
+    boxShadow: theme.shadow.modal,
     overflow: 'hidden',
   },
-})
+}))
 class BangPresenterImpl extends React.PureComponent<Props, {}> {
   render() {
     const {

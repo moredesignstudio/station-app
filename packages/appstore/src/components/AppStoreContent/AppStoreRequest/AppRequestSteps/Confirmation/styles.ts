@@ -47,17 +47,23 @@ const styles = (theme: ThemeTypes) => ({
   },
   appName: {
     fontSize: 14,
-    fontWeight: 700,
-    color: '#363636',
+    fontWeight: 600,
+    color: theme.text.primary,
     marginBottom: 25,
   },
   title: {
     textAlign: 'center',
     marginTop: 0,
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: '24px',
+    letterSpacing: '-0.01em',
+    color: theme.text.primary,
   },
   text: {
-    fontSize: 17,
-    color: '#4a4a4a',
+    fontSize: 14,
+    lineHeight: '22px',
+    color: theme.text.secondary,
     textAlign: 'center',
   },
   closeButton: {

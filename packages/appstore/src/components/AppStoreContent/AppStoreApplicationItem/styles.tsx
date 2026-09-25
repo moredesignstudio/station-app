@@ -1,5 +1,4 @@
-import { roundedBackground } from '@getstation/theme';
-import { colors } from '@src/theme';
+import { colors, radius, shadow, transition } from '@src/theme';
 import { applicationNameMaxWidth } from '@src/shared/constants/constants';
 
 import { AppStoreApplicationProps } from './AppStoreApplication';
@@ -9,16 +8,16 @@ const styles = {
     flex: '0 0 291px',
     display: 'flex',
     justifyContent: 'space-between',
-    color: 'rgb(38, 33, 33)',
+    color: colors.textPrimary,
     alignItems: 'center',
     width: ({ alternate }: AppStoreApplicationProps) => alternate ? null : 291,
     marginBottom: 27,
-    padding: 10,
+    padding: [8, 10],
     backgroundColor: 'transparent',
-    borderRadius: '999px',
-    transition: 'none',
+    borderRadius: radius.lg,
+    transition: `background-color ${transition.fast}`,
     '&:hover': {
-      backgroundColor: ({ alternate }: AppStoreApplicationProps) => alternate ? '#EEE' : 'none',
+      backgroundColor: ({ alternate }: AppStoreApplicationProps) => alternate ? colors.fillHover : 'transparent',
     },
   },
   applicationContent: {
@@ -36,17 +35,21 @@ const styles = {
         content: ({ application }: AppStoreApplicationProps) => `'${application.name}'`,
         display: 'block',
         position: 'absolute',
-        top: '-20px',
-        left: 6,
-        backgroundColor: colors.blueGray10,
-        fontSize: 10,
-        letterSpacing: '0.5px',
-        color: colors.blueGray100,
-        padding: [3, 4],
-        borderRadius: 3,
-        boxShadow: `0 2px 4px 1px rgba(0, 0, 0, 0.08), 0 0 0 0.5px ${colors.blueGray10}`,
+        top: -24,
+        left: 0,
+        backgroundColor: colors.surfaceElevated,
+        fontSize: 11,
+        fontWeight: 400,
+        lineHeight: '16px',
+        letterSpacing: 0,
+        whiteSpace: 'nowrap',
+        color: colors.textPrimary,
+        padding: [3, 6],
+        borderRadius: radius.md,
+        boxShadow: shadow.tooltip,
         visibility: 'hidden',
         transition: 'visibility .2s',
+        zIndex: 1,
       },
       '&:hover:after': {
         visibility: 'visible',
@@ -56,8 +59,9 @@ const styles = {
   },
   applicationName: {
     display: 'inline-block',
-    fontSize: '16px',
-    fontWeight: '600',
+    fontSize: 14,
+    fontWeight: 500,
+    lineHeight: '20px',
     maxWidth: applicationNameMaxWidth,
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -65,28 +69,36 @@ const styles = {
   },
   applicationControls: {
     display: 'flex',
+    alignItems: 'center',
   },
   applicationControlsItem: {
-    marginRight: 10,
+    marginRight: 6,
   },
   categoryName: {
-    fontSize: '12px',
-    color: '#949494',
+    fontSize: 12,
+    lineHeight: '16px',
+    color: colors.textTertiary,
   },
   action: {
     flexShrink: 0,
-    ...roundedBackground('#999'),
+    borderRadius: radius.md,
+    backgroundColor: 'transparent',
+    color: colors.textTertiary,
     opacity: 0,
     display: 'none',
     cursor: 'pointer',
-    transition: '200ms',
+    transition: `background-color ${transition.fast}, color ${transition.fast}, opacity ${transition.fast}`,
+    '& path': {
+      fill: 'currentColor',
+    },
     '$application:hover &': {
       display: 'block',
-      opacity: .6,
+      opacity: 1,
     },
     '&:hover': {
       display: 'block',
-      opacity: '1 !important',
+      backgroundColor: colors.fillActive,
+      color: colors.textPrimary,
     },
   },
   '@media (min-width: 600px)': {

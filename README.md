@@ -151,11 +151,12 @@ Here is a list of tools used during the development process. Consider adding the
 
 WebStorm and VSCode should be correctly configured by default.
 
-## Workspace management (TODO)
-This repository should be used as a proper monorepo. Packages that should be impacted:
-- appstore (already in this repo but not handled by any monorepo tool yet)
-- @getstation/sdk
-- @getstation/theme
+## Workspace management
+This repository is a yarn workspaces monorepo (`packages/*`):
+- `packages/app` — the Electron application
+- `packages/appstore` — the App Store web UI (bundled into the app)
+- `packages/sdk` — `@getstation/sdk`
+- `packages/theme` — `@getstation/theme`: dark design tokens and shared UI components (see its README)
 
 ## Releases
 

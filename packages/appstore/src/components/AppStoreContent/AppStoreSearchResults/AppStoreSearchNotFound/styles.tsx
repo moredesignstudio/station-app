@@ -1,5 +1,5 @@
 import { ThemeTypes } from '@getstation/theme';
-import { colors } from '@src/theme';
+import { accentButtonMixin } from '@src/theme';
 
 const styles = (theme: ThemeTypes) => ({
   notFoundPage: {
@@ -34,28 +34,19 @@ const styles = (theme: ThemeTypes) => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    fontFamily: 'Asap',
-    fontSize: 24,
-    fontWeight: 500,
-    color: colors.blueGray100,
-    letterSpacing: 0.42,
+    fontSize: 20,
+    fontWeight: 600,
+    lineHeight: '28px',
+    letterSpacing: '-0.01em',
+    color: theme.text.primary,
     textAlign: 'center',
-    marginBottom: 38,
+    marginBottom: 32,
   },
   text: {
     marginRight: 5,
   },
   button: {
-    display: 'inline-block',
-    fontSize: 14,
-    fontWeight: 600,
-    color: '#fff',
-    backgroundColor: colors.stationBlue,
-    textAlign: 'center',
-    padding: '12px 38px',
-    borderRadius: 20,
-    boxShadow: '0 2px 4px 0 rgba(22, 77, 156, 0.5)',
-    cursor: 'pointer',
+    ...accentButtonMixin(),
   },
   '@media (max-width: 1023px)': {
     notFoundPage: {

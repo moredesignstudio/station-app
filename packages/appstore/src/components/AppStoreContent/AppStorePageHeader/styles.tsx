@@ -6,7 +6,7 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: [32, 45],
-    borderBottom: `1px solid ${colors.blueGray30}`,
+    borderBottom: `1px solid ${colors.borderSubtle}`,
     minHeight: 127,
   },
   content: {
@@ -30,17 +30,18 @@ const styles = {
     flexDirection: 'column',
   },
   title: {
-    fontFamily: 'Asap',
-    fontSize: 28,
-    fontWeight: 500,
-    color: colors.blueGray100,
-    marginBottom: 10,
+    fontSize: 24,
+    fontWeight: 600,
+    lineHeight: '32px',
+    letterSpacing: '-0.01em',
+    color: colors.textPrimary,
+    marginBottom: 6,
     marginTop: 0,
   },
   subTitle: {
     fontSize: 14,
-    color: colors.blueGray100,
-    opacity: 0.7,
+    lineHeight: '20px',
+    color: colors.textSecondary,
   },
   '@media (max-width: 599px)': {
     pageHeader: {

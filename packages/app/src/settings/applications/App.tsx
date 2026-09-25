@@ -99,25 +99,24 @@ interface State {
 
 @injectSheet((theme: Theme) => ({
   item: {
-    marginBottom: 20,
+    marginBottom: 16,
     padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.10)',
-    borderRadius: 6,
-    transition: [
-      ['background-color', '300ms', 'ease-in'],
-    ],
+    backgroundColor: theme.surface.panel,
+    border: `1px solid ${theme.border.subtle}`,
+    borderRadius: theme.radius.lg,
+    color: theme.text.primary,
+    transition: 'background-color 300ms ease-in, border-color 300ms ease-in',
   },
   highlightedItem: {
-    backgroundColor: 'rgba(255, 255, 255, 0.50)',
-    transition: [
-      ['background-color', '300ms', 'ease-out'],
-    ],
+    backgroundColor: theme.accent.subtle,
+    borderColor: theme.accent.border,
+    transition: 'background-color 300ms ease-out, border-color 300ms ease-out',
   },
   header: {
     display: 'flex',
     width: '100%',
     alignItems: 'center',
-    paddingBottom: 20,
+    paddingBottom: 16,
   },
   appIcon: {
     width: 35,
@@ -134,29 +133,35 @@ interface State {
     marginBottom: '-2.5px',
   },
   subtitle: {
-    ...theme.fontMixin(12, 600),
-    margin: [20, 0, 10],
+    ...theme.mixins.sectionLabel(),
+    margin: [20, 0, 8],
   },
   extensionInfosWrapper: {},
   descriptionWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 16,
+    padding: [6, 0],
   },
-  description: {},
+  description: {
+    ...theme.fontMixin(13),
+    lineHeight: '1.4em',
+    color: theme.text.secondary,
+  },
   instancesContainer: {
-    margin: [20, 0],
+    margin: [16, 0],
   },
   addInstance: {
     maxWidth: 300,
   },
   buttonRemoveAllContainer: {
     marginLeft: 'auto',
+    flexShrink: 0,
   },
-  buttonRemoveAll: {
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
-  },
+  buttonRemoveAll: {},
   listInstances: {
-    marginBottom: '20px',
+    marginBottom: 16,
   },
 }))
 class AppImpl extends React.PureComponent<Props, State> {
@@ -282,8 +287,7 @@ class AppImpl extends React.PureComponent<Props, State> {
           >
             <ButtonIcon
               className={classes!.buttonRemoveAll}
-              iconColor="white"
-              btnStyle={Style.SECONDARY}
+              btnStyle={Style.DANGER}
               symbolId={IconSymbol.TRASH}
               btnSize={Size.SMALL}
               onClick={this.onConfirmRemoveApplication}

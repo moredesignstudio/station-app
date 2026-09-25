@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import { Tooltip } from '@getstation/theme';
-import { colors } from '@src/theme';
+import { colors, radius, shadow } from '@src/theme';
 
 import { Application } from '../Application.type';
 const dots = require('../../../static/dock-sample-three-dots.svg');
@@ -85,7 +85,7 @@ const useStyles = createUseStyles({
     opacity: 0,
     transition: '.5s ease',
     borderRadius: '48px',
-    background: 'black',
+    background: colors.surfaceScrim,
   },
   textOverlay: {
     width: '100%',
@@ -94,21 +94,21 @@ const useStyles = createUseStyles({
     justifyContent: 'center',
     alignItems: 'center',
     cursor: 'pointer',
-    color: 'white',
+    color: colors.textPrimary,
     fontSize: '18px',
     fontWeight: 'bold',
   },
   tooltip: {
     position: 'absolute',
-    backgroundColor: colors.blueGray10,
-    color: colors.blueGray100,
-    borderRadius: 3,
-    letterSpacing: '0.5px',
-    fontSize: 10,
+    backgroundColor: colors.surfaceElevated,
+    color: colors.textPrimary,
+    borderRadius: radius.md,
+    fontSize: 11,
+    lineHeight: '16px',
     whiteSpace: 'nowrap',
     top: '-10px',
-    padding: [3, 4],
-    boxShadow: `0 2px 4px 1px rgba(0, 0, 0, 0.08), 0 0 0 0.5px ${colors.blueGray30}`,
+    padding: [3, 6],
+    boxShadow: shadow.tooltip,
   },
 });
 

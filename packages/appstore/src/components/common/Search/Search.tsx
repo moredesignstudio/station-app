@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import { Icon, IconSymbol } from '@getstation/theme';
-import { colors } from '@src/theme';
+import { colors, radius, shadow, transition } from '@src/theme';
 import * as classNames from 'classnames';
 
 const { useState, forwardRef } = React;
@@ -10,35 +10,44 @@ const useStyles = createUseStyles({
   container: {
     position: 'relative',
     width: '100%',
-    height: '30px',
-    backgroundColor: colors.white,
-    borderRadius: '15px',
-    border: '1px solid rgba(157, 167, 174, .6)',
+    height: 30,
+    backgroundColor: colors.fillSubtle,
+    boxShadow: `inset 0 0 0 1px ${colors.borderDefault}`,
+    borderRadius: radius.md,
     display: 'flex',
     alignItems: 'center',
-    color: colors.blueGray100,
+    color: colors.textPrimary,
     overflow: 'hidden',
+    transition: `box-shadow ${transition.fast}, background-color ${transition.fast}`,
+    '&:hover': {
+      backgroundColor: colors.fillHover,
+    },
     '&.isFocused': {
-      boxShadow: `0 0 4px 0 ${colors.blueGlowing}`,
-      border: `1px solid ${colors.blueGlowing}`,
+      backgroundColor: colors.fillSubtle,
+      boxShadow: `inset 0 0 0 1px ${colors.accentBorder}, ${shadow.focus}`,
     },
   },
   searchIcon: {
-    marginLeft: 10,
-    opacity: '.5',
+    marginLeft: 8,
+    flexShrink: 0,
   },
   input: {
     width: '100%',
-    placeholder: colors.blueGray100,
-    fontSize: 13,
-    border: 'none',
     flexGrow: 1,
     height: '100%',
     padding: [0, 8],
+    fontFamily: 'inherit',
+    fontSize: 13,
+    color: colors.textPrimary,
+    backgroundColor: 'transparent',
+    border: 'none',
+    borderRadius: 0,
     outline: 'none',
-    borderRadius: '0 20px 20px 0',
     transform: 'translate3d(0,-1px,0)',
     '-webkit-appearance': 'none',
+    '&::placeholder': {
+      color: colors.textTertiary,
+    },
   },
 });
 
@@ -79,8 +88,8 @@ const Search = forwardRef(
       <Icon
         className={classes!.searchIcon}
         symbolId={IconSymbol.SEARCH}
-        size={25}
-        color={colors.blueGray100}
+        size={18}
+        color={colors.textTertiary}
       />
       <input
         ref={ref}

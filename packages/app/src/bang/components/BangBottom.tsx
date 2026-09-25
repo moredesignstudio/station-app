@@ -1,4 +1,4 @@
-import { Icon, IconSymbol } from '@getstation/theme';
+import { Icon, IconSymbol, ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -19,42 +19,50 @@ export interface Props {
   smallSize?: boolean,
 }
 
-const styles = {
+const styles = (theme: Theme) => ({
   container: {
-    height: ({ smallSize }: Props) => smallSize ? 28 : 35,
-    backgroundColor: 'rgba(0, 0, 0, .2)',
-    padding: [2, 5, 5, 10],
-    color: 'rgba(255, 255, 255, .8)',
+    height: ({ smallSize }: Props) => smallSize ? 30 : 36,
+    flexShrink: 0,
+    backgroundColor: theme.surface.inset,
+    borderTop: `1px solid ${theme.border.subtle}`,
+    padding: [0, 12],
+    color: theme.text.tertiary,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderTop: '1px solid rgba(255,255,255,0.3)',
   },
   navigationWrapper: {
     display: 'flex',
+    alignItems: 'center',
+    gap: 12,
   },
   navigation: {
-    fontSize: ({ smallSize }: Props) => smallSize ? 8 : 10,
-    marginRight: 10,
-    color: 'rgba(255, 255, 255, .7)',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 4,
+    fontSize: ({ smallSize }: Props) => smallSize ? 10 : 11,
+    color: theme.text.tertiary,
+    whiteSpace: 'nowrap',
   },
   navigationIcon: {
-    marginRight: 4,
-    padding: [2, 4],
-    color: 'white',
-    background: 'rgba(255, 255, 255, .2)',
-    borderRadius: 2,
+    ...theme.mixins.kbd(),
   },
   settings: {
-    marginTop: 2,
-    height: 25,
-    opacity: .6,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 24,
+    height: 24,
+    borderRadius: theme.radius.md,
+    color: theme.text.tertiary,
     cursor: 'default',
+    transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}`,
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, .2)',
+      color: theme.text.primary,
+      backgroundColor: theme.fill.hover,
     },
   },
-};
+});
 
 @injectSheet(styles)
 export default class BangBottom extends React.PureComponent<Props, {}> {
@@ -85,8 +93,8 @@ export default class BangBottom extends React.PureComponent<Props, {}> {
           <a className={classes!.settings} onClick={onClickSettings}>
             <Icon
               symbolId={IconSymbol.COG}
-              size={25}
-              color="#fff"
+              size={18}
+              color="currentColor"
             />
           </a>
         }

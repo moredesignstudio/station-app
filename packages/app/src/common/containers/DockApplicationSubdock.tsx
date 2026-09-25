@@ -1,4 +1,4 @@
-import { GradientType, withGradient } from '@getstation/theme';
+import { GradientType, ThemeTypes as Theme, withGradient } from '@getstation/theme';
 import * as classNames from 'classnames';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -28,16 +28,16 @@ interface JSSProps {
 
 type Props = JSSProps & StateFromProps & OwnProps;
 
-@injectSheet({
+@injectSheet((theme: Theme) => ({
   subdockContainer: {
     position: 'absolute',
     top: 0,
     left: 50,
     width: 280,
     height: '100%',
-    color: 'white',
+    color: theme.text.primary,
     zIndex: 2,
-    borderLeft: '2px solid rgba(255,255,255,0.4)',
+    boxShadow: theme.shadow.panel,
     backgroundImage: (props: Props) => props.themeGradient,
     '&>div': {
       height: '100%',
@@ -45,7 +45,7 @@ type Props = JSSProps & StateFromProps & OwnProps;
       overflow: 'auto',
     },
   },
-})
+}))
 class DockApplicationSubdockImpl extends React.PureComponent<Props, {}> {
   subdockContainer: HTMLDivElement | null;
 

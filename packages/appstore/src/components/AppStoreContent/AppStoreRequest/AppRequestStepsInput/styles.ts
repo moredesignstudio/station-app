@@ -8,28 +8,30 @@ const styles = (theme: ThemeTypes) => ({
   input: {
     display: 'block',
     appearance: 'none',
-    border: (({ error }: AppRequestStepsInputProps) =>
-      error ? `2px solid ${theme.colors.error}` : '1px solid rgba(41, 41, 41, 0.1)') as any,
-    padding: [0, 15] as any,
+    border: 'none',
+    boxShadow: (({ error }: AppRequestStepsInputProps) =>
+      `inset 0 0 0 1px ${error ? theme.status.danger : theme.border.default}`) as any,
+    padding: [0, 12] as any,
     boxSizing: 'border-box',
-    borderRadius: 30,
+    borderRadius: theme.radius.md,
     minWidth: 200,
     width: '100%',
-    height: 34,
-    lineHeight: '34px',
-    ...theme.fontMixin(11, 500),
-    transition: 'all 250ms ease-out',
-    color: (({ error }: AppRequestStepsInputProps) =>
-      error ? theme.colors.error : '#292929') as any,
-    backgroundColor: '#FFFFFF',
+    height: 32,
+    lineHeight: '32px',
+    ...theme.fontMixin(13),
+    transition: `box-shadow ${theme.transition.fast}, background-color ${theme.transition.fast}`,
+    color: theme.text.primary,
+    backgroundColor: theme.fill.subtle,
     '&:disabled': {
       opacity: 0.4,
     },
     '&:focus': {
       outline: 'none',
+      boxShadow: (({ error }: AppRequestStepsInputProps) =>
+        `inset 0 0 0 1px ${error ? theme.status.danger : theme.accent.border}, ${theme.shadow.focus}`) as any,
     },
-    '&::-webkit-input-placeholder': {
-      color: 'rgba(1, 1, 1, 0.3)',
+    '&::placeholder': {
+      color: theme.text.tertiary,
     },
   },
   error: {
@@ -37,7 +39,7 @@ const styles = (theme: ThemeTypes) => ({
     top: '-20px',
     left: 0,
     fontSize: 12,
-    color: theme.colors.error,
+    color: theme.status.danger,
   },
 });
 

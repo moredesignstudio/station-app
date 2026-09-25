@@ -1,3 +1,4 @@
+import { accent } from '@getstation/theme';
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { AppDockIcon, AppearingAppDockIcon } from './AppDockIcon';
@@ -11,7 +12,7 @@ storiesOf('Molecules|Dock', module)
         applicationId={'applicationId'}
         logoURL={text('logoURL', 'https://i.pravatar.cc/150')}
         iconURL={text('iconURL', 'https://cdn.filestackcontent.com/J4MAUo7LRZm2fhyp6X0f')}
-        themeColor={text('themeColor', '#FCCD48')}
+        themeColor={text('themeColor', accent.default)}
         snoozed={boolean('snoozed', false)}
         badge={text('badge', '•')}
         loading={false}
@@ -30,7 +31,7 @@ storiesOf('Molecules|Dock', module)
         active={active}
         applicationId={'applicationId'}
         iconURL={'https://cdn.filestackcontent.com/J4MAUo7LRZm2fhyp6X0f'}
-        themeColor={'#FCCD48'}
+        themeColor={accent.default}
         loading={false}
         dramaticEnter={dramaticEnter}
       />

@@ -2,6 +2,7 @@ import { Icon, IconSymbol } from '@getstation/theme';
 import * as React from 'react';
 import injectSheet from 'react-jss';
 import Lottie from 'react-lottie';
+import { colors } from '@src/theme';
 // @ts-ignore
 import * as animationData from '@src/shared/animations/add-application-animation.json';
 
@@ -71,7 +72,7 @@ export default class AppStoreApplicationLogo extends React.PureComponent<AppStor
         {
           isExtension &&
           <div className={classes!.iconPin}>
-            <Icon symbolId={IconSymbol.EXTENSION} size={25} color={'#5d5d5d'}/>
+            <Icon symbolId={IconSymbol.EXTENSION} size={25} color={colors.textSecondary}/>
           </div>
         }
       </div>
