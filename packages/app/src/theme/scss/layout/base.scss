@@ -1,12 +1,13 @@
-@import "../common/typography";
 @import "../common/variables";
 @import "../base/mixins";
+@import "../common/typography";
 // Base
 // —————————————————————————————————
 
 html,
 body {
   overflow: hidden;
+  background-color: $surface-base;
 }
 
 .title-bar-grab {
@@ -28,6 +29,8 @@ body {
   display: flex;
   flex-direction: column;
   z-index: $zindex-small;
+  background-color: $surface-base;
+  color: $text-primary;
   @include coverer();
 }
 .l-appcontainer {
@@ -38,7 +41,6 @@ body {
 }
 
 .l-overlay {
-  // opacity: 0.9;
   z-index: $zindex-ultra;
   @include coverer-fixed(0, $app-size, 0, 0);
 
@@ -47,16 +49,11 @@ body {
   }
   //== Children
   &:before {
-    background-color: rgba(#000, 0.2);
+    background-color: $scrim;
     content: "";
     @include coverer();
   }
 }
-// .e-blur {
-//   .l-webview {
-//     filter: blur(4px);
-//   }
-// }
 
 //== Margins
 .l-ma { margin: $gutter; }

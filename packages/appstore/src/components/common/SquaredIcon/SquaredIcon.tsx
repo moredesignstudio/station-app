@@ -1,7 +1,7 @@
 import { Icon, IconSymbol, Tooltip } from '@getstation/theme';
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
-import { colors } from '@src/theme';
+import { colors, radius, shadow, transition } from '@src/theme';
 import * as classNames from 'classnames';
 
 const useStyles = createUseStyles({
@@ -11,36 +11,45 @@ const useStyles = createUseStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.blueGray30,
-    borderRadius: 2,
+    padding: 0,
+    border: 'none',
+    backgroundColor: colors.fillActive,
+    borderRadius: radius.sm,
     position: 'relative',
     outline: 'none',
+    cursor: 'pointer',
+    transition: `background-color ${transition.fast}`,
+    '&:hover:enabled': {
+      backgroundColor: colors.fillSelected,
+    },
+    '&:disabled': {
+      cursor: 'default',
+    },
   },
   icon: {
-    opacity: 0.8,
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     '& path': {
-      fill: colors.blueGray100,
+      fill: colors.textPrimary,
     },
 
     '&.disabled': {
-      opacity: 0.2,
+      opacity: 0.3,
     },
   },
   tooltip: {
     position: 'absolute',
-    backgroundColor: colors.blueGray10,
-    color: colors.blueGray100,
-    borderRadius: 3,
-    letterSpacing: '0.5px',
-    fontSize: 10,
+    backgroundColor: colors.surfaceElevated,
+    color: colors.textPrimary,
+    borderRadius: radius.md,
+    fontSize: 11,
+    lineHeight: '16px',
     whiteSpace: 'nowrap',
     top: '-125%',
-    padding: [3, 4],
-    boxShadow: `0 2px 4px 1px rgba(0, 0, 0, 0.08), 0 0 0 0.5px ${colors.blueGray30}`,
+    padding: [3, 6],
+    boxShadow: shadow.tooltip,
   },
 });
 

@@ -1,3 +1,4 @@
+import { accent } from '@getstation/theme';
 import PropTypes from 'prop-types';
 import React from 'react';
 import injectSheet from 'react-jss';
@@ -12,29 +13,30 @@ import { isDarwin } from '../utils/process';
 const styles = theme => ({
   container: {
     height: '100%',
-    backgroundColor: theme.colors.gray.light,
+    backgroundColor: theme.surface.base,
+    color: theme.text.primary,
   },
   body: {
     display: 'flex',
     flex: 1,
     position: 'relative',
     height: '100%',
-    padding: '40px 60px 60px 40px',
-    color: theme.colors.gray.dark,
+    padding: '32px 48px 48px 40px',
+    color: theme.text.primary,
   },
   content: {
     flex: 1,
     position: 'relative',
-    margin: '4px 100px 0 30px',
+    margin: '4px 40px 0 24px',
   },
   gradient: {
     position: 'absolute',
     top: 0,
     right: 0,
-    width: 100,
+    width: 4,
     height: '100%',
-    backgroundImage: props => props.themeGradient,
-  }
+    backgroundColor: theme.accent.default,
+  },
 });
 
 @injectSheet(styles)
@@ -57,9 +59,10 @@ class AboutWindowPresenter extends React.PureComponent {
   }
 
   render() {
-    const { classes, themeColors } = this.props;
+    const { classes } = this.props;
 
-    const inlineSVG = getSVG(themeColors, 80, false);
+    // The app theme colors are the flat dark surface: the logo needs the accent ramp to stay visible.
+    const inlineSVG = getSVG(accent.ramp, 80, false);
 
     return (
       <div className={classes.container}>

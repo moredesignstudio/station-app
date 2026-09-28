@@ -1,4 +1,4 @@
-import { colors } from '@src/theme';
+import { accentButtonMixin, colors } from '@src/theme';
 
 const styles = {
   header: {
@@ -14,30 +14,20 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.stationBlue,
-    fontSize: 14,
+    backgroundColor: colors.surfaceElevated,
+    borderBottom: `1px solid ${colors.borderSubtle}`,
+    fontSize: 13,
     textAlign: 'center',
     lineHeight: '30px',
-    fontWeight: '500',
-    color: 'white',
+    fontWeight: 500,
+    color: colors.textPrimary,
     zIndex: 30,
   },
   downloadLink: {
-    backgroundColor: 'rgba(255, 255, 255, 1)',
-    borderRadius: 20,
-    border: 0,
-    marginLeft: 25,
-    color: colors.stationBlue,
-    fontSize: 14,
-    fontWeight: '600',
-    padding: '4px 15px',
-    cursor: 'pointer',
-    '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.75)',
-    },
-    '&:active': {
-      backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    },
+    ...accentButtonMixin(),
+    height: 28,
+    lineHeight: '28px',
+    marginLeft: 16,
   },
   '@media (max-width: 1279px)': {
     headerBanner: {

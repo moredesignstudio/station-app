@@ -4,7 +4,7 @@ import mergeRefs from 'react-merge-refs';
 import classNames from 'classnames';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
-import { IconSymbol } from '@getstation/theme';
+import { IconSymbol, ThemeTypes as Theme } from '@getstation/theme';
 
 import { MinimalSubdockApplication } from '../SubdockItem';
 import { ActiveTab } from '../../Container';
@@ -27,8 +27,7 @@ interface OwnStyle {
 
 const ownStyle = {
   newPageButton: {
-    marginRight: '20px',
-    opacity: .4,
+    marginRight: 8,
   },
 };
 
@@ -80,7 +79,7 @@ const Tabs = React.forwardRef((
       <div className={classes!.sectionHeader}>
         <p className={classes!.title}>
           Opened pages
-          {nbTabs > 5 && <span> : {nbTabs}</span>}
+          {nbTabs > 5 && <span className={classes!.count}>{nbTabs}</span>}
         </p>
         <SubdockButton
           tooltip={'Open a new page'}
@@ -144,4 +143,7 @@ export const extractTabActions = (props: SubdockActionsProps): RawTabActions => 
 
 // EXPORT
 
-export default injectSheet({ ...subdockListStyle, ...ownStyle })(Tabs) as React.ComponentType<OwnProps>;
+export default injectSheet((theme: Theme) => ({
+  ...subdockListStyle(theme),
+  ...ownStyle,
+}))(Tabs) as React.ComponentType<OwnProps>;

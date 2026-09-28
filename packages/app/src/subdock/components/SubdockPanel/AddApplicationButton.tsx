@@ -1,4 +1,4 @@
-import { Button, Style } from '@getstation/theme';
+import { Button, Size, Style } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -20,14 +20,12 @@ interface Props {
 
 @injectSheet(() => ({
   container: {
-    margin: '0 0 20px 20px',
-    paddingTop: 20,
-    left: 10,
+    margin: 0,
+    padding: '6px 12px 12px',
     textAlign: 'center',
   },
   button: {
-    marginRight: 20,
-    width: 'calc(100% - 20px)',
+    width: '100%',
   },
 }))
 export default class AddApplicationButton extends React.PureComponent<Props, {}> {
@@ -43,7 +41,7 @@ export default class AddApplicationButton extends React.PureComponent<Props, {}>
     if (notSingleInstance) {
       return (
         <div className={classes!.container}>
-          <Button className={classes!.button} btnStyle={Style.SECONDARY} onClick={onOpenNewTab}>
+          <Button className={classes!.button} btnStyle={Style.SECONDARY} btnSize={Size.SMALL} onClick={onOpenNewTab}>
             Add a new page
           </Button>
         </div>
@@ -54,7 +52,12 @@ export default class AddApplicationButton extends React.PureComponent<Props, {}>
     if (instanceWording) {
       return (
         <div className={classes!.container}>
-          <Button className={classes!.button} btnStyle={Style.SECONDARY} onClick={onClickAddNewInstance}>
+          <Button
+            className={classes!.button}
+            btnStyle={Style.SECONDARY}
+            btnSize={Size.SMALL}
+            onClick={onClickAddNewInstance}
+          >
             Add a new {instanceWording}
           </Button>
         </div>

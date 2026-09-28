@@ -9,6 +9,7 @@ import { SET_BURGER_STATUS } from '@src/graphql/schemes/burgerMenu';
 import { SET_SEARCH_STRING } from '@src/graphql/schemes/search';
 import { MutateSetBurgerStatusProps } from '@src/graphql/types/mutateSetBurgerStatus';
 import { MutateSetSearchStringProps } from '@src/graphql/types/mutateSetSearchString';
+import { accent } from '@src/theme';
 
 import AppStoreSearchInput from './AppStoreSearchInput/AppStoreSearchInput';
 import styles, { IClasses } from './styles';
@@ -66,8 +67,8 @@ class AppStoreSearchSection extends React.PureComponent<Props, {}> {
               <svg className={classes!.logo} xmlns="http://www.w3.org/2000/svg" width="20" height="23" viewBox="0 0 20 23">
                 <defs>
                   <linearGradient id="a" x1="50%" x2="50%" y1="100%" y2="0%">
-                    <stop offset="0%" stopColor="#1410B8" />
-                    <stop offset="100%" stopColor="#4ED8E4" />
+                    <stop offset="0%" stopColor={accent.ramp[3]} />
+                    <stop offset="100%" stopColor={accent.ramp[0]} />
                   </linearGradient>
                 </defs>
                 {/* tslint:disable-next-line:max-line-length */}

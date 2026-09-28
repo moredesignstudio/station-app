@@ -1,4 +1,4 @@
-import { GradientType, withGradient, ButtonIcon, IconSymbol, Style } from '@getstation/theme';
+import { ButtonIcon, GradientType, IconSymbol, Size, Style, ThemeTypes as Theme, withGradient } from '@getstation/theme';
 import * as classNames from 'classnames';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -41,7 +41,7 @@ export type Props = HocProps & DefaultProps & {
   headClassName?: string,
 };
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   container: {
     position: 'fixed',
     display: 'flex',
@@ -52,15 +52,16 @@ const styles = () => ({
     right: 0,
     overflow: 'auto',
     zIndex: 100,
-    backgroundImage: (props: Props) => props.themeGradient,
-    opacity: 1.00,
-    color: 'white',
-    borderLeft: '2px solid rgba(255, 255, 255, .4)',
-    padding: '100px 40px 40px',
+    backgroundColor: theme.surface.base,
+    color: theme.text.primary,
+    borderLeft: `1px solid ${theme.border.subtle}`,
+    padding: '72px 48px 48px',
+    ...theme.mixins.scrollbar(),
   },
   content: {
     flexGrow: 1,
-    maxWidth: '1000px',
+    width: '100%',
+    maxWidth: 960,
     alignSelf: 'center',
     '&>div': {
       display: 'inherit',
@@ -68,20 +69,21 @@ const styles = () => ({
     },
   },
   head: {
-    paddingBottom: '80px',
-    fontSize: '14px',
-    maxWidth: '1000px',
+    paddingBottom: 32,
+    maxWidth: 960,
     width: '100%',
     display: 'flex',
     alignSelf: 'center',
   },
   titleText: {
+    ...theme.titles.h1,
     flexGrow: 1,
+    margin: 0,
   },
   closeButton: {
     position: 'absolute !important',
-    top: 40,
-    left: 40,
+    top: 20,
+    left: 20,
   },
 });
 
@@ -115,7 +117,8 @@ class Overlay extends React.PureComponent<Props & HocProps> {
         <ButtonIcon
           onClick={withClickOutside ? noop : () => onClose('click')}
           symbolId={IconSymbol.CROSS}
-          btnStyle={Style.SECONDARY}
+          btnStyle={Style.TERTIARY}
+          btnSize={Size.SMALL}
           className={classes!.closeButton}
           type="button"
         />

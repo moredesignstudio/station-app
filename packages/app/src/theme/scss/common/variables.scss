@@ -1,14 +1,65 @@
 // Variables
 // —————————————————————————————————
+// Mirrors the dark design tokens in packages/theme/lib/tokens.ts.
+// Keep both files in sync.
 
 //== Base
 $gutter: 10px;
-$border-radius: 4px;
+$border-radius: 6px;
+$border-radius-lg: 8px;
+$border-radius-xl: 12px;
 $img-path: "../../static/";
 
-//== Colors
-$red: #FF5F5C;
+//== Surfaces
+$surface-base: #1B1A19;      // app background
+$surface-sidebar: #151413;   // dock rail
+$surface-panel: #232221;     // subdock, quick-switch, popovers
+$surface-elevated: #2B2A28;  // modals, tooltips, inputs
+$surface-inset: #141312;     // wells, bottom bars
+$scrim: rgba(0, 0, 0, 0.55);
 
+//== Fills (translucent white on dark)
+$fill-subtle: rgba(255, 255, 255, 0.04);
+$fill-hover: rgba(255, 255, 255, 0.06);
+$fill-active: rgba(255, 255, 255, 0.09);
+$fill-selected: rgba(255, 255, 255, 0.12);
+$fill-strong: rgba(255, 255, 255, 0.16);
+
+//== Borders
+$border-subtle: rgba(255, 255, 255, 0.06);
+$border-default: rgba(255, 255, 255, 0.10);
+$border-strong: rgba(255, 255, 255, 0.18);
+
+//== Text
+$text-primary: #ECEAE6;
+$text-secondary: #A9A69F;
+$text-tertiary: #78756E;
+$text-disabled: #55534E;
+$text-inverse: #1B1A19;
+
+//== Accent
+$accent: #D97757;
+$accent-hover: #E38A6C;
+$accent-active: #C4674A;
+$accent-subtle: rgba(217, 119, 87, 0.14);
+$accent-border: rgba(217, 119, 87, 0.45);
+$accent-text: #E8956F;
+
+//== Status
+$success: #6FBF8A;
+$warning: #D9A441;
+$danger: #E5625B;
+$info: #6FA3E6;
+$badge: #E5625B;
+$red: $danger;
+
+//== Shadows
+$shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06);
+$shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+$shadow-focus: 0 0 0 2px rgba(217, 119, 87, 0.45);
+
+//== Fonts
+$font-mono: "SF Mono", ui-monospace, Menlo, Consolas, "Liberation Mono", monospace;
 
 //== Z-indexes
 $zindex-ultime: 1000;
@@ -23,6 +74,6 @@ $zindex-null: 0;
 
 
 //== Global variables
-$body-bkg: #fff;
+$body-bkg: $surface-base;
 $osbar-height: 20px;
 $app-size: 50px;

@@ -1,4 +1,4 @@
-import { GradientType, InjectedProps as withGradientProps, withGradient } from '@getstation/theme';
+import { GradientType, InjectedProps as withGradientProps, ThemeTypes as Theme, withGradient } from '@getstation/theme';
 import * as React from 'react';
 import { compose } from 'react-apollo';
 // @ts-ignore: no declaration file
@@ -25,7 +25,7 @@ interface JSSProps {
   },
 }
 
-@injectSheet({
+@injectSheet((theme: Theme) => ({
   container: {
     position: 'fixed',
     top: 0,
@@ -42,24 +42,24 @@ interface JSSProps {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255, 0.1)',
-    borderRadius: '3px',
+    backgroundColor: 'transparent',
     height: '100%',
-    color: 'white',
-    fontSize: '16px',
+    ...theme.fontMixin(14),
+    color: theme.text.secondary,
     textAlign: 'center',
   },
   salutations: {
-    fontSize: '16px',
+    fontSize: 14,
   },
   announcement: {
-    marginTop: '30px',
-    color: 'rgba(255,255,255, 0.8)',
-    fontSize: '14px',
-    maxWidth: '420px',
+    marginTop: 24,
+    ...theme.fontMixin(13),
+    lineHeight: '1.5em',
+    color: theme.text.tertiary,
+    maxWidth: 420,
   },
   cartouche: {
-    marginBottom: '34px',
+    marginBottom: 34,
   },
   '@global': {
     '.fade-exit': {
@@ -70,7 +70,7 @@ interface JSSProps {
       transition: 'opacity 100ms ease-in',
     },
   },
-})
+}))
 class LoadingScreenImpl extends React.PureComponent<StateProps & JSSProps, {}> {
 
   render() {
@@ -96,7 +96,7 @@ class LoadingScreenImpl extends React.PureComponent<StateProps & JSSProps, {}> {
         <div className={classes.container2}>
           <div className={classes.salutations}>
             <p>
-              Your Station will be ready soon...
+              more mail will be ready soon...
             </p>
           </div>
           <div className={classes.announcement} dangerouslySetInnerHTML={{ __html: announcementHTML }}/>

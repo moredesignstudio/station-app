@@ -8,6 +8,10 @@ import injectSheet from 'react-jss';
 
 export interface Classes {
   container: string,
+  title: string,
+  message: string,
+  code: string,
+  url: string,
   button: string,
 }
 
@@ -21,10 +25,42 @@ export interface Props {
   tabUrl: string,
 }
 
-const styles = (_theme: Theme) => ({
+const styles = (theme: Theme) => ({
   container: {
-    color: 'white',
+    maxWidth: 420,
+    color: theme.text.primary,
     textAlign: 'center',
+  },
+  title: {
+    ...theme.fontMixin(16, 600),
+    letterSpacing: '-0.01em',
+    lineHeight: '24px',
+    color: theme.text.primary,
+  },
+  message: {
+    ...theme.fontMixin(13),
+    lineHeight: '20px',
+    marginTop: 8,
+    color: theme.text.secondary,
+  },
+  code: {
+    display: 'inline-block',
+    marginLeft: 6,
+    padding: [1, 6],
+    borderRadius: theme.radius.sm,
+    backgroundColor: theme.fill.subtle,
+    boxShadow: `inset 0 0 0 1px ${theme.border.subtle}`,
+    fontFamily: theme.font.mono,
+    fontSize: 11,
+    lineHeight: '16px',
+    color: theme.text.tertiary,
+  },
+  url: {
+    ...theme.fontMixin(12),
+    lineHeight: '18px',
+    marginTop: 6,
+    color: theme.text.tertiary,
+    wordBreak: 'break-all',
   },
   button: {
     width: '100%',
@@ -44,14 +80,17 @@ export default class ApplicationLoadingContainer extends React.PureComponent<Pro
   }
 
   renderErrorMessage = () => {
-    const { crashed, errorCode, errorDescription, tabUrl } = this.props;
+    const { classes, crashed, errorCode, errorDescription, tabUrl } = this.props;
     const errorObject = this.hasError() ? networkErrors.createByCode(errorCode) : null;
 
     if (!crashed && errorObject) {
       return (
         <>
-          <div>{errorObject.message} ({errorCode}:{errorDescription})</div>
-          <div>URL: {tabUrl}</div>
+          <div className={classes!.message}>
+            {errorObject.message}
+            <span className={classes!.code}>{errorCode}:{errorDescription}</span>
+          </div>
+          <div className={classes!.url}>URL: {tabUrl}</div>
         </>
       );
     }
@@ -65,10 +104,10 @@ export default class ApplicationLoadingContainer extends React.PureComponent<Pro
       <div className={classes!.container}>
         { this.hasError() &&
           <div>
-            <div>We can't load {applicationName}...</div>
+            <div className={classes!.title}>We can't load {applicationName}...</div>
             {this.renderErrorMessage()}
             <Button
-              btnStyle={Style.SECONDARY}
+              btnStyle={Style.PRIMARY}
               className={classes!.button}
               onClick={() => this.handleReloadClick()}
             >

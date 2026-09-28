@@ -1,4 +1,4 @@
-import { Modal } from '@getstation/theme';
+import { Modal, ThemeTypes as Theme } from '@getstation/theme';
 import * as Immutable from 'immutable';
 import * as pluralize from 'pluralize';
 import * as React from 'react';
@@ -27,17 +27,20 @@ type Props = DefaultProps & {
   applicationName: string,
 };
 
-@injectSheet(() => ({
+@injectSheet((theme: Theme) => ({
   modalBodyContent: {
     display: 'flex',
     flexFlow: 'wrap',
     textAlign: 'center',
     justifyContent: 'center',
+    color: theme.text.secondary,
   },
   hintText: {
-    paddingTop: '20px',
+    ...theme.fontMixin(12),
+    lineHeight: '1.5em',
+    paddingTop: 16,
     width: '100%',
-    color: '#949494',
+    color: theme.text.tertiary,
   },
 }))
 class RemoveModalConfirmation extends React.Component<Props> {

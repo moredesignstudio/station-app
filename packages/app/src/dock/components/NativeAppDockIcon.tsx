@@ -1,4 +1,6 @@
-import { Icon, IconSymbol, Tooltip } from '@getstation/theme';
+import {
+  fill as fillTokens, Icon, IconSymbol, radius, status, surface, text, Tooltip, transition,
+} from '@getstation/theme';
 import * as classNames from 'classnames';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -14,9 +16,9 @@ interface Classes {
   dockIcon: string,
   sizeHalf: string,
   sizeBig: string,
-  defaultInner: string,
-  defaultShape: string,
-  activeInner: string,
+  inner: string,
+  imageRing: string,
+  active: string,
   disabled: string,
 }
 
@@ -45,13 +47,11 @@ interface State {
   dockIcon: {
     display: 'block',
     margin: [2, 0],
-    '&:not($disabled):hover': {
-      '& $defaultInner': { fillOpacity: 0.2 },
-      '& $defaultShape': { fillOpacity: 1 },
-      '& $activeInner': {
-        animationName: 'none',
-        fillOpacity: 0.9,
-      },
+    color: text.secondary,
+    transition: `color ${transition.fast}`,
+    '&:not($disabled):not($active):hover': {
+      color: text.primary,
+      '& $inner': { fill: fillTokens.hover },
     },
   },
   sizeHalf: {
@@ -60,22 +60,19 @@ interface State {
   sizeBig: {
     margin: [4, 0],
   },
+  inner: {
+    fill: 'transparent',
+    transition: `fill ${transition.fast}`,
+  },
+  imageRing: {
+    fill: fillTokens.strong,
+  },
+  active: {
+    color: text.primary,
+    '& $inner': { fill: fillTokens.selected },
+  },
   disabled: {
-    opacity: .2,
-  },
-  defaultInner: {
-    fill: '#fff',
-    fillOpacity: 0,
-    transition: 'all 250ms ease-out',
-  },
-  activeInner: {
-    fill: '#fff',
-    transition: 'all 250ms ease-out',
-  },
-  defaultShape: {
-    fill: '#fff',
-    fillOpacity: 0.6,
-    transition: 'all 250ms ease-out',
+    color: text.disabled,
   },
 })
 export default class NativeAppDockIcon extends React.PureComponent<Props, State> {
@@ -89,7 +86,6 @@ export default class NativeAppDockIcon extends React.PureComponent<Props, State>
     onMouseLeave: () => {},
   };
 
-  maskId: string;
   imageId: string;
   img: SVGImageElement | null;
 
@@ -99,7 +95,6 @@ export default class NativeAppDockIcon extends React.PureComponent<Props, State>
       canRenderImage: true,
     };
 
-    this.maskId = `icon-mask-${shortid.generate()}`;
     this.imageId = `icon-img-${shortid.generate()}`;
   }
 
@@ -114,43 +109,22 @@ export default class NativeAppDockIcon extends React.PureComponent<Props, State>
   }
 
   renderImg() {
-    const { classes, active } = this.props;
+    const { classes } = this.props;
     return (
       <g>
-        { active &&
-          <rect width="42" height="24" x="4" y="0" rx="2" className={classes!.activeInner} />
-        }
-        <circle cx="25" cy="12" r="9" fill="#fff" className={classes!.defaultShape} />
+        <circle cx="25" cy="12" r="9" className={classes!.imageRing} />
         <circle cx="25" cy="12" r="8" fill={`url(#${this.imageId})`} />
       </g>
     );
   }
 
   renderIcon() {
-    const { classes, active, iconSymbolId, color, size } = this.props;
+    const { iconSymbolId, color } = this.props;
 
-    const sizeProps = {
-      [Size.NORMAL]: {
-        width: 42, height: 24, x: 4, y: 0, rx: 2,
-      },
-      [Size.BIG]: {
-        width: 36, height: 32, x: 0, y: 0, rx: 2,
-      },
-    };
-
-    // if active we display a masked icon
-    if (active) {
-      return (
-        <g fill="none" fillRule="evenodd" mask={`url(#${this.maskId})`}>
-          <rect {...sizeProps[size!]} className={classes!.activeInner} />
-        </g>
-      );
-    }
-
+    // `currentColor` lets the icon follow the hover / active / disabled
+    // color set on the root svg
     return (
-      <g className={classes!.defaultShape}>
-        <Icon symbolId={iconSymbolId} color={color} />
-      </g>
+      <Icon symbolId={iconSymbolId} color={color || 'currentColor'} />
     );
   }
 
@@ -159,23 +133,26 @@ export default class NativeAppDockIcon extends React.PureComponent<Props, State>
 
     if (!badge) return null;
 
-    // coords of the badge
-    let coords = { x: 34, y: 5 };
+    // center of the badge
+    let center = { cx: 36, cy: 7 };
 
     // for notificaton icon, for easthetism we'd like to place
     // the badge exactly on the dot of the icon
     if (iconSymbolId === IconSymbol.NOTIFICATION) {
-      coords = { ...coords, x: 28 };
+      center = { ...center, cx: 30 };
     }
 
     return (
-      <rect width="4" height="4" {...coords} fill="#EF5757" rx="2" />
+      <g>
+        <circle {...center} r="3.5" fill={surface.sidebar} />
+        <circle {...center} r="2.5" fill={status.badge} />
+      </g>
     );
   }
 
   renderSvg() {
     const {
-      classes, onMouseEnter, onMouseLeave, iconSymbolId, active, disabled, onClick, imageURL,
+      classes, onMouseEnter, onMouseLeave, active, disabled, onClick, imageURL,
       fallbackImageURL, size,
     } = this.props;
     const { canRenderImage } = this.state;
@@ -189,18 +166,21 @@ export default class NativeAppDockIcon extends React.PureComponent<Props, State>
     const className = classNames(
       classes!.dockIcon,
       sizeClassNames[size!],
-      { [classes!.disabled]: disabled }
+      {
+        [classes!.active]: active,
+        [classes!.disabled]: disabled,
+      }
     );
 
     const SizesProps = {
       [Size.HALF]: {
-        width: 25, height: 24, viewBox: '0 0 25 24', x: 0, y: 0, rx: 2, rectWidth: 25,
+        width: 25, height: 24, viewBox: '0 0 25 24', x: 0, y: 0, rx: radius.md, rectWidth: 25,
       },
       [Size.NORMAL]: {
-        width: 50, height: 24, viewBox: '0 0 50 24', x: 4, y: 0, rx: 2, rectWidth: 42,
+        width: 50, height: 24, viewBox: '0 0 50 24', x: 4, y: 0, rx: radius.md, rectWidth: 42,
       },
       [Size.BIG]: {
-        width: 50, height: 32, viewBox: '0 0 50 32', x: 4, y: 0, rx: 2, rectWidth: 42,
+        width: 50, height: 32, viewBox: '0 0 50 32', x: 4, y: 0, rx: radius.md, rectWidth: 42,
       },
     };
 
@@ -216,25 +196,23 @@ export default class NativeAppDockIcon extends React.PureComponent<Props, State>
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <defs>
-          <mask id={this.maskId}>
-            <rect width="100%" height="100%" fill="#ffffff" />
-            <g>
-              <Icon symbolId={iconSymbolId} size={24} color="#000" />
-            </g>
-          </mask>
-
-          { imageURL &&
+        { imageURL &&
+          <defs>
             <pattern id={this.imageId} width="100%" height="100%" x="0">
               <image ref={img => this.img = img} xlinkHref={canRenderImage ? imageURL : fallbackImageURL} width="16" height="16" />
             </pattern>
-          }
-        </defs>
+          </defs>
+        }
 
         <g>
-          { !active &&
-            <rect className={classes!.defaultInner} width={props.rectWidth} height={props.height} x={props.x} y={props.y} rx={props.rx} />
-          }
+          <rect
+            className={classes!.inner}
+            width={props.rectWidth}
+            height={props.height}
+            x={props.x}
+            y={props.y}
+            rx={props.rx}
+          />
           {imageURL ? this.renderImg() : this.renderIcon()}
           {this.renderBadge()}
         </g>

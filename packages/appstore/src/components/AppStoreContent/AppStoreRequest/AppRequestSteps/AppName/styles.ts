@@ -1,5 +1,6 @@
 import { Props } from '@src/components/AppStoreContent/AppStoreRequest/AppRequestSteps/AppName/AppName';
 import { animStylesData } from '@src/shared/constants/constants';
+import { colors } from '@src/theme';
 
 const styles = {
   stepContainer: {
@@ -42,10 +43,12 @@ const styles = {
     },
   },
   subTitle: {
-    fontSize: 18,
-    fontWeight: 500,
-    color: '#292929',
-    marginBottom: 30,
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: '24px',
+    letterSpacing: '-0.01em',
+    color: colors.textPrimary,
+    marginBottom: 24,
   },
   inputContainer: {
     marginBottom: 38,

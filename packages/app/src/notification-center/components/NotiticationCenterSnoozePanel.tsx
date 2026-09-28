@@ -1,3 +1,4 @@
+import { ThemeTypes } from '@getstation/theme';
 import * as React from 'react';
 import injectSheet from 'react-jss';
 import NotificationCenterSnoozePanelItem from './NotiticationCenterSnoozePanelItem';
@@ -14,21 +15,22 @@ export interface Props {
   handleSnooze: (duration: string) => any,
 }
 
-const styles = (theme: any) => ({
+const styles = (theme: ThemeTypes) => ({
   container: {
-    backgroundColor: 'white',
-    borderRadius: 4,
-    boxShadow: '1px 1px 5px 0px rgba(50, 50, 50, 0.75)',
-    padding: [6, 10],
-    minWidth: '100px',
-    marginTop: 5,
+    minWidth: 160,
+    marginTop: 6,
+    padding: 6,
+    backgroundColor: theme.surface.elevated,
+    borderRadius: theme.radius.lg,
+    boxShadow: theme.shadow.panel,
   },
   title: {
-    color: theme.colors.gray.dark,
-    fontWeight: 700,
+    display: 'block',
+    padding: [4, 8, 6],
+    ...theme.mixins.sectionLabel(),
   },
   list: {
-    marginTop: 6,
+    marginTop: 0,
   },
 });
 

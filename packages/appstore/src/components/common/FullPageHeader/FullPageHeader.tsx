@@ -3,14 +3,13 @@ import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import appStorePageHeaderStyles from '@src/components/AppStoreContent/AppStorePageHeader/styles';
 import { Icon, IconSymbol } from '@getstation/theme';
-import { colors } from '@src/theme';
+import { colors, font, transition } from '@src/theme';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = createUseStyles({
   extend: appStorePageHeaderStyles,
   title: {
-    fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
+    fontFamily: font.sans,
   },
   '@media (max-width: 599px)': {
     pageHeader: {
@@ -22,12 +21,15 @@ const useStyles = createUseStyles({
   },
   returnButton: {
     minWidth: 125,
-    border: `1px solid ${colors.blueGray}`,
+    border: `1px solid ${colors.borderDefault}`,
+    borderRight: 'none',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    cursor: 'pointer',
+    transition: `background-color ${transition.fast}`,
     '&:hover': {
-      backgroundColor: colors.blueGray10,
+      backgroundColor: colors.fillHover,
     },
   },
   wrapper: {
@@ -35,14 +37,14 @@ const useStyles = createUseStyles({
     top: 0,
     zIndex: 2,
     display: 'flex',
-    background: '#fafcfd',
+    background: colors.surfaceBase,
     '& $pageHeader': {
       width: '100%',
     },
   },
   icon: {
     '& path': {
-      fill: colors.blueGray100,
+      fill: colors.textSecondary,
     },
   },
 });

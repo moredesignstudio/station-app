@@ -22,11 +22,13 @@ type Props = {
   container: {
   },
   title: {
-    ...theme.fontMixin(12, 600),
-    margin: [20, 0, 10],
-    textTransform: 'uppercase',
+    ...theme.mixins.sectionLabel(),
+    margin: [16, 0, 6],
   },
   itemsWrapper: {
+    listStyle: 'none',
+    margin: 0,
+    padding: 0,
   },
 }))
 export default class List extends React.PureComponent<Props, {}> {

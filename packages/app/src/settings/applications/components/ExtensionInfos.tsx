@@ -38,13 +38,15 @@ type State = {
     paddingBottom: 10,
   },
   description: {
-    fontSize: 12,
-    marginLeft: 15,
+    ...theme.fontMixin(12),
+    lineHeight: '1.4em',
+    color: theme.text.secondary,
+    marginLeft: 12,
     maxWidth: '75%',
   },
   subtitle: {
-    ...theme.fontMixin(12, 600),
-    margin: [20, 0, 10],
+    ...theme.mixins.sectionLabel(),
+    margin: [16, 0, 8],
   },
   update: {
     display: 'flex',
@@ -86,7 +88,7 @@ class ExtensionInfos extends React.PureComponent<Props, State> {
     switch (status) {
       case StatusState.Updatable:
         this.setState({
-          updateWording: `An update (v${extensionUpdate!.version.number}) is available and will be applied when Station restarts`,
+          updateWording: `An update (v${extensionUpdate!.version.number}) is available and will be applied when more mail restarts`,
         });
         break;
       case StatusState.CheckingForUpdate:

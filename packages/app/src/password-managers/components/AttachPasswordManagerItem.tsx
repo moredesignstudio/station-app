@@ -43,7 +43,7 @@ export interface State {
     boxSizing: 'border-box',
     marginTop: -10,
     padding: [0, 20, 10],
-    backgroundColor: theme.colors.gray.light,
+    backgroundColor: theme.surface.elevated,
     zIndex: 1,
   },
   modalBody: {
@@ -52,18 +52,15 @@ export interface State {
   body: {
     marginTop: 50,
     height: 180,
-    '& input, input:hover:enabled, input:active:enabled': {
-      backgroundColor: 'white',
-    },
   },
   noResults: {
     ...theme.mixins.flexbox.containerCenter,
     height: '100%',
     boxSizing: 'border-box',
     padding: 60,
-    ...theme.fontMixin(14, 500),
+    ...theme.fontMixin(13, 500),
     lineHeight: '20px',
-    color: theme.colors.gray.middle,
+    color: theme.text.secondary,
     textAlign: 'center',
   },
   chooser: {

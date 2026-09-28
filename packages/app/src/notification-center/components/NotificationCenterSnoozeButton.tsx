@@ -1,4 +1,4 @@
-import { Switcher, ButtonIcon, IconSymbol, Size, Style } from '@getstation/theme';
+import { Switcher, ButtonIcon, IconSymbol, Size, Style, ThemeTypes } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import ClickOutside from 'react-click-outside';
@@ -29,32 +29,23 @@ export interface State {
   snoozePanelOpened: boolean,
 }
 
-const styles = () => ({
+const styles = (theme: ThemeTypes) => ({
   buttonContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   switcherWrapper: {
-    marginRight: 2,
-    transition: 'all 250ms ease-out',
-    padding: 2,
-    borderTopLeftRadius: '20px',
-    borderBottomLeftRadius: '20px',
-    backgroundColor: 'rgba(255,255,255, 0.1)',
-    '&:hover': {
-      backgroundColor: 'rgba(255,255,255, 0.2)',
-    },
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: 6,
   },
   // this is used so that the divs added by popper don't screw things
   inheritDisplay: {
     display: 'inherit',
   },
   buttonIconOverride: {
-    height: 25,
-    borderRadius: 0,
-    borderTopRightRadius: '20px',
-    borderBottomRightRadius: '20px',
+    flexShrink: 0,
   },
   arrow: {
     position: 'absolute',
@@ -62,7 +53,7 @@ const styles = () => ({
     height: 0,
     borderLeft: '5px solid transparent',
     borderRight: '5px solid transparent',
-    borderBottom: '5px solid white',
+    borderBottom: `5px solid ${theme.surface.elevated}`,
   },
 });
 
@@ -129,9 +120,9 @@ class NotificationCenterSnoozeButton extends React.PureComponent<Props, State> {
                     <ButtonIcon
                       className={classes!.buttonIconOverride}
                       symbolId={IconSymbol.TIME}
-                      btnStyle={Style.SECONDARY}
+                      btnStyle={Style.TERTIARY}
                       onClick={this.toggleSnoozePanel}
-                      btnSize={Size.XSMALL}
+                      btnSize={Size.SMALL}
                     />
                   </div>
                 )}

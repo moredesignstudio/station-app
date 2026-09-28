@@ -11,10 +11,10 @@ const useStyles = createUseStyles({
     overflowY: 'hidden',
   },
   description: {
-    fontSize: '14px',
-    fontWeight: 'bold',
-    letterSpacing: '0.25px',
-    color: colors.blueGray100,
+    fontSize: 13,
+    fontWeight: 600,
+    letterSpacing: '-0.01em',
+    color: colors.textPrimary,
     position: 'relative',
   },
   listContainer: {
@@ -26,7 +26,7 @@ const useStyles = createUseStyles({
       top: '350px',
       width: '100%',
       height: '50px',
-      background: 'linear-gradient(rgba(255, 255, 255, 0.05), white)',
+      background: `linear-gradient(transparent, ${colors.surfaceBase})`,
       pointerEvents: 'none',
     },
   },

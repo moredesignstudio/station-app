@@ -77,8 +77,8 @@ function asyncInit(store: StationStoreWorker, sagaMiddleware: SagaMiddleware<any
         remote.dialog.showMessageBox({
           type: 'error',
           buttons: ['OK'],
-          title: 'Station Fatal Error',
-          message: 'Station Fatal Error',
+          title: 'more mail Fatal Error',
+          message: 'more mail Fatal Error',
           detail: err.message,
         }, () => {
           services.electronApp.quit();

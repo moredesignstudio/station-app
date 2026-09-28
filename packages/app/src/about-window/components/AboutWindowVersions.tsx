@@ -28,16 +28,21 @@ const styles = (theme: Theme) => ({
     justifyContent: 'space-between',
     marginBottom: 25,
   },
-  title: { ...theme.titles.h2 },
+  title: {
+    ...theme.titles.h2,
+    marginBottom: 12,
+  },
   thin: {
-    marginLeft: 3,
+    marginLeft: 6,
     fontWeight: 400,
-    opacity: 0.5,
+    color: theme.text.tertiary,
   },
   version: {
+    ...theme.fontMixin(12, 500),
+    fontFamily: theme.font.mono,
+    lineHeight: '18px',
     marginBottom: 6,
-    fontSize: 12,
-    fontWeight: 'bold',
+    color: theme.text.secondary,
   },
 });
 

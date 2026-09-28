@@ -1,6 +1,7 @@
 import { ContextEnvPlatform } from '@src/app';
 import { AppStorePaneProps, Props } from '@src/components/AppStorePane';
 import { WithAppModalStatusProps } from '@src/HOC/withAppModalStatus';
+import { colors, font } from '@src/theme';
 
 export const noPaneMatchers = [/\/onboarding\/create/, /\/onboarding\/edit/];
 
@@ -8,9 +9,10 @@ const styles = {
   '@global': {
     body: {
       margin: 0,
-      fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-                  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
+      fontFamily: font.sans,
       fontWeight: 'normal',
+      backgroundColor: colors.surfaceBase,
+      color: colors.textPrimary,
       '-webkit-font-smoothing': 'antialiased',
     },
     '*': {
@@ -21,7 +23,7 @@ const styles = {
   appStore: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'white',
+    backgroundColor: colors.surfaceBase,
     overflow: ({ isAppModalOpen }: WithAppModalStatusProps) => isAppModalOpen ? 'hidden' : 'visible',
     minWidth: '300px',
     '-webkit-overflow-scrolling': 'touch',

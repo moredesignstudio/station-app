@@ -1,4 +1,4 @@
-import { Button, Size, Style } from '@getstation/theme';
+import { Button, Size, Style, ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -20,26 +20,24 @@ export interface Props {
   onGDriveConnect: () => any,
 }
 
-@injectSheet(() => ({
+@injectSheet((theme: Theme) => ({
   container: {
-    left: '5%',
-    top: 'calc(50% - 26px)',
     display: 'flex',
-    width: '90%',
     flexDirection: 'column',
-    margin: 'auto',
-    color: 'white',
+    padding: [0, 20, 12],
+    color: theme.text.primary,
   },
   item: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    margin: [15, 0],
-    padding: 10,
-    backgroundColor: 'rgba(0, 0, 0, .1)',
-    fontSize: 11,
-    borderRadius: 100,
-    border: '1px solid rgba(255, 255, 255, .1)',
+    gap: 12,
+    margin: [8, 0],
+    padding: 12,
+    backgroundColor: theme.fill.subtle,
+    fontSize: 12,
+    borderRadius: theme.radius.lg,
+    border: `1px solid ${theme.border.subtle}`,
   },
   itemDescription: {
     flexGrow: 1,
@@ -50,15 +48,18 @@ export interface Props {
     flexShrink: 0,
   },
   kbShortcut: {
-    backgroundColor: 'rgba(0,0,0,0.75)',
-    padding: [3, 8],
-    borderRadius: 10,
+    ...theme.mixins.kbd(),
   },
   gdriveIcon: {
-    width: 30,
+    width: 28,
+    flexShrink: 0,
   },
   gdriveDesc: {
-    margin: [0, 10],
+    flex: 1,
+    margin: 0,
+    color: theme.text.secondary,
+    fontSize: 12,
+    lineHeight: 1.5,
   },
 }))
 export default class BangInsert extends React.PureComponent<Props> {

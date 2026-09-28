@@ -18,13 +18,17 @@ export interface StateToProps {
   themeGradient: string,
 }
 
-const styles = (_theme: Theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     width: 250,
-    borderRadius: 5,
-    boxShadow: '0px 0px 60px -5px rgba(0,0,0,0.75)',
-    backgroundImage: (props: StateToProps & OwnProps) => props.themeGradient,
-    backgroundAttachment: 'fixed',
+    boxSizing: 'border-box',
+    padding: 8,
+    borderRadius: theme.radius.lg,
+    boxShadow: theme.shadow.panel,
+    backgroundColor: theme.surface.elevated,
+    color: theme.text.primary,
+    ...theme.fontMixin(13),
+    lineHeight: '18px',
   },
 });
 

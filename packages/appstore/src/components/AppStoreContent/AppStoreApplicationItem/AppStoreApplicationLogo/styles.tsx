@@ -1,9 +1,11 @@
 import { ThemeTypes } from '@getstation/theme';
 import * as isBlank from 'is-blank';
+import { colors } from '@src/theme';
 
 import { AppStoreApplicationLogoProps } from './AppStoreApplicationLogo';
 
-const defaultThemeColor = '#3070C2';
+/** Fallback circle color for applications that don't ship a theme color. */
+const defaultThemeColor = colors.surfaceElevated;
 const checkThemeColor = (color: string | undefined) => {
   if (isBlank(color)) return false;
   if (color!.length !== 7) return false;
@@ -38,8 +40,8 @@ const styles = (theme: ThemeTypes) => ({
     bottom: -6,
     right: -7,
     ...theme.mixins.size(22),
-    backgroundColor: '#BBB',
-    border: '2px solid white',
+    backgroundColor: theme.surface.elevated,
+    border: `2px solid ${theme.surface.base}`,
     borderRadius: '100%',
   },
 });

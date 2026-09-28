@@ -76,6 +76,9 @@ export default class GenericWindowManager extends EventEmitter {
     if (this.isCreated()) return this.window;
 
     this.window = await services.browserWindow.create({
+      // dark theme: paint the native window in the app background color so
+      // there is no white flash before the renderer loads
+      backgroundColor: '#1B1A19',
       ...options,
       preventNavigation: true,
       webPreferences: {

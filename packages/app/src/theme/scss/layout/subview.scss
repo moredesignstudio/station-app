@@ -34,7 +34,7 @@ $favicon-size: 20px;
 }
 
 .l-subview__title {
-  color: rgba(#fff, 0.8);
+  color: $text-secondary;
   flex: 0 0 $title-height;
   line-height: $title-height;
   position: relative;
@@ -51,12 +51,13 @@ $favicon-size: 20px;
   @include avatar($favicon-size);
 }
 .l-subview__content {
-  background-color: #fff;
-  // nope don't do that on webview
-  //border-radius: $border-radius $border-radius 0 0;
+  background-color: $surface-base;
   flex: 1 1 auto;
   position: relative;
   z-index: $zindex-medium;
+  border-radius: $border-radius-lg $border-radius-lg 0 0;
+  overflow: hidden;
+  box-shadow: $shadow-modal;
   @include animation(showSubViewContent 800ms 1 cubic-bezier(0.19, 1, 0.22, 1));
   @include scrolling();
 
@@ -72,7 +73,7 @@ $favicon-size: 20px;
   }
 }
 .l-subview__overlay {
-  background-color: rgba(#000, 0.8);
+  background-color: $scrim;
   z-index: $zindex-small;
   @include coverer();
 }
@@ -95,7 +96,7 @@ $favicon-size: 20px;
   right: $gutter + $favicon-size + $gutter + $favicon-size + $gutter;
 }
 .l-subview__reduce__border {
-  opacity: 0.3;
+  opacity: 0.4;
 
   //== States
   .l-subview__reduce:hover &,
@@ -111,8 +112,8 @@ $favicon-size: 20px;
 
   //== Children
   span {
-    color: rgba(#000, 0.5);
+    color: $text-secondary;
     margin: auto;
-    @include font(16px, 600);
+    @include font(14px, 500);
   }
 }

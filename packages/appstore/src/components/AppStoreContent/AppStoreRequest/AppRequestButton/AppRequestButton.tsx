@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
 import * as classNames from 'classnames';
-import { colors } from '@src/theme';
+import { colors, radius, shadow } from '@src/theme';
 import { Button, Icon, IconSymbol, Size } from '@getstation/theme';
 import { customAppsMode, screenHash } from '@src/shared/constants/constants';
 import {
@@ -14,8 +14,10 @@ import {
 const useStyles = createUseStyles({
   appRequestTooltip: {
     width: 100,
-    borderRadius: 5,
-    backgroundColor: 'gray',
+    borderRadius: radius.md,
+    backgroundColor: colors.surfaceElevated,
+    boxShadow: shadow.tooltip,
+    color: colors.textPrimary,
     position: 'absolute',
     right: 60,
     padding: [6, 0, 8],
@@ -25,10 +27,8 @@ const useStyles = createUseStyles({
       display: 'block',
     },
   },
+  // The theme `Button` (PRIMARY = accent) provides the colors; only the layout is tuned here.
   addAppBtn: {
-    fontSize: 12,
-    fontWeight: 600,
-    backgroundColor: [[`${colors.stationBlue}`], '!important'],
     cursor: 'pointer',
     '&.addAppBtn_small': {
       padding: [0, 21],

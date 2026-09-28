@@ -1,51 +1,61 @@
-import { colors } from '@src/theme';
+import { colors, radius, transition } from '@src/theme';
 
 const styles = {
   navButton: {
     listStyleType: 'none',
-    minHeight: 36,
-    paddingLeft: 30,
-    paddingRight: 10,
-    color: colors.blueGray100,
+    minHeight: 28,
+    margin: [1, 8],
+    padding: [5, 10],
+    borderRadius: radius.md,
+    color: colors.textSecondary,
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
-    transition: 'background-color .2s',
-    '&:hover $content': {
-      transform: 'translateX(7px)',
-      transition: 'transform .3s',
+    transition: `background-color ${transition.fast}, color ${transition.fast}`,
+    '&:hover': {
+      backgroundColor: colors.fillHover,
+      color: colors.textPrimary,
     },
   },
   activeNavButton: {
-    backgroundColor: colors.hoverBlue,
-    transition: 'background-color .2s',
+    backgroundColor: colors.fillSelected,
+    color: colors.textPrimary,
+    '&:hover': {
+      backgroundColor: colors.fillSelected,
+    },
+    '& $title': {
+      fontWeight: 500,
+    },
   },
   content: {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    transition: 'transform .3s',
   },
   title: {
-    color: colors.blueGray100,
+    color: 'inherit',
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 13,
+    fontWeight: 400,
+    lineHeight: '18px',
   },
   titleName: {
     marginRight: 4,
   },
   icon: {
-    minWidth: '14px',
-    width: '14px',
-    height: '14px',
-    marginRight: '12px',
+    minWidth: 14,
+    width: 14,
+    height: 14,
+    marginRight: 10,
+    flexShrink: 0,
+    color: 'inherit',
+    fill: 'currentColor',
   },
   '@media (min-width: 600px)': {
     navButton: {
-      paddingLeft: 21,
+      margin: [1, 8],
     },
   },
 };

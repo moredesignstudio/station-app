@@ -38,11 +38,12 @@ export interface OverridableProps {
 @injectSheet((theme: Theme) => ({
   container: {
     padding: 20,
-    borderTop: '1px solid rgba(255, 255, 255, .1)',
+    borderTop: `1px solid ${theme.border.subtle}`,
+    color: theme.text.primary,
   },
   title: {
-    ...theme.fontMixin(12, 'bold'),
-    marginBottom: 15,
+    ...theme.mixins.sectionLabel(),
+    marginBottom: 12,
   },
 }))
 class PasswordManagerSubdockImpl extends React.PureComponent<Props & OverridableProps, {}> {

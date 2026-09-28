@@ -1,3 +1,4 @@
+import { text } from '@getstation/theme';
 import Maybe from 'graphql/tsutils/Maybe';
 import * as React from 'react';
 // @ts-ignore
@@ -23,8 +24,13 @@ const styles = {
     textAlign: 'center',
   },
   content: {
-    color: 'white',
+    color: text.secondary,
     fontSize: 13,
+    lineHeight: '20px',
+    '& strong': {
+      color: text.primary,
+      fontWeight: 500,
+    },
   },
 };
 

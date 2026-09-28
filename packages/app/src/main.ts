@@ -110,12 +110,12 @@ const overrideUserDataPath = () => {
     const userDataPath = path.join(app.getPath('appData'), process.env.OVERRIDE_USER_DATA_PATH);
     app.setPath('userData', userDataPath);
   } else if (!isPackaged) {
-    app.name = 'Station Dev';
-    const userDataPath = path.join(app.getPath('appData'), 'Station Dev');
+    app.name = 'more mail dev';
+    const userDataPath = path.join(app.getPath('appData'), 'more mail dev');
     app.setPath('userData', userDataPath);
   } else {
-    // do not conflict with pre open-source data
-    const userDataPath = path.join(app.getPath('appData'), 'Stationv2');
+    // keep separate from the original Station app's data
+    const userDataPath = path.join(app.getPath('appData'), 'more mail');
     app.setPath('userData', userDataPath);
   }
 };

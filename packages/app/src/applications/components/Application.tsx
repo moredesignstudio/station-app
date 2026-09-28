@@ -1,7 +1,7 @@
 import * as React from 'react';
 // @ts-ignore
 import injectSheet, { WithSheet } from 'react-jss';
-import { createStyles, ThemeTypes, Icon, IconSymbol } from '@getstation/theme';
+import { createStyles, ThemeTypes, Icon, IconSymbol, text } from '@getstation/theme';
 import { roundedBackground } from '@getstation/theme/dist/jss';
 import { MinimalApplication } from '../graphql/withApplications';
 import AppIcon from '../../dock/components/AppIcon';
@@ -33,17 +33,17 @@ const styles = (theme: ThemeTypes) => createStyles({
   container: {
     flex: 0,
     display: 'inline-flex',
-    color: 'rgb(38, 33, 33)',
+    color: theme.text.primary,
     alignItems: 'center',
     width: (({ alternate }: OwnProps) => alternate ? null : 195) as any,
     margin: '0 7px 10px 0',
     padding: (({ alternate }: OwnProps) => alternate ? '0px 5px 10px 0' : 10) as any,
     backgroundColor: 'transparent',
-    borderRadius: '999px',
-    transition: '200ms',
+    borderRadius: theme.radius.md,
+    transition: `background-color ${theme.transition.fast}`,
     userSelect: 'none',
     '&:hover': {
-      backgroundColor: ({ alternate }: OwnProps) => alternate ? 'none' : '#EEE',
+      backgroundColor: ({ alternate }: OwnProps) => alternate ? 'none' : theme.fill.hover,
     } as any,
   },
   iconContainer: {
@@ -59,14 +59,15 @@ const styles = (theme: ThemeTypes) => createStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     '& small': {
-      fontSize: '10px',
-      fontStyle: 'italic',
+      fontSize: '11px',
+      color: theme.text.secondary,
     },
   },
   applicationName: {
     display: 'inline-block',
-    fontSize: '12px',
-    fontWeight: 600,
+    fontSize: '13px',
+    fontWeight: 500,
+    color: theme.text.primary,
   },
   icon: {
     display: 'inline-block',
@@ -79,25 +80,25 @@ const styles = (theme: ThemeTypes) => createStyles({
     bottom: -6,
     right: -7,
     ...theme.mixins.size(22),
-    backgroundColor: '#BBB',
-    border: '2px solid white',
+    backgroundColor: theme.surface.elevated,
+    border: `2px solid ${theme.surface.panel}`,
     borderRadius: '100%',
   },
   action: {
     flexShrink: 0,
-    ...roundedBackground('#999'),
+    ...roundedBackground(theme.fill.strong),
     opacity: 0,
     cursor: 'pointer',
-    transition: '200ms',
+    transition: `opacity ${theme.transition.fast}`,
     '$container:hover &': {
-      opacity: .6,
+      opacity: .7,
     },
     '&:hover': {
       opacity: '1 !important',
     } as any,
   },
   svgPath: {
-    fill: 'white',
+    fill: theme.text.primary,
   },
 });
 
@@ -130,7 +131,7 @@ class ApplicationImpl extends React.PureComponent<Props, {}> {
 
           {isExtension &&
             <div className={classes!.iconPin}>
-              <Icon symbolId={IconSymbol.EXTENSION} size={25} color={'#5d5d5d'} />
+              <Icon symbolId={IconSymbol.EXTENSION} size={25} color={text.secondary} />
             </div>
           }
         </div>

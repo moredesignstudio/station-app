@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import * as classNames from 'classnames';
+import { sectionLabelMixin } from '@getstation/theme';
 import { WithBurgerMenuStatus } from '@src/HOC/withBurgerMenuStatus';
 import AppStoreAsideNavRouterButton
   from '@src/components/AppStoreAside/AppStoreAsideNav/AppStoreAsideNavRouterButton/AppStoreAsideNavRouterButton';
@@ -9,27 +10,22 @@ import { ContextEnvPlatform } from '@src/context';
 
 const useStyles = createUseStyles({
   navMenu: {
-    color: colors.blueGray100,
+    color: colors.textSecondary,
   },
   title: {
     display: ({ appStoreContext }: AppStoreAsideNavMenuProps) => appStoreContext !== ContextEnvPlatform.Browser ? 'block' : 'none',
-    fontSize: 11,
-    fontWeight: 'bold',
-    color: colors.blueGray100,
-    paddingLeft: 30,
-    paddingRight: 10,
-    marginBottom: '14px',
-    letterSpacing: 0.55,
-    opacity: '.5',
+    ...sectionLabelMixin(),
+    lineHeight: '16px',
+    padding: [0, 18],
+    marginBottom: 6,
   },
   navList: {
     padding: 0,
-    margin: [0, 0, 25, 0],
+    margin: [0, 0, 16, 0],
   },
   '@media (min-width: 600px)': {
     title: {
       display: () => 'block',
-      paddingLeft: 21,
     },
   },
 });

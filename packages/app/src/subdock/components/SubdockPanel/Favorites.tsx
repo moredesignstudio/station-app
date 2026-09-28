@@ -67,7 +67,7 @@ const Favorites = ({
       <div className={classes!.sectionHeader}>
         <p className={classes!.title}>
           Pinned pages
-          {nbTabs > 5 && <span> : {nbTabs}</span>}
+          {nbTabs > 5 && <span className={classes!.count}>{nbTabs}</span>}
         </p>
       </div>
       <div

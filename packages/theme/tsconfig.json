@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "jsx": "react",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./lib",
+    "removeComments": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "react": [
+        "../../node_modules/@types/react"
+      ],
+      "react-dom": [
+        "../../node_modules/@types/react-dom"
+      ]
+    },
+    "typeRoots": [
+      "../../node_modules/@types"
+    ],
+    "types": [
+      "react",
+      "react-dom",
+      "node"
+    ]
+  },
+  "include": [
+    "lib/**/*.ts",
+    "lib/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts",
+    "**/stories.tsx",
+    "lib/stories/**"
+  ]
+}

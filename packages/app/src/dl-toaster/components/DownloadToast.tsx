@@ -1,4 +1,4 @@
-import { Icon, IconSymbol, ThemeTypes as Theme } from '@getstation/theme';
+import { ButtonIcon, IconSymbol, Size, Style, ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -10,10 +10,12 @@ import { number } from '@storybook/addon-knobs';
 
 export interface Classes {
   container: string,
+  progressTrack: string,
   progress: string,
   wrapper: string,
   appIcon: string,
   content: string,
+  status: string,
   filename: string,
   successWrapper: string,
   filenameSuccess: string,
@@ -49,68 +51,76 @@ export type FullProps = Props & InjectedProps;
 
 const noop = () => {};
 
+const isFinished = (props: Props) => Boolean(props.failed) || props.completionPercent === 100;
+
 const styles = (theme: Theme) => ({
   container: {
     position: 'relative',
-    width: 265,
-    height: 65,
-    backgroundColor: (props: Props) => {
-      if (props.failed) {
-        return 'darkred';
-      }
-      return theme.mixinDarkenColor(props.themeColor, 0.3);
-    },
-    borderRadius: 4,
-    marginTop: 5,
+    display: 'flex',
+    flexDirection: 'column',
+    width: 320,
+    marginTop: 8,
+    overflow: 'hidden',
+    backgroundColor: theme.surface.elevated,
+    border: `1px solid ${theme.border.subtle}`,
+    borderRadius: theme.radius.lg,
+    boxShadow: theme.shadow.panel,
+    color: theme.text.primary,
+    fontFamily: theme.font.sans,
+  },
+  progressTrack: {
+    display: (props: Props) => isFinished(props) ? 'none' : 'block',
+    height: 3,
+    margin: [-2, 12, 12, 12],
+    overflow: 'hidden',
+    borderRadius: theme.radius.pill,
+    backgroundColor: theme.fill.active,
   },
   progress: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
+    height: '100%',
     width: (props: Props) => `${props.completionPercent}%`,
-    backgroundColor: 'rgba(0, 0, 0, .3)',
-    borderRadius: 4,
-    transition: '200ms',
+    borderRadius: theme.radius.pill,
+    backgroundColor: theme.accent.default,
+    transition: `width ${theme.transition.normal}`,
   },
   wrapper: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 15,
-    color: 'white',
+    gap: 10,
+    padding: [12, 10, 12, 12],
     fontSize: 12,
-    zIndex: 1,
+    lineHeight: '16px',
   },
   content: {
     ...theme.mixins.ellipsis(2),
     flexGrow: 1,
-    padding: '0 10px',
+    minWidth: 0,
+  },
+  status: {
+    ...theme.fontMixin(12),
+    color: (props: Props) => props.failed ? theme.status.danger : theme.text.secondary,
   },
   filename: {
-    width: 160,
-    fontWeight: 600,
+    ...theme.fontMixin(13, 500),
+    color: theme.text.primary,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   successWrapper: {
     ...theme.mixins.ellipsis(2),
     cursor: 'pointer',
   },
   filenameSuccess: {
-    width: 160,
-    color: 'rgba(255, 255, 255, .5)',
+    ...theme.fontMixin(13, 500),
+    color: theme.text.primary,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   close: {
-    ...theme.mixins.flexbox.containerCenter,
     flexShrink: 0,
-    ...theme.mixins.size(25),
-    backgroundColor: 'rgba(255, 255, 255, .5)',
-    border: 0,
-    borderRadius: 100,
-    cursor: 'pointer',
-    outline: 'none',
   },
 });
 
@@ -146,24 +156,30 @@ class DownloadToast extends React.PureComponent<FullProps> {
             {
               !finished ? (
                 <div>
-                  <div>Downloading</div>
+                  <div className={classes!.status}>Downloading</div>
                   <div className={classes!.filename}>{filename}</div>
                 </div>
               ) : (
                 <div className={classes!.successWrapper}>
-                  <div>{failed ? 'Failed download' : 'Successful download'}!</div>
+                  <div className={classes!.status}>{failed ? 'Failed download' : 'Successful download'}!</div>
                   <div className={classes!.filenameSuccess}>{filename}</div>
                 </div>
               )
             }
           </div>
 
-          <button className={classes!.close} onClick={onClickHide}>
-            <Icon symbolId={IconSymbol.CROSS} size={25} />
-          </button>
+          <ButtonIcon
+            className={classes!.close}
+            symbolId={IconSymbol.CROSS}
+            btnStyle={Style.TERTIARY}
+            btnSize={Size.XSMALL}
+            onClick={onClickHide}
+          />
         </div>
 
-        <div className={classes!.progress} />
+        <div className={classes!.progressTrack}>
+          <div className={classes!.progress} />
+        </div>
       </div>
     );
   }

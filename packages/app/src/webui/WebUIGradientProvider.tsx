@@ -1,4 +1,4 @@
-import { GradientProvider } from '@getstation/theme';
+import { DARK_THEME_COLORS, GradientProvider } from '@getstation/theme';
 import * as React from 'react';
 import { Observable, Subscription } from 'rxjs';
 
@@ -18,7 +18,7 @@ export class WebUIGradientProvider extends React.Component<Props, State> {
     super(props);
     this.state = {
       // default theme colors, just in case
-      themeColors: ['#2B91BA', '#3794C2', '#4B99CF', '#629FDD'],
+      themeColors: DARK_THEME_COLORS,
     };
 
     this.subscription = props.themeColorsObservable.subscribe(themeColors => {

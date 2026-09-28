@@ -52,13 +52,16 @@ const styles = (theme: Theme) => ({
   header: {
     ...theme.titles.h2,
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    gap: 16,
+    marginBottom: 16,
   },
   thin: {
-    marginLeft: 3,
+    marginLeft: 6,
+    fontSize: 13,
     fontWeight: 400,
-    opacity: 0.5,
+    color: theme.text.tertiary,
   },
 });
 

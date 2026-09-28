@@ -1,76 +1,112 @@
+import { accent, border, fill, font, radius, shadow, text, transition } from '@getstation/theme';
+
 import { JSSClasses } from '../../../../types';
 
 export type StylesType = JSSClasses<typeof styles>;
 export type IdentitiesStylesType = JSSClasses<typeof identitiesStyle>;
 
+const inputBorder = (color: string) => `inset 0 0 0 1px ${color}`;
+
 export const styles = {
   help: {
-    marginBottom: 17,
-    fontSize: 13,
+    marginBottom: 16,
+    fontFamily: font.sans,
+    fontSize: 15,
     fontWeight: 600,
+    letterSpacing: '-0.01em',
+    lineHeight: '1.4em',
+    color: text.primary,
   },
   input: {
-    flexGrow: 1,
-    paddingBottom: 5,
-    color: 'white',
-    backgroundColor: 'transparent',
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    width: 150,
+    height: 32,
+    padding: [0, 10],
+    boxSizing: 'border-box',
+    appearance: 'none',
     border: 0,
-    borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+    borderRadius: radius.md,
+    boxShadow: inputBorder(border.default),
+    fontFamily: font.sans,
+    fontSize: 13,
+    color: text.primary,
+    backgroundColor: fill.subtle,
+    caretColor: accent.default,
+    transition: `box-shadow ${transition.fast}, background-color ${transition.fast}`,
+    '&:hover:not(:focus)': {
+      boxShadow: inputBorder(border.strong),
+    },
+    '&:focus': {
+      outline: 'none',
+      backgroundColor: fill.hover,
+      boxShadow: `${inputBorder(accent.border)}, ${shadow.focus}`,
+    },
     '&::placeholder': {
-      textAlign: 'center',
-      color: 'white',
-      opacity: 0.6,
+      color: text.tertiary,
+      opacity: 1,
     },
   },
   largeInput: {
-    width: 220,
+    width: 240,
+  },
+  suffix: {
+    marginLeft: 6,
+    fontSize: 13,
+    color: text.secondary,
+    verticalAlign: 'middle',
   },
   subContainer: {
-    marginTop: 20,
+    marginTop: 16,
   },
-  withPointer: {
+  withPointer: {
     cursor: 'pointer',
+    fontSize: 12,
+    lineHeight: '1.4em',
+    color: text.secondary,
+    transition: `color ${transition.fast}`,
+    '&:hover': {
+      color: text.primary,
+    },
   },
 };
 
 export const identitiesStyle = {
   ...styles,
-  accountContainer: {
+  accountContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    listStyle: 'none',
+    padding: 0,
+    margin: 0,
   },
   account: {
-    width: 220,
+    width: 240,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     height: 40,
-    marginBottom: 2,
-    padding: [12, 8],
-    fontSize: 11,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    transition: 'background-color 100ms ease-out',
+    marginBottom: 4,
+    padding: [0, 12],
+    boxSizing: 'border-box',
+    fontSize: 13,
+    fontWeight: 500,
+    color: text.primary,
+    backgroundColor: fill.subtle,
+    boxShadow: `inset 0 0 0 1px ${border.subtle}`,
+    borderRadius: radius.lg,
+    transition: `background-color ${transition.fast}`,
     cursor: 'pointer',
 
-    '&:first-of-type': {
-      borderTopLeftRadius: 4,
-      borderTopRightRadius: 4,
-    },
-
-    '&:last-of-type': {
-      borderBottomLeftRadius: 4,
-      borderBottomRightRadius: 4,
-    },
-
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      backgroundColor: fill.hover,
     },
   },
 
   accountDetail: {
     display: 'flex',
+    alignItems: 'center',
     flex: 1,
     width: 0,
     marginRight: 2,
@@ -84,10 +120,10 @@ export const identitiesStyle = {
 
   accountImage: {
     flexShrink: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     marginRight: 10,
-    border: '2px solid white',
+    border: `1px solid ${border.strong}`,
     borderRadius: '100%',
   },
 };

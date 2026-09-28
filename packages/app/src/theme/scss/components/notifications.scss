@@ -5,10 +5,10 @@
 // —————————————————————————————————
 
 .l-notification {
-  background-color: #fff;
-  border-radius: $border-radius;
-  box-shadow: 0 1px 6px rgba(#000, 0.4);
-  color: #000;
+  background-color: $surface-elevated;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-panel;
+  color: $text-primary;
   display: none;
   line-height: 1.6em;
   padding: ($gutter * 2);
@@ -18,18 +18,21 @@
   top: ($gutter * 2);
   width: 300px;
   z-index: 1000;
-  @include font(14px);
+  @include font(13px);
 
   //== Children
   a {
-    background-color: rgba(#000, 0.05);
-    border-top: 1px solid rgba(#000, 0.1);
+    background-color: $surface-inset;
+    border-top: 1px solid $border-subtle;
+    color: $text-secondary;
     display: block;
     line-height: 1.1em;
     margin: ($gutter * 2) (-($gutter * 2)) (-($gutter * 2));
     padding: $gutter;
     text-align: center;
-    @include font(13px, 600);
+    @include font(12px, 600);
+
+    &:hover { color: $text-primary }
   }
 
   //== Variants

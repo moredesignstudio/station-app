@@ -10,13 +10,13 @@ const applicationSupportPath = resolve(homeDir, 'Library/Application Support');
 const envs = [
   {
     name: 'Dev',
-    path: resolve(applicationSupportPath, 'Station Dev'),
-    regex: /^Station Dev/,
+    path: resolve(applicationSupportPath, 'more mail dev'),
+    regex: /^more mail dev/,
   },
   {
     name: 'Prod',
-    path: resolve(applicationSupportPath, 'Stationv2'),
-    regex: /^Stationv2/,
+    path: resolve(applicationSupportPath, 'more mail'),
+    regex: /^more mail(?! dev)/,
   },
 ];
 

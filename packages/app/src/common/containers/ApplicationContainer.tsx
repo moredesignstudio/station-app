@@ -1,4 +1,4 @@
-import { GradientType, withGradient } from '@getstation/theme';
+import { border, GradientType, surface, text, withGradient } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -36,11 +36,10 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255, 0.1)',
-    borderRadius: '3px',
+    backgroundColor: 'transparent',
     height: '100%',
-    color: 'white',
-    fontSize: '14px',
+    color: text.primary,
+    fontSize: '13px',
   },
   iconContainer: {
     display: 'flex',
@@ -48,9 +47,10 @@ const styles = {
     alignItems: 'center',
     width: 80,
     height: 80,
-    marginBottom: 30,
+    marginBottom: 24,
     borderRadius: 100,
-    backgroundColor: 'rgba(255, 255, 255, .3)',
+    backgroundColor: surface.panel,
+    boxShadow: `inset 0 0 0 1px ${border.subtle}`,
     position: 'relative',
   },
   icon: {

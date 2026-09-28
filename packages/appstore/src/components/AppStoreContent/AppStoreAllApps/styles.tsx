@@ -1,4 +1,4 @@
-import { colors } from '@src/theme';
+import { colors, radius, shadow, transition } from '@src/theme';
 
 const styles = {
   '@keyframes slideRight': {
@@ -17,10 +17,12 @@ const styles = {
   categoriesList: {
     minWidth: 230,
     maxWidth: 230,
-    backgroundColor: colors.blueGray10,
+    backgroundColor: colors.surfacePanel,
+    border: `1px solid ${colors.borderSubtle}`,
+    borderLeft: 'none',
     margin: 0,
-    padding: [20, 13],
-    borderRadius: [0, 30, 30, 0],
+    padding: [12, 8],
+    borderRadius: [0, radius.xl, radius.xl, 0],
     listStyleType: 'none',
     animationName: 'slideRight',
     animationDuration: '.3s',
@@ -28,57 +30,68 @@ const styles = {
   categoriesItem: {
     display: 'flex',
     alignItems: 'center',
-    padding: [5, 12],
-    borderRadius: '15.5px',
-    marginBottom: 14,
+    padding: [6, 10],
+    borderRadius: radius.md,
+    marginBottom: 2,
+    color: colors.textSecondary,
     cursor: 'pointer',
-    transition: 'background-color .3s',
+    transition: `background-color ${transition.fast}, color ${transition.fast}`,
     '&:last-child': {
       marginBottom: 0,
     },
+    '&:hover': {
+      backgroundColor: colors.fillHover,
+      color: colors.textPrimary,
+    },
     '&.isActive': {
-      backgroundColor: colors.blueGray30,
-      transition: 'background-color .3s',
+      backgroundColor: colors.fillSelected,
+      color: colors.textPrimary,
+      '& $categoryText': {
+        fontWeight: 500,
+      },
     },
   },
   categoryIcon: {
-    width: 24,
-    minWidth: 24,
-    height: 24,
+    width: 20,
+    minWidth: 20,
+    height: 20,
     alignSelf: 'flex-start',
     marginRight: 8,
   },
   categoryText: {
-    fontSize: 14,
-    fontWeight: 500,
-    color: colors.blueGray100,
+    fontSize: 13,
+    lineHeight: '20px',
+    fontWeight: 400,
+    color: 'inherit',
   },
   dropDown: {
     width: '100%',
     position: 'fixed',
     top: 126,
     left: 0,
-    backgroundColor: colors.blueGray30,
+    backgroundColor: colors.surfacePanel,
+    borderBottom: `1px solid ${colors.borderSubtle}`,
+    boxShadow: shadow.panel,
     zIndex: 10,
   },
   dropDownTitleContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: [17, 21],
+    padding: [14, 21],
     cursor: 'pointer',
   },
   dropDownTitle: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 500,
-    color: colors.blueGray100,
+    color: colors.textPrimary,
   },
   dropDownIcon: {
     display: 'inline-block',
     width: 12,
     height: 12,
-    background: 'url("/static/all-apps-sprite.svg#i--dropdown-arrow") no-repeat',
-    backgroundPosition: 'center',
+    color: colors.textSecondary,
+    fill: 'currentColor',
     transition: 'transform .3s',
     '&.isActive': {
       transform: 'rotate(180deg)',
@@ -95,17 +108,22 @@ const styles = {
     transition: 'max-height .3s',
     '&.isActive': {
       maxHeight: 225,
-      margin: [0, 0, 25, 0],
+      margin: [0, 0, 16, 0],
       transition: 'max-height .3s',
     },
   },
   dropDownCategoriesItem: {
-    padding: [10, 21],
+    padding: [8, 21],
+    color: colors.textSecondary,
     cursor: 'pointer',
-    transition: 'background-color .3s',
+    transition: `background-color ${transition.fast}, color ${transition.fast}`,
+    '&:hover': {
+      backgroundColor: colors.fillHover,
+      color: colors.textPrimary,
+    },
     '&.isActive': {
-      backgroundColor: '#c8deea',
-      transition: 'background-color .3s',
+      backgroundColor: colors.fillSelected,
+      color: colors.textPrimary,
     },
   },
   '@media (min-width: 600px)': {

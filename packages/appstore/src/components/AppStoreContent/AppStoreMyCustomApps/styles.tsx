@@ -1,4 +1,4 @@
-import { colors } from '@src/theme';
+import { colors, transition } from '@src/theme';
 
 const styles = {
   section: {
@@ -11,12 +11,15 @@ const styles = {
     display: 'inline-block',
     fontSize: 13,
     fontWeight: 500,
-    color: colors.blueGray100,
+    color: colors.textSecondary,
     paddingLeft: 25,
     marginBottom: 30,
-    opacity: .77,
     position: 'relative',
     cursor: 'pointer',
+    transition: `color ${transition.fast}`,
+    '&:hover': {
+      color: colors.textPrimary,
+    },
     '&:before': {
       content: '""',
       display: 'block',
@@ -25,11 +28,10 @@ const styles = {
       left: 0,
       width: 3,
       height: 3,
-      border: `solid ${colors.blueGray100}`,
-      borderWidth: [0, 3, 3, 0],
+      border: 'solid currentColor',
+      borderWidth: [0, 2, 2, 0],
       borderRadius: '1.2px',
       padding: 3,
-      opacity: .5,
       transform: 'rotate(135deg)',
     },
   },

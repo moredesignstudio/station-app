@@ -10,7 +10,7 @@ import { ImmutableList, ObjectToImmutable } from '../types';
 import DownloadToast from './components/DownloadToast';
 import { openDownloadedFile, removeToastForDownload } from './duck';
 import { getFormatedDownloadsToShow } from './selectors';
-import { Style, ButtonIcon, IconSymbol } from '@getstation/theme';
+import { Style, ButtonIcon, IconSymbol, Size } from '@getstation/theme';
 
 type DownloadItem = ObjectToImmutable<{
   downloadId: string,
@@ -43,8 +43,9 @@ const styles = {
     right: '10px',
     zIndex: 9,
   },
-  clearAllButton:{
+  clearAllButton: {
     cursor: 'pointer',
+    marginBottom: 2,
   },
 };
 
@@ -66,10 +67,11 @@ class DownloadToasterImpl extends React.PureComponent<Props, {}> {
     if (downloads.size < 2) return null;
     return (
       <ButtonIcon
+        className={this.props.classes!.clearAllButton}
         text="Clear All"
         symbolId={IconSymbol.CROSS}
-        btnStyle={Style.PRIMARY}
-        btnSize={3}
+        btnStyle={Style.SECONDARY}
+        btnSize={Size.XSMALL}
         iconPosition="Right"
         onClick={this.handleClear.bind(this, downloads.toArray())}
       />

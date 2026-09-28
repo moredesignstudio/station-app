@@ -12,6 +12,7 @@ export interface Classes {
   container: string,
   wrapper: string,
   icon: string,
+  title: string,
   buttonsContainer: string,
   markAllAsReadButton: string,
   duration: string,
@@ -28,14 +29,14 @@ export interface Props {
 
 const styles = (theme: Theme) => ({
   container: {
-    padding: [10, 20],
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderBottom: '1px solid rgba(255, 255, 255, .1)',
-    fontSize: 12,
+    padding: [10, 12, 10, 20],
+    backgroundColor: 'transparent',
+    borderBottom: `1px solid ${theme.border.subtle}`,
+    fontSize: 13,
     // to make sure alignement with dock
     paddingBottom: '13px',
-    color: 'rgba(255, 255, 255, 0.8)',
-    lineHeight: '14px',
+    color: theme.text.primary,
+    lineHeight: '16px',
     minHeight: '52px',
     display: 'flex',
   },
@@ -44,20 +45,28 @@ const styles = (theme: Theme) => ({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    // color: (props: Props) =>
-    //   !!props.currentSnoozeDuration ? theme.colors.gray.dark : 'inherit',
-    // backgroundColor: (props: Props) =>
-    //   !!props.currentSnoozeDuration ? 'white' : 'transparent',
+  },
+  title: {
+    ...theme.fontMixin(14, 600),
+    letterSpacing: '-0.01em',
+    lineHeight: '20px',
+    color: theme.text.primary,
   },
   buttonsContainer: {
     display: 'flex',
+    alignItems: 'center',
   },
   markAllAsReadButton: {
-    height: 25,
-    marginLeft: 10,
+    marginLeft: 6,
   },
   duration: {
-    marginBottom: -4,
+    ...theme.fontMixin(12, 500),
+    lineHeight: '16px',
+    marginTop: 2,
+    color: theme.text.secondary,
+    '& b': {
+      fontWeight: 500,
+    },
   },
 });
 
@@ -96,9 +105,9 @@ class NotificationCenterHeader extends React.PureComponent<Props, {}> {
         <div className={classes!.wrapper}>
           <div>
             { syncWithOS ?
-              <div>{osName} is in <em>Do Not Disturb</em> mode</div>
+              <div className={classes!.title}>{osName} is in <em>Do Not Disturb</em> mode</div>
             :
-              <div>Do Not Disturb</div>
+              <div className={classes!.title}>Do Not Disturb</div>
             }
 
             { endDate && !syncWithOS && !snoozeInfinite &&
@@ -122,8 +131,8 @@ class NotificationCenterHeader extends React.PureComponent<Props, {}> {
               <ButtonIcon
                 className={classes!.markAllAsReadButton}
                 symbolId={IconSymbol.MARK_READ}
-                btnStyle={Style.SECONDARY}
-                btnSize={Size.XSMALL}
+                btnStyle={Style.TERTIARY}
+                btnSize={Size.SMALL}
                 disabled={Boolean(endDate)}
                 onClick={markAllRead}
               />

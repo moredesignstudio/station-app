@@ -1,4 +1,4 @@
-import { Switcher } from '@getstation/theme';
+import { Switcher, ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -21,31 +21,28 @@ export interface Props {
   loading: boolean,
 }
 
-const styles = {
+const styles = (theme: Theme) => ({
   container: {
-    maxWidth: '600px',
-    paddingTop: '10px',
-    paddingBottom: '10px',
+    maxWidth: 600,
+    padding: [14, 0],
+    borderTop: `1px solid ${theme.border.subtle}`,
   },
   item: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 16,
   },
   settingName: {
+    ...theme.mixins.sectionLabel(),
     marginBottom: 8,
-    textTransform: 'uppercase',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  checkbox: {
-    '-webkit-appearance': 'checkbox',
-    marginRight: 10,
-    marginBottom: 20,
-    borderRadius: 2,
-    width: 14,
-    height: 14,
   },
   label: {
+    ...theme.fontMixin(13),
+    lineHeight: '1.4em',
+    color: theme.text.primary,
   },
-};
+});
 
 @injectSheet(styles)
 class SettingsAutoLaunch extends React.Component<Props, {}> {
@@ -56,16 +53,16 @@ class SettingsAutoLaunch extends React.Component<Props, {}> {
       this.props.onEnableAutoLaunch(e.target.checked);
     return (
       <div className={classes!.container}>
+        <p className={classes!.settingName}>auto launch</p>
         <div className={classes!.item}>
-          <p className={classes!.settingName}>auto launch</p>
+          <div className={classes!.label}>
+            Launch more mail on login
+          </div>
           <Switcher
             disabled={loading} // if no data yet we disable
             checked={isAutoLaunchEnabled}
             onChange={handleSwitcherChange}
           />
-          <div className={classes!.label}>
-            Launch Station on login
-          </div>
         </div>
       </div>
     );

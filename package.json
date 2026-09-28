@@ -1,9 +1,9 @@
 {
   "name": "station-project",
   "private": true,
-  "productName": "Station",
+  "productName": "more mail",
   "version": "4.0.0-b1",
-  "description": "Station",
+  "description": "more mail",
   "homepage": "https://github.com/getstation/desktop-app",
   "author": {
     "name": "Joël Charles",

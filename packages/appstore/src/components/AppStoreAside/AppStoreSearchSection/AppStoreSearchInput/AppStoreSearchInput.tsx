@@ -130,7 +130,7 @@ class AppStoreSearchInput extends React.PureComponent<Props, AppStoreSearchInput
             className={classes!.searchIcon}
             symbolId={IconSymbol.SEARCH}
             size={25}
-            color={colors.blueGray100}
+            color={colors.textTertiary}
           />
           <input
             {...inputProps}

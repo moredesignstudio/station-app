@@ -3,41 +3,42 @@
 @import "../common/typography";
 
 .c-btn {
-  // background-color: #233CEA;
+  background-color: $accent;
   border: none;
   border-radius: $border-radius;
   color: #fff;
   flex: 0 0 auto;
-  height: 40px;
-  line-height: 40px;
+  height: 36px;
+  line-height: 36px;
   outline: none;
-  padding: 0 ($gutter * 2);
+  padding: 0 ($gutter * 1.6);
   position: relative;
-  @include font(14px, 600);
+  cursor: pointer;
+  transition: background-color 120ms ease-out;
+  @include font(13px, 500);
 
-  &:after {
-    background-color: rgba(#000, 0.2);
-    border-radius: $border-radius;
-    content: "";
-    @include coverer();
-  }
-  &:hover:after { opacity: 0.5 }
+  &:hover { background-color: $accent-hover }
+  &:active { background-color: $accent-active }
 }
 .c-form__field {
-  background-color: #fff;
+  background-color: $fill-subtle;
   border: none;
   border-radius: $border-radius;
-  box-shadow: 0 0 0 1px rgba(#000, 0.1);
-  color: #000;
+  box-shadow: inset 0 0 0 1px $border-default;
+  color: $text-primary;
   flex: 1 1 auto;
-  height: 40px;
+  height: 36px;
   padding: 0 $gutter;
-  @include font(14px);
+  transition: box-shadow 120ms ease-out, background-color 120ms ease-out;
+  @include font(13px);
+
+  &::placeholder { color: $text-tertiary }
+  &:hover { box-shadow: inset 0 0 0 1px $border-strong }
+  &:focus {
+    background-color: $fill-hover;
+    box-shadow: inset 0 0 0 1px $accent-border, $shadow-focus;
+  }
 }
-// label {
-//   color: rgba(#fff, 0.7);
-//   @include font(14px);
-// }
 .c-form__checkbox {
   align-items: center;
   display: flex;
@@ -51,19 +52,25 @@
     top: -1px;
   }
   input {
-    background-color: #fff;
+    background-color: $fill-active;
+    box-shadow: inset 0 0 0 1px $border-default;
     border: none;
     cursor: pointer;
     display: block;
-    @include avatar(14px, $border-radius);
+    @include avatar(14px, 4px);
+
+    &:checked {
+      background-color: $accent;
+      box-shadow: none;
+    }
   }
   span {
-    background-color: rgba(#000, 0.6);
+    background-color: #fff;
     content: "";
     opacity: 0;
     pointer-events: none;
     z-index: 2;
-    @include avatar(8px, 2px);
+    @include avatar(6px, 2px);
     @include centerer();
   }
   input:checked + span {

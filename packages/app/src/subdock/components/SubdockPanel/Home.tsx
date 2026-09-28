@@ -31,7 +31,7 @@ const Home = ({
   const wrappedActions = useActionsWrapper(tabActions, item);
 
   return (
-    <div>
+    <div className={classes!.home}>
       <ul>
         <SubdockItem
           application={application}

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
-import { Icon, IconSymbol, roundedBackground } from '@getstation/theme';
+import { Icon, IconSymbol } from '@getstation/theme';
 import ApplicationLogo from '@src/components/common/Application/ApplicationLogo';
+import { colors, radius, transition } from '@src/theme';
 
 import { Application as ApplicationType } from '../Application.type';
 
@@ -11,17 +12,17 @@ const useStyles = createUseStyles({
     display: 'flex',
     position: 'relative',
     justifyContent: 'space-between',
-    color: 'rgb(38, 33, 33)',
+    color: colors.textPrimary,
     alignItems: 'center',
     width: 200,
     maxHeight: 42,
     padding: 5,
     marginBottom: 7,
     backgroundColor: 'transparent',
-    borderRadius: '999px',
-    transition: '200ms',
+    borderRadius: radius.lg,
+    transition: `background-color ${transition.fast}`,
     '&:hover': {
-      backgroundColor: '#e7ecf0',
+      backgroundColor: colors.fillHover,
     },
     '& > div:nth-child(3)': {
       position: 'fixed',
@@ -42,8 +43,8 @@ const useStyles = createUseStyles({
   },
   applicationName: {
     display: 'inline-block',
-    fontSize: '15px',
-    fontWeight: '600',
+    fontSize: 14,
+    fontWeight: 500,
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -62,22 +63,28 @@ const useStyles = createUseStyles({
     marginLeft: 10,
   },
   categoryName: {
-    fontSize: '11px',
-    color: '#949494',
+    fontSize: 11,
+    color: colors.textTertiary,
   },
   action: {
     width: 28,
     height: 28,
     flexShrink: 0,
-    ...roundedBackground('#a0aeb8'),
+    borderRadius: radius.md,
+    backgroundColor: 'transparent',
+    color: colors.textTertiary,
     opacity: 0,
     cursor: 'pointer',
-    transition: '200ms',
+    transition: `background-color ${transition.fast}, color ${transition.fast}, opacity ${transition.fast}`,
+    '& path': {
+      fill: 'currentColor',
+    },
     '$application:hover &': {
-      opacity: .6,
+      opacity: 1,
     },
     '&:hover': {
-      opacity: '1 !important',
+      backgroundColor: colors.fillActive,
+      color: colors.textPrimary,
     },
   },
 });
@@ -97,7 +104,7 @@ const Application = ({
   shouldDisplayCategory,
   onSelect,
 }: Props) => {
-  const classes = useStyles(themeColor ?? '#fff');
+  const classes = useStyles(themeColor ?? colors.surfaceElevated);
 
   const onClick = () => {
     onSelect(id);

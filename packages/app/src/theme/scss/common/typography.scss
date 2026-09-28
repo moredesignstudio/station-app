@@ -1,26 +1,6 @@
 // Typography
 // —————————————————————————————————
 
-// $font-path: "../fonts/";
-// $example-list:  example-1,
-//               example-2;
-
-// @each $current-font in $example-list {
-//   @font-face {
-//     font-family: $current-font;
-//     src:  url(#{$font-path}/example/#{$current-font}.eot);
-//     src:  url(#{$font-path}/example/#{$current-font}.eot?#iefix) format('embedded-opentype'),
-//           url(#{$font-path}/example/#{$current-font}.woff) format('woff'),
-//           url(#{$font-path}/example/#{$current-font}.ttf) format('truetype');
-//     font-weight: normal;
-//     font-style: normal;
-//   }
-// }
-
-// $ff-regular: "example-2", 'Helvetica Neue', Helvetica, sans-serif;
-// $ff-medium: "example-1", 'Helvetica Neue', Helvetica, sans-serif;
-
-
 //== Mixins usage
 @mixin font($size, $weight: normal){
   font-family: -apple-system,
@@ -36,6 +16,14 @@
 
   font-size: $size;
   font-weight: $weight;
+}
+
+@mixin section-label {
+  color: $text-tertiary;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 

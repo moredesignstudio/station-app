@@ -1,3 +1,4 @@
+import { border, radius, surface, text, transition } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -49,7 +50,12 @@ export interface State {
 const styles = {
   container: {
     width: 260,
+    padding: 24,
     textAlign: 'center',
+    color: text.primary,
+    backgroundColor: surface.panel,
+    border: `1px solid ${border.subtle}`,
+    borderRadius: radius.lg,
   },
   title: {
     marginBottom: 17,
@@ -60,12 +66,17 @@ const styles = {
     marginLeft: 28,
     bottom: 40,
     position: 'absolute',
+    fontSize: 12,
+    color: text.tertiary,
   },
   removeCTA: {
     fontStyle: 'italic',
     paddingLeft: 3,
     cursor: 'pointer',
+    color: text.secondary,
+    transition: `color ${transition.fast}`,
     '&:hover': {
+      color: text.primary,
       textDecoration: 'underline',
     },
   },

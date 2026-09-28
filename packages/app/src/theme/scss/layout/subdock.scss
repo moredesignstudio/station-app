@@ -13,46 +13,48 @@ $elm-height: 50px;
 $favicon-size: 16px;
 
 .l-subdock {
-  border-left: 2px solid transparent;
   display: none;
   flex-direction: column;
   left: $app-size;
   overflow: hidden;
   width: $subdock-size;
   z-index: $zindex-huge;
+  background-color: $surface-panel;
+  color: $text-primary;
 
   //== Variants
   &.l-subdock--visible { display: flex }
 }
 .l-subdock__head {
   align-items: center;
-  background-color: rgba(#fff, .05);
-  border-bottom: 1px solid rgba(#fff, .1);
+  border-bottom: 1px solid $border-subtle;
   display: flex;
   flex: 0 0 auto;
-  min-height: 69px;
-  padding: 17px ($gutter * 2) 18px;
+  min-height: 60px;
+  padding: 14px ($gutter * 2) 14px;
   position: relative;
 
   //== Children
   strong {
-    color: #fff;
+    color: $text-primary;
     flex: 1 0 100%;
     display: block;
-    line-height: 1.1em;
-    @include font(14px, 500);
+    line-height: 1.2em;
+    letter-spacing: -0.01em;
+    @include font(13px, 600);
   }
   small {
-    color: rgba(#fff, 0.6);
+    color: $text-tertiary;
     display: block;
     flex: 1 0 100%;
     @include font(11px);
+    @include ellipsis;
   }
-  strong + small { margin-top: 5px }
+  strong + small { margin-top: 3px }
 
   //== Variants
   &.l-subdock__head--active {
-    strong { @include font(14px, 600) }
+    strong { @include font(13px, 600) }
   }
   .l-subdock--notification & {
     align-items: center;
@@ -65,7 +67,7 @@ $favicon-size: 16px;
   height: 60px;
   margin-bottom: 25px;
   border-radius: 100%;
-  border: 2px solid white;
+  border: 2px solid $border-strong;
 }
 
 .l-subdock__titles {
@@ -75,7 +77,7 @@ $favicon-size: 16px;
   display: flex;
   flex: 1 1 auto;
   flex-wrap: wrap;
-  // cursor: pointer;
+  min-width: 0;
 }
 .l-subdock__actions {
   display: flex;
@@ -88,15 +90,17 @@ $favicon-size: 16px;
 .l-subdock__btn {
   background-position: center;
   background-repeat: no-repeat;
-  border: 1px solid rgba(#fff, 0.3);
+  border: 1px solid $border-default;
   border-radius: $border-radius;
   flex: 0 0 auto;
   height: 24px;
+  color: $text-secondary;
 
   //== States
   &:hover {
-    background-color: rgba(#fff, 0.1);
-    border-color: #fff;
+    background-color: $fill-hover;
+    border-color: $border-strong;
+    color: $text-primary;
   }
 
   //== Variants
@@ -107,7 +111,7 @@ $favicon-size: 16px;
   }
   &.l-subdock__btn--txt {
     background-position: 6px center;
-    color: #fff;
+    color: $text-primary;
     line-height: 22px;
     padding: 0 10px 0 28px;
     @include font(11px, 600)
@@ -140,7 +144,7 @@ $favicon-size: 16px;
 }
 .l-subdock__subtitle {
   align-items: center;
-  background-color: rgba(#000, 0.4);
+  background-color: $surface-inset;
   display: flex;
   height: 40px;
   line-height: 40px;
@@ -159,11 +163,11 @@ $favicon-size: 16px;
     justify-content: space-between;
   }
   strong {
-    color: #fff;
+    color: $text-primary;
     @include font(11px, 600);
   }
   small {
-    color: rgba(#fff, 0.4);
+    color: $text-tertiary;
     @include font(11px);
   }
 }
@@ -173,10 +177,10 @@ $favicon-size: 16px;
   flex: 1;
 }
 .l-subdock__head__detach {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: $fill-strong;
   height: 16px;
   flex: 0 0 auto;
-  opacity: 0.4;
+  opacity: 0.6;
   margin-right: $gutter;
   width: 16px;
 

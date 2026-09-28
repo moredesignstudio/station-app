@@ -24,6 +24,7 @@ export interface OwnProps {
 export interface StateProps {
   classes?: {
     overlay: string,
+    popover: string,
   }
 }
 
@@ -40,7 +41,17 @@ const styles = (theme: Theme) => ({
     right: 0,
     bottom: 0,
     left: theme.dock.size,
-    backgroundColor: 'rgba(0, 0, 0, .25)',
+    backgroundColor: theme.surface.scrim,
+  },
+  popover: {
+    boxSizing: 'border-box',
+    padding: 8,
+    borderRadius: theme.radius.lg,
+    backgroundColor: theme.surface.elevated,
+    boxShadow: theme.shadow.panel,
+    color: theme.text.primary,
+    ...theme.fontMixin(13),
+    lineHeight: '18px',
   },
 });
 
@@ -123,6 +134,7 @@ export default class ComponentWithPopover extends React.PureComponent<Props, Sta
                 ref={ref}
                 style={style}
                 data-placement={placement}
+                className={this.props.classes!.popover}
               >
                 {secondChild}
                 <ReactResizeDetector handleWidth={true} handleHeight={true} onResize={scheduleUpdate} />

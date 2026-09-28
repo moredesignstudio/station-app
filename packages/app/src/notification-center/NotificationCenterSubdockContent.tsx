@@ -33,12 +33,14 @@ export interface Props {
 
 @injectSheet((theme: Theme) => ({
   infoBox: {
-    margin: [10, 10, 0, 10],
-    padding: 10,
-    ...theme.fontMixin(10),
-    backgroundColor: 'rgba(255, 255, 255, .2)',
-    borderRadius: 3,
-    color: 'rgba(255, 255, 255, .6)',
+    margin: [10, 12, 0, 12],
+    padding: [8, 10],
+    ...theme.fontMixin(11),
+    lineHeight: '16px',
+    backgroundColor: theme.fill.subtle,
+    boxShadow: `inset 0 0 0 1px ${theme.border.subtle}`,
+    borderRadius: theme.radius.md,
+    color: theme.text.secondary,
   },
 }))
 class NotificationCenterSubdockContentImpl extends React.PureComponent<Props, {}> {

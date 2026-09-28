@@ -1,7 +1,7 @@
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
-import { GradientType, withGradient } from '@getstation/theme';
+import { GradientType, ThemeTypes, withGradient } from '@getstation/theme';
 
 interface Classes {
   container: string,
@@ -13,7 +13,7 @@ interface Props {
   onClickDock: () => void,
 }
 
-const styles = () => ({
+const styles = (theme: ThemeTypes) => ({
   container: {
     display: 'flex',
     flex: '0 0 50px',
@@ -22,6 +22,7 @@ const styles = () => ({
     width: 50,
     zIndex: 4,
     backgroundImage: (props: Props) => props.themeGradient,
+    borderRight: `1px solid ${theme.border.subtle}`,
   },
 });
 

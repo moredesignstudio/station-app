@@ -2751,7 +2751,7 @@ __metadata:
     "@babel/preset-env": "npm:^7.7.1"
     "@babel/preset-react": "npm:^7.7.0"
     "@babel/traverse": "npm:7.6.0"
-    "@getstation/theme": "npm:1.2.0"
+    "@getstation/theme": "workspace:*"
     "@graphql-codegen/cli": "npm:1.8.3"
     "@graphql-codegen/import-types-preset": "npm:1.8.3"
     "@graphql-codegen/near-operation-file-preset": "npm:1.8.3"
@@ -2917,29 +2917,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@getstation/theme@npm:1.2.0, @getstation/theme@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@getstation/theme@npm:1.2.0"
+"@getstation/theme@workspace:*, @getstation/theme@workspace:packages/theme":
+  version: 0.0.0-use.local
+  resolution: "@getstation/theme@workspace:packages/theme"
   dependencies:
+    "@types/color": "npm:^3.0.0"
+    "@types/mousetrap": "npm:^1.6.0"
+    "@types/ms": "npm:^0.7.30"
+    "@types/react": "npm:^16.14.40"
+    "@types/react-dom": "npm:^16.9.18"
+    "@types/react-jss": "npm:^8.6.3"
+    "@types/react-select": "npm:^3.0.4"
+    "@types/shortid": "npm:^0.0.29"
     classnames: "npm:^2.2.5"
     color: "npm:^3.0.0"
     create-react-context: "npm:^0.2.2"
+    csstype: "npm:^3.0.0"
     jss-nested: "npm:^6.0.1"
     linked-map: "npm:^2.2.2"
     mousetrap: "npm:^1.6.2"
     ms: "npm:^2.1.1"
-    react: "npm:^16.3.1"
+    popper.js: "npm:^1.14.4"
+    react: "npm:^16.14.0"
     react-debounce-input: "npm:^3.2.0"
-    react-dom: "npm:^16.3.1"
+    react-dom: "npm:^16.14.0"
     react-hover-observer: "npm:^2.1.0"
     react-jss: "npm:^8.6.1"
     react-key-handler: "npm:1.0.1"
     react-popper: "npm:^1.3.4"
     react-select: "npm:^3.0.4"
+    rimraf: "npm:^5.0.10"
     shortid: "npm:^2.2.8"
-  checksum: 10c0/218b46e995838ebf55a15e92f6ed00f8b92b0a3c615e60f733248e42f4b0755a994e0f015874dbb0ff6cef67f5615ed80671b1c864858b6dfbe16a70ab337eb6
-  languageName: node
-  linkType: hard
+    typescript: "npm:^4.9.5"
+  peerDependencies:
+    react: ^16.3.1
+    react-dom: ^16.3.1
+  languageName: unknown
+  linkType: soft
 
 "@graphql-codegen/add@npm:1.8.3":
   version: 1.8.3
@@ -6001,6 +6015,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/color-convert@npm:1":
+  version: 1.9.0
+  resolution: "@types/color-convert@npm:1.9.0"
+  dependencies:
+    "@types/color-name": "npm:*"
+  checksum: 10c0/544a9dc4eca60a627e76ec12faa0b343ceef8fbaf38cf51248386291b29fc89246c5c069db0c1fbf1b96420429159afc5eddd2b8b1fe952451c6b784ed66bad6
+  languageName: node
+  linkType: hard
+
+"@types/color-name@npm:*":
+  version: 2.0.0
+  resolution: "@types/color-name@npm:2.0.0"
+  checksum: 10c0/f8c80199a1e1c38fb8e3bf26743e9fe1220e3991d6df42b7abdc36b3aa94abb90b038ce615d684d7e46b4423a79e6b272dd4fd690859d6f000663a646ea74bbf
+  languageName: node
+  linkType: hard
+
+"@types/color@npm:^3.0.0":
+  version: 3.0.7
+  resolution: "@types/color@npm:3.0.7"
+  dependencies:
+    "@types/color-convert": "npm:1"
+  checksum: 10c0/86b1864f10c7508275626cf46349bd00bb85939f77afc898f5b4f74eaf3607a0c0a762590ce499173b77d740eadf8a0d08c36cdb3e77d0f48f9b0e1aedaeea06
+  languageName: node
+  linkType: hard
+
 "@types/content-disposition@npm:^0.5.2":
   version: 0.5.9
   resolution: "@types/content-disposition@npm:0.5.9"
@@ -6247,6 +6286,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jss@npm:*":
+  version: 9.5.8
+  resolution: "@types/jss@npm:9.5.8"
+  dependencies:
+    csstype: "npm:^2.0.0"
+    indefinite-observable: "npm:^1.0.1"
+  checksum: 10c0/27d02fb91572734820c2ff66f53d6766c469e496b8dabb037c3b99bc77ffa94a56c43559b1d69b7c41689dbdfb48871933beeeb25d3ff6b54ea564a7c14bf4cc
+  languageName: node
+  linkType: hard
+
 "@types/jwt-decode@npm:^2.2.1":
   version: 2.2.1
   resolution: "@types/jwt-decode@npm:2.2.1"
@@ -6375,7 +6424,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mousetrap@npm:^1.6.11":
+"@types/mousetrap@npm:^1.6.0, @types/mousetrap@npm:^1.6.11":
   version: 1.6.15
   resolution: "@types/mousetrap@npm:1.6.15"
   checksum: 10c0/6aec93b46cdf6d23b1b61990e199edb35d84bd032309ebfd8daf94f4ad78806155730059a83229b04b3754ddb2593fd5490ce3186b921a9db2098ea589c9f1ad
@@ -6389,7 +6438,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ms@npm:^0.7.31":
+"@types/ms@npm:^0.7.30, @types/ms@npm:^0.7.31":
   version: 0.7.34
   resolution: "@types/ms@npm:0.7.34"
   checksum: 10c0/ac80bd90012116ceb2d188fde62d96830ca847823e8ca71255616bc73991aa7d9f057b8bfab79e8ee44ffefb031ddd1bcce63ea82f9e66f7c31ec02d2d823ccc
@@ -6536,12 +6585,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:*":
+  version: 19.3.0
+  resolution: "@types/react-dom@npm:19.3.0"
+  peerDependencies:
+    "@types/react": ^19.3.0
+  checksum: 10c0/ce0066d28b62bc6afdd17ca84756b8fbe0f6ffc0c8b1e60739abc30e81510da2edbc1007e6ab3d974d30f5a8c25bb0f7de8d7ce09736c909fe84c0f9aed0b946
+  languageName: node
+  linkType: hard
+
 "@types/react-dom@npm:^16.9.18":
   version: 16.9.25
   resolution: "@types/react-dom@npm:16.9.25"
   peerDependencies:
     "@types/react": ^16.0.0
   checksum: 10c0/e36fc1227becf9415661dbd5e0d3af6c922d266a005629a64431610b7757863c981f19fe8e2877f6f1eb7d83d8bc06327b17d3952a0afdeb581815b482dc9da1
+  languageName: node
+  linkType: hard
+
+"@types/react-jss@npm:^8.6.3":
+  version: 8.6.4
+  resolution: "@types/react-jss@npm:8.6.4"
+  dependencies:
+    "@types/jss": "npm:*"
+    "@types/react": "npm:*"
+    "@types/theming": "npm:*"
+    csstype: "npm:^2.0.0"
+  checksum: 10c0/24765b88f75a25848132b578b5b5dbd0aa371143dd811aa57d9fb66f5d866e44b17c3b26bcbbc9dad0dec89c07f3d3609ba27246835138c672e8ca2fbb351267
   languageName: node
   linkType: hard
 
@@ -6587,6 +6657,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-select@npm:^3.0.4":
+  version: 3.1.2
+  resolution: "@types/react-select@npm:3.1.2"
+  dependencies:
+    "@types/react": "npm:*"
+    "@types/react-dom": "npm:*"
+    "@types/react-transition-group": "npm:*"
+  checksum: 10c0/a3ef2f0aaefb070c71842cdbc36dae687cb6592ea2c34a2f85779385959efc9c7b4c314efb4a596caf5faa5732612384fff5e19a95f241d1f67c90d707e6da19
+  languageName: node
+  linkType: hard
+
 "@types/react-syntax-highlighter@npm:11.0.4":
   version: 11.0.4
   resolution: "@types/react-syntax-highlighter@npm:11.0.4"
@@ -6605,7 +6686,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-transition-group@npm:^4.2.2":
+"@types/react-transition-group@npm:*, @types/react-transition-group@npm:^4.2.2":
   version: 4.4.12
   resolution: "@types/react-transition-group@npm:4.4.12"
   peerDependencies:
@@ -6721,7 +6802,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/shortid@npm:0.0.29":
+"@types/shortid@npm:0.0.29, @types/shortid@npm:^0.0.29":
   version: 0.0.29
   resolution: "@types/shortid@npm:0.0.29"
   checksum: 10c0/0fa7717e7e5d93f8f1d310d53b094a4dad36fbef43a9940be0d8cc974184e386032ed8ce304a44e61693423dae6c4d348f028033857c2585653fe276d0925b9a
@@ -6836,6 +6917,15 @@ __metadata:
   version: 1.0.12
   resolution: "@types/tapable@npm:1.0.12"
   checksum: 10c0/d6a080f5839b323eb96dd5b65a6c3161c1297d8c2433eb52437912d1c3df54e38fce12ce7a57650f6453d96942298bd0935436e2501d09e407b7f41634483131
+  languageName: node
+  linkType: hard
+
+"@types/theming@npm:*":
+  version: 1.3.3
+  resolution: "@types/theming@npm:1.3.3"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10c0/26c4b82559a06ab65aa2febf3bf29861a6e34b11fab88fdad3ff19acb9387a2cc88370afcd58b5f4cec930579818ca7df1879950988902cef24a55f8bf2a49ad
   languageName: node
   linkType: hard
 
@@ -12051,14 +12141,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^2.5.7":
+"csstype@npm:^2.0.0, csstype@npm:^2.5.7":
   version: 2.6.21
   resolution: "csstype@npm:2.6.21"
   checksum: 10c0/e07f27f2100bce9890bb4c3cb9263af97388f0d99b50073b663f1e363fa51b68ac7e2c8a612cd911d2b33c52d83afd1b0b8bc4de1d3ca76ee019a230295daffb
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.0.2, csstype@npm:^3.2.2":
+"csstype@npm:^3.0.0, csstype@npm:^3.0.2, csstype@npm:^3.2.2":
   version: 3.2.3
   resolution: "csstype@npm:3.2.3"
   checksum: 10c0/cd29c51e70fa822f1cecd8641a1445bed7063697469d35633b516e60fe8c1bde04b08f6c5b6022136bb669b64c63d4173af54864510fbb4ee23281801841a3ce
@@ -18208,6 +18298,15 @@ __metadata:
   version: 0.1.4
   resolution: "imurmurhash@npm:0.1.4"
   checksum: 10c0/8b51313850dd33605c6c9d3fd9638b714f4c4c40250cff658209f30d40da60f78992fb2df5dabee4acf589a6a82bbc79ad5486550754bd9ec4e3fc0d4a57d6a6
+  languageName: node
+  linkType: hard
+
+"indefinite-observable@npm:^1.0.1":
+  version: 1.0.2
+  resolution: "indefinite-observable@npm:1.0.2"
+  dependencies:
+    symbol-observable: "npm:1.2.0"
+  checksum: 10c0/19eac6e1e3cbef9dee6b1af55293e0a89f2464413bc61ddc52a660511047d72df6b40fa9350cf7d371dc1670caa6ca0056bb57f39ad439f0278728247aaef68b
   languageName: node
   linkType: hard
 
@@ -25871,7 +25970,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^16.14.0, react-dom@npm:^16.3.1, react-dom@npm:^16.7.0, react-dom@npm:^16.8.3":
+"react-dom@npm:^16.14.0, react-dom@npm:^16.7.0, react-dom@npm:^16.8.3":
   version: 16.14.0
   resolution: "react-dom@npm:16.14.0"
   dependencies:
@@ -26518,7 +26617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^16.14.0, react@npm:^16.3.1, react@npm:^16.7.0, react@npm:^16.8.3":
+"react@npm:^16.14.0, react@npm:^16.7.0, react@npm:^16.8.3":
   version: 16.14.0
   resolution: "react@npm:16.14.0"
   dependencies:
@@ -29149,7 +29248,7 @@ __metadata:
     "@getstation/reactive-graphql": "npm:^3.0.1"
     "@getstation/sdk": "workspace:*"
     "@getstation/slack": "npm:^13.0.0"
-    "@getstation/theme": "npm:^1.2.0"
+    "@getstation/theme": "workspace:*"
     "@graphql-codegen/cli": "npm:1.3.1"
     "@graphql-codegen/typescript": "npm:1.3.1"
     "@graphql-codegen/typescript-document-nodes": "npm:^1.8.3"
@@ -29436,8 +29535,6 @@ __metadata:
     ws: "npm:^5.2.2"
     xvfb-maybe: "npm:^0.2.1"
     yargs: "npm:^13.3.0"
-  bin:
-    electron: ./node_modules/.bin/electron
   languageName: unknown
   linkType: soft
 
@@ -29446,8 +29543,6 @@ __metadata:
   resolution: "station-project@workspace:."
   dependencies:
     rimraf: "npm:^5.0.10"
-  bin:
-    electron: ./node_modules/.bin/electron
   languageName: unknown
   linkType: soft
 
@@ -30086,7 +30181,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"symbol-observable@npm:^1.0.2, symbol-observable@npm:^1.0.3, symbol-observable@npm:^1.0.4, symbol-observable@npm:^1.1.0, symbol-observable@npm:^1.2.0":
+"symbol-observable@npm:1.2.0, symbol-observable@npm:^1.0.2, symbol-observable@npm:^1.0.3, symbol-observable@npm:^1.0.4, symbol-observable@npm:^1.1.0, symbol-observable@npm:^1.2.0":
   version: 1.2.0
   resolution: "symbol-observable@npm:1.2.0"
   checksum: 10c0/009fee50798ef80ed4b8195048288f108b03de162db07493f2e1fd993b33fafa72d659e832b584da5a2427daa78e5a738fb2a9ab027ee9454252e0bedbcd1fdc

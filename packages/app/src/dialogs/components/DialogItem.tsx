@@ -52,45 +52,68 @@ const styles = (theme: Theme) => ({
     bottom: 10,
     left: 'calc(50% + 50px)',
     transform: 'translateX(calc(-50% - 25px))',
-    width: (props: Props) => actionCTAOnBottom(props) ? 400 : 300,
+    width: 400,
     margin: 0,
     padding: 20,
-    color: 'white',
-    backgroundColor: (props: Props) => theme.mixinDarkenColor(props.themeColor, 0.3),
-    borderRadius: 4,
+    boxSizing: 'border-box',
+    fontFamily: theme.font.sans,
+    fontSize: 13,
+    lineHeight: '18px',
+    color: theme.text.primary,
+    backgroundColor: theme.surface.elevated,
+    borderRadius: theme.radius.xl,
+    boxShadow: theme.shadow.modal,
     animation: '500ms',
   },
   icon: {
-    ...theme.mixins.size(33),
+    ...theme.mixins.size(32),
     flexShrink: 0,
     marginTop: 2,
     backgroundImage: (props: Props) => `url(${getApplicationIconURL(getDialogApplication(props.dialog))})`,
     backgroundSize: 'cover',
     borderRadius: 100,
+    boxShadow: `0 0 0 1px ${theme.border.subtle}`,
   },
   content: {
     flexGrow: 1,
-    padding: '0 10px',
+    padding: '0 12px',
     wordWrap: 'break-word',
-    width: (props: Props) => actionCTAOnBottom(props) ? 'calc(100% - 33px)' : 'inherited',
+    width: (props: Props) => actionCTAOnBottom(props) ? 'calc(100% - 32px)' : 'inherited',
+    '& h4': {
+      margin: [8, 0, 0],
+      ...theme.fontMixin(13, 500),
+      lineHeight: '18px',
+      color: theme.text.primary,
+    },
   },
   title: {
-    fontWeight: 600,
-    marginBottom: 5,
+    ...theme.fontMixin(14, 600),
+    letterSpacing: '-0.01em',
+    lineHeight: '20px',
+    marginBottom: 2,
+    color: theme.text.primary,
   },
   dialogMessage: {
     ...theme.mixins.ellipsis(4),
     fontSize: 13,
-    marginTop: 10,
+    lineHeight: '19px',
+    marginTop: 6,
+    color: theme.text.secondary,
   },
   hint: {
     marginTop: 10,
-    fontStyle: 'italic',
     fontSize: 12,
+    lineHeight: '16px',
+    color: theme.text.tertiary,
   },
   hintLink: {
+    marginLeft: 4,
+    color: theme.accent.text,
     textDecoration: 'underline',
     cursor: 'pointer',
+    '&:hover': {
+      color: theme.accent.hover,
+    },
   },
   buttonWrapper: {
     display: 'flex',
@@ -100,7 +123,7 @@ const styles = (theme: Theme) => ({
     width: (props: Props) => actionCTAOnBottom(props) ? '90%' : 'inherited',
   },
   buttonContainer: {
-    marginBottom: 5,
+    marginBottom: 6,
     '&:last-child': {
       marginBottom: 0,
     },
@@ -160,7 +183,7 @@ class DialogItemImpl extends React.PureComponent<Props, {}> {
                     <Button
                       btnStyle={style}
                     >
-                      <Icon symbolId={icon!} size={34} />
+                      <Icon symbolId={icon!} size={20} />
                     </Button>
                   )}
 

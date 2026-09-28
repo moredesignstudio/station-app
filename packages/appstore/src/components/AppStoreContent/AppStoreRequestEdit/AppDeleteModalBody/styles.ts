@@ -1,4 +1,5 @@
 import { WithSelectedCustomAppProps } from '@src/HOC/withSelectedCustomApp';
+import { colors } from '@src/theme';
 
 const styles = {
   modal: {
@@ -10,8 +11,9 @@ const styles = {
   },
   modalText: {
     fontSize: 14,
+    lineHeight: '22px',
     textAlign: 'center',
-    color: '#949494',
+    color: colors.textSecondary,
   },
   appWrapper: {
     display: 'flex',
@@ -37,7 +39,7 @@ const styles = {
     fontStretch: 'normal',
     lineHeight: 'normal',
     letterSpacing: 'normal',
-    color: '#292929',
+    color: colors.textPrimary,
   },
 };
 

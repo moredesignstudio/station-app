@@ -11,19 +11,20 @@
 .c-toaster {
   //== Children
   p {
-    color: rgba(#000, 0.8);
+    color: $text-secondary;
     line-height: 1.4em;
-    @include font(11px)
+    @include font(12px)
   }
   p a {
-    @include font(11px, 600);
+    color: $text-primary;
+    @include font(12px, 600);
   }
 }
 .c-toaster__btn {
-  background-color: rgba(#000, 0.05);
+  background-color: transparent;
   border: none;
-  border-top: 1px solid rgba(#000, 0.1);
-  color: rgba(#000, 0.6);
+  border-top: 1px solid $border-subtle;
+  color: $text-secondary;
   display: block;
   flex: 0 0 50%;
   line-height: 1.1em;
@@ -31,5 +32,14 @@
   padding: $gutter;
   text-align: center;
   cursor: pointer;
-  @include font(11px, 600);
+  transition: background-color 120ms ease-out, color 120ms ease-out;
+  @include font(12px, 600);
+
+  &:hover {
+    background-color: $fill-hover;
+    color: $text-primary;
+  }
+  & + & {
+    border-left: 1px solid $border-subtle;
+  }
 }

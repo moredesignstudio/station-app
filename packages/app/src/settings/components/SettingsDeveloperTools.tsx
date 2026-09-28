@@ -1,4 +1,4 @@
-import { Button, Size } from '@getstation/theme';
+import { Button, Size, Style, ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -18,34 +18,30 @@ export interface Props {
   onClickOpenProcessManager: () => void,
 }
 
-const styles = {
+const styles = (theme: Theme) => ({
   container: {
-    maxWidth: '600px',
-    paddingTop: '10px',
-    paddingBottom: '10px',
+    maxWidth: 600,
+    padding: [14, 0],
+    borderTop: `1px solid ${theme.border.subtle}`,
   },
   item: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 16,
   },
   settingName: {
+    ...theme.mixins.sectionLabel(),
     marginBottom: 8,
-    textTransform: 'uppercase',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  checkbox: {
-    '-webkit-appearance': 'checkbox',
-    marginRight: 10,
-    marginBottom: 20,
-    borderRadius: 2,
-    width: 14,
-    height: 14,
   },
   label: {
+    ...theme.fontMixin(13),
+    lineHeight: '1.4em',
+    color: theme.text.primary,
   },
   button: {
-    marginTop: 10,
+    flexShrink: 0,
   },
-};
+});
 
 @injectSheet(styles)
 export default class SettingsDeveloperTools extends React.PureComponent<Props, {}> {
@@ -54,12 +50,13 @@ export default class SettingsDeveloperTools extends React.PureComponent<Props, {
 
     return (
       <div className={classes!.container}>
+        <p className={classes!.settingName}>developer tools</p>
         <div className={classes!.item}>
-          <p className={classes!.settingName}>developer tools</p>
           <Button
             onClick={() => onClickOpenProcessManager()}
             className={classes!.button}
-            btnSize={Size.XXSMALL}
+            btnSize={Size.XSMALL}
+            btnStyle={Style.SECONDARY}
           >
             Open Process Manager
           </Button>

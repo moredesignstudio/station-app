@@ -1,4 +1,4 @@
-import { roundedBackground } from '@getstation/theme';
+import { ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -26,9 +26,9 @@ export interface Props {
   activeTabTitle: string,
 }
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   head: {
-    paddingBottom: '30px',
+    paddingBottom: 32,
   },
   content: {
     display: 'flex',
@@ -36,26 +36,38 @@ const styles = () => ({
     maxHeight: 'calc(100% - 64px)',
   },
   categories: {
-    width: 120,
+    width: 160,
+    flexShrink: 0,
     overflow: 'auto',
   },
   categoryList: {
     listStyle: 'none',
-    textAlign: 'right',
+    textAlign: 'left',
     padding: 0,
     margin: 0,
   },
   category: {
-    lineHeight: '24px',
-    width: 100,
-    padding: [0, 10],
-    '&.active, &:hover': {
-      ...roundedBackground('rgba(255, 255, 255, .1)'),
+    ...theme.fontMixin(13),
+    lineHeight: '20px',
+    color: theme.text.secondary,
+    padding: [6, 10],
+    borderRadius: theme.radius.md,
+    cursor: 'pointer',
+    transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}`,
+    '&:hover': {
+      backgroundColor: theme.fill.hover,
+      color: theme.text.primary,
+    },
+    '&.active': {
+      backgroundColor: theme.fill.selected,
+      color: theme.text.primary,
+      fontWeight: 500,
     },
   },
   panel: {
     flex: 1,
-    padding: [0, 20],
+    minWidth: 0,
+    padding: [0, 32],
   },
 });
 

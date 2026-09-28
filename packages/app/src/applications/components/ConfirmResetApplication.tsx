@@ -1,4 +1,4 @@
-import { Modal } from '@getstation/theme';
+import { Modal, ThemeTypes } from '@getstation/theme';
 import * as remote from '@electron/remote';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -43,11 +43,12 @@ type Props = InputProps & StateProps & DispatchProps & GqlProps;
 interface State {
 }
 
-@injectSheet(() => ({
+@injectSheet((theme: ThemeTypes) => ({
   description: {
     textAlign: 'center',
     width: '80%',
     margin: 'auto',
+    color: theme.text.secondary,
   },
 }))
 class ConfirmResetApplicationImpl extends React.Component<Props, State> {
@@ -66,6 +67,7 @@ class ConfirmResetApplicationImpl extends React.Component<Props, State> {
           onContinue={() => applicationId && onReset(applicationId)}
           cancelContent={'Cancel'}
           continueContent={'Continue'}
+          continueDanger={true}
         >
           <p className={classes!.description}>
             This will clear all of {applicationName} pages and send you back home.

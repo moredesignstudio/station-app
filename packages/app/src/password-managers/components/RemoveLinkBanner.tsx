@@ -22,27 +22,48 @@ export interface Props {
 const styles = (theme: Theme) => ({
   container: {
     position: 'absolute',
-    left: 0,
-    bottom: 0,
-    width: '100%',
+    left: 16,
+    right: 16,
+    bottom: 16,
+    maxWidth: 560,
+    margin: '0 auto',
     boxSizing: 'border-box',
-    padding: [15, 0],
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '12px 40px 12px 16px',
     ...theme.fontMixin(13),
-    color: 'rgba(0, 0, 0, .3)',
-    backgroundColor: 'white',
+    lineHeight: '18px',
+    color: theme.text.secondary,
+    backgroundColor: theme.surface.elevated,
+    border: `1px solid ${theme.border.subtle}`,
+    borderRadius: theme.radius.lg,
+    boxShadow: theme.shadow.panel,
     textAlign: 'center',
-    boxShadow: '0 0 0 1px rgba(41,41,41,0.1), 0 0 40px 0 rgba(41,41,41,0.3)',
     zIndex: 3,
   },
   button: {
-    marginLeft: 10,
+    flex: '0 0 auto',
+    marginLeft: 12,
   },
   close: {
     position: 'absolute',
-    top: 5,
-    right: 5,
+    top: 8,
+    right: 8,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 24,
+    height: 24,
+    borderRadius: theme.radius.sm,
+    color: theme.text.tertiary,
     cursor: 'pointer',
-    opacity: .3,
+    transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}`,
+    '&:hover': {
+      backgroundColor: theme.fill.hover,
+      color: theme.text.primary,
+    },
   },
 });
 
@@ -58,12 +79,12 @@ export default class RemoveLinkBanner extends React.PureComponent<Props, {}> {
       <div className={classes!.container}>
         Do you want to unlink {applicationName} from {passwordManager.providerName}?
 
-        <Button className={classes!.button} onClick={onRemoveLink} btnSize={Size.XSMALL} btnStyle={Style.TERTIARY}>
+        <Button className={classes!.button} onClick={onRemoveLink} btnSize={Size.SMALL} btnStyle={Style.DANGER}>
           Unlink from {passwordManager.providerName}
         </Button>
 
         <span className={classes!.close} onClick={onClose}>
-          <Icon symbolId={IconSymbol.CROSS} size={25} color={'#000'} />
+          <Icon symbolId={IconSymbol.CROSS} size={18} color="currentColor" />
         </span>
       </div>
     );

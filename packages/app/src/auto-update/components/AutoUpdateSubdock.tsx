@@ -1,4 +1,4 @@
-import { Button, ThemeTypes as Theme } from '@getstation/theme';
+import { Button, Style, ThemeTypes as Theme } from '@getstation/theme';
 import * as remote from '@electron/remote';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -27,21 +27,25 @@ export interface Props {
 const styles = (theme: Theme) => ({
   container: {
     position: 'relative',
+    color: theme.text.primary,
   },
   header: {
     padding: 20,
-    borderBottom: '1px solid rgba(255, 255, 255, .1)',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderBottom: `1px solid ${theme.border.subtle}`,
+    backgroundColor: theme.surface.elevated,
   },
   logo: {
     width: 40,
   },
   title: {
-    marginTop: 30,
-    ...theme.fontMixin(23),
+    marginTop: 16,
+    ...theme.titles.h2,
   },
   description: {
-    opacity: .4,
+    marginTop: 4,
+    ...theme.fontMixin(13),
+    lineHeight: '18px',
+    color: theme.text.secondary,
   },
   body: {
     padding: 20,
@@ -52,25 +56,31 @@ const styles = (theme: Theme) => ({
   },
   content: {
     '& h2': {
-      margin: [10, 0],
-      ...theme.fontMixin(13, 'bold'),
-      color: 'rgba(255, 255, 255, .4)',
-      textTransform: 'uppercase',
+      margin: [16, 0, 8],
+      ...theme.mixins.sectionLabel(),
     },
     '& ul': {
-      marginBottom: 40,
+      marginBottom: 32,
     },
     '& li': {
       listStyleType: 'disc',
       marginLeft: 18,
+      marginBottom: 6,
       ...theme.fontMixin(13),
-      marginBottom: 5,
+      lineHeight: '18px',
+      color: theme.text.secondary,
     },
   },
   newVersion: {
-    fontWeight: 600,
-    fontSize: 13,
+    ...theme.fontMixin(13, 600),
+    lineHeight: '18px',
     textAlign: 'center',
+    color: theme.status.success,
+    '& p + p': {
+      marginTop: 4,
+      ...theme.fontMixin(12),
+      color: theme.text.secondary,
+    },
   },
 });
 
@@ -95,6 +105,7 @@ export default class AutoUpdateSubdock extends React.PureComponent<Props, {}> {
               <p>A new version is available 🎉</p>
               <p>({releaseName})</p>
               <Button
+                btnStyle={Style.PRIMARY}
                 onClick={onClickQuitAndInstall}
               >
                 Quit to install the latest version

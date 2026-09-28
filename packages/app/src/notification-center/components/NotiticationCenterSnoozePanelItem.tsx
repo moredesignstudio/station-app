@@ -1,3 +1,4 @@
+import { ThemeTypes } from '@getstation/theme';
 import * as React from 'react';
 import injectSheet from 'react-jss';
 
@@ -7,16 +8,23 @@ export interface Props {
   duration: string
 }
 
-@injectSheet((theme: any) => ({
+@injectSheet((theme: ThemeTypes) => ({
   item: {
-    color: theme.colors.gray.middle,
-    fontSize: '12px',
-    transition: 'all 250ms ease-in-out',
-    cursor: 'pointer',
-    '&:hover': {
-      color: theme.colors.gray.dark,
+    margin: 0,
+    '& a': {
+      display: 'block',
+      padding: [6, 8],
+      borderRadius: theme.radius.sm,
+      ...theme.fontMixin(12),
+      lineHeight: '16px',
+      color: theme.text.secondary,
+      cursor: 'pointer',
+      transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}`,
+      '&:hover': {
+        backgroundColor: theme.fill.hover,
+        color: theme.text.primary,
+      },
     },
-    margin: [4, 0],
   },
 }))
 class NotificationCenterSnoozePanelItem extends React.PureComponent<Props, {}> {

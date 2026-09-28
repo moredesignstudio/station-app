@@ -55,11 +55,12 @@ import { logger } from '../api/logger';
 import { changeSelectedApp } from '../applications/duck';
 import { OnApplicationInstalled } from './OnApplicationInstalled';
 
-const styles = () => ({
+const styles = (theme) => ({
   bottomSection: {
-    padding: '2px 0',
-    backgroundColor: 'rgba(255,255,255,0.2)'
-  }
+    padding: '4px 0 2px',
+    backgroundColor: 'transparent',
+    borderTop: `1px solid ${theme.border.subtle}`,
+  },
 });
 
 const onTrafficLightClose = () => remote.getCurrentWindow().close();

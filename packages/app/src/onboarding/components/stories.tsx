@@ -1,3 +1,4 @@
+import { surface } from '@getstation/theme';
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean } from '@storybook/addon-knobs';
@@ -11,7 +12,7 @@ const containerStyle: React.CSSProperties = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  backgroundColor: '#EEE',
+  backgroundColor: surface.base,
   width: '100vw',
   height: '100vh',
 };

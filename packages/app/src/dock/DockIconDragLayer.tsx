@@ -22,6 +22,7 @@ interface OwnProps {
 
 type Props = OuterProps & OwnProps & { classes: {
   container: string,
+  item: string,
   title: string,
 }};
 
@@ -32,6 +33,11 @@ const styles = (theme: ThemeTypes) => createStyles({
     zIndex: 100,
     left: 0,
     top: 0,
+  },
+  item: {
+    borderRadius: theme.radius.lg,
+    backgroundColor: theme.surface.panel,
+    boxShadow: theme.shadow.panel,
   },
   title: {
     width: 220,
@@ -56,13 +62,13 @@ function getItemStyles(props: Props) {
     WebkitTransform: transform,
 
     // Uncomment for the expanded state
-    // color: 'rgba(60, 80, 93, 0.5)',
-    // backgroundColor: currentOffset.x > 40 ? '#e6e8eb' : 'initial',
-    // borderRadius: 100,
+    // color: theme.text.secondary,
+    // backgroundColor: currentOffset.x > 40 ? theme.surface.panel : 'initial',
+    // borderRadius: theme.radius.pill,
     // width: currentOffset.x > 40 ? 280 : 49,
     // height: 49,
     // transition: 'width 250ms ease-in-out, background-color 250ms ease-in-out',
-    // boxShadow: currentOffset.x > 40 && '2px 2px 6px #BBB',
+    // boxShadow: currentOffset.x > 40 && theme.shadow.panel,
   };
 }
 
@@ -105,7 +111,7 @@ class DockIconDragLayer extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        <div style={getItemStyles(this.props)}>
+        <div className={classes.item} style={getItemStyles(this.props)}>
           <AppDockIcon
             applicationId={item.applicationId}
             active={true}

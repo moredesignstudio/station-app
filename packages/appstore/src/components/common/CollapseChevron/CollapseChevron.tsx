@@ -22,8 +22,7 @@ const useStyles = createUseStyles({
       right: 30,
       transform: 'translateX(50%) rotate(-90deg)',
       '& > path': {
-        fill: colors.blueGray100,
-        opacity: 0.5,
+        fill: colors.textTertiary,
       },
     },
   },

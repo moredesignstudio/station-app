@@ -1,4 +1,4 @@
-import { colors } from '@src/theme';
+import { colors, radius, shadow, transition } from '@src/theme';
 
 const styles = {
   container: {
@@ -7,37 +7,47 @@ const styles = {
   },
   label: {
     width: '100%',
-    height: '30px',
-    backgroundColor: colors.white,
-    borderRadius: '15px',
-    border: '1px solid rgba(157, 167, 174, .6)',
+    height: 28,
+    backgroundColor: colors.fillSubtle,
+    boxShadow: `inset 0 0 0 1px ${colors.borderDefault}`,
+    borderRadius: radius.md,
     display: 'flex',
     alignItems: 'center',
-    color: colors.blueGray100,
+    color: colors.textPrimary,
     overflow: 'hidden',
+    cursor: 'text',
+    transition: `box-shadow ${transition.fast}, background-color ${transition.fast}`,
+    '&:hover': {
+      backgroundColor: colors.fillHover,
+    },
     '&.active-focus': {
-      boxShadow: `0 0 4px 0 ${colors.blueGlowing}`,
-      border: `1px solid ${colors.blueGlowing}`,
+      backgroundColor: colors.fillSubtle,
+      boxShadow: `inset 0 0 0 1px ${colors.accentBorder}, ${shadow.focus}`,
     },
   },
   searchIcon: {
-    width: '15px',
-    height: '15px',
-    marginLeft: 5,
-    opacity: '.5',
+    width: 14,
+    height: 14,
+    marginLeft: 8,
+    flexShrink: 0,
   },
   autosuggestInput: {
     width: '100%',
-    placeholder: colors.blueGray100,
-    fontSize: 13,
-    border: 'none',
     flexGrow: 1,
     height: '100%',
-    padding: [0, 3],
+    padding: [0, 6],
+    fontFamily: 'inherit',
+    fontSize: 13,
+    color: colors.textPrimary,
+    backgroundColor: 'transparent',
+    border: 'none',
+    borderRadius: 0,
     outline: 'none',
-    borderRadius: '0 20px 20px 0',
     transform: 'translate3d(0,-1px,0)',
     '-webkit-appearance': 'none',
+    '&::placeholder': {
+      color: colors.textTertiary,
+    },
   },
 };
 
