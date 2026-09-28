@@ -15,7 +15,7 @@ export const checkSqliteBackend = async () => {
       // This means that the state we are trying to read is more up to date (or incompatible)
       // than the version of Station. This is an error !
       throw new Error(`
-The saved Station state is not compatible with the current Station version.
+The saved more mail state is not compatible with the current more mail version.
 UnknownSets: ${unknownSet.join(', ')}
         `);
     }

@@ -50,7 +50,7 @@ export default class AboutWindowFooter extends React.PureComponent<Props, {}> {
           href="https://medium.com/getstation/your-way-of-working-belongs-to-the-stone-age-9ff64782f40"
           target="_blank"
         >
-          About Station
+          About more mail
         </a>
         <a className={classes!.link} href="https://github.com/getstation/desktop-app" target="_blank">
           Support

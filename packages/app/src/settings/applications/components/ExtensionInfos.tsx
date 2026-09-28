@@ -88,7 +88,7 @@ class ExtensionInfos extends React.PureComponent<Props, State> {
     switch (status) {
       case StatusState.Updatable:
         this.setState({
-          updateWording: `An update (v${extensionUpdate!.version.number}) is available and will be applied when Station restarts`,
+          updateWording: `An update (v${extensionUpdate!.version.number}) is available and will be applied when more mail restarts`,
         });
         break;
       case StatusState.CheckingForUpdate:

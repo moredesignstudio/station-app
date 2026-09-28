@@ -346,7 +346,7 @@ class AppImpl extends React.PureComponent<Props, State> {
         </div>
 
         <div className={classes!.subtitle}>
-          <Hint tooltip="By default, Station puts to sleep unused applications in order to preserve memory and prevent slow-downs.">
+          <Hint tooltip="By default, more mail puts to sleep unused applications in order to preserve memory and prevent slow-downs.">
             BACKGROUND ACTIVITY
           </Hint>
         </div>

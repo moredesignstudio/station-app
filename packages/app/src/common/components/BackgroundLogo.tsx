@@ -48,7 +48,7 @@ export default class BackgroundLogo extends React.PureComponent<Props, {}> {
         className={classes!.backgroundLogo}
         viewBox="0 0 298 488"
         role="img"
-        aria-label="Station logo"
+        aria-label="more mail logo"
       >
         <path fillRule="evenodd" transform="translate(-830 -233)" d={HALF_LOGO_PATH} />
       </svg>

@@ -60,7 +60,7 @@ export const getFullNotificationsOrderedGrouped = createSelector(
       if (currentApplicationId !== previousApplicationId || groups.size === 0) {
         groups = groups.push(Immutable.Map({
           applicationId: currentApplicationId,
-          applicationName: notification.get('applicationName', 'Station'),
+          applicationName: notification.get('applicationName', 'more mail'),
           icon: notification.get('icon'),
           label: notification.get('label'),
           notifications: Immutable.List([notification]),

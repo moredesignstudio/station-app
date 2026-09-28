@@ -1,4 +1,4 @@
-appId: org.getstation.DesktopApp
+appId: studio.moredesign.moremail
 
 publish:
   provider: 'github'
@@ -16,7 +16,7 @@ directories:
   output: '../../release'
 
 protocols:
-  name: Station
+  name: more mail
   schemes:
   - station
 

@@ -143,7 +143,7 @@ export default class OnboardingStepAppStore extends React.PureComponent<Props> {
           disabled={selectedApplications.length < 3}
           isLoading={isLoading}
         >
-          Start Station
+          Start more mail
         </Button>
 
         <p className={classes!.smallSubtitle}>Select at least 3 apps</p>

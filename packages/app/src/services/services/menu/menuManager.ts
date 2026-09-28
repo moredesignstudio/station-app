@@ -52,10 +52,10 @@ export class BrowserXMenuManager extends EventEmitter {
     const emit = this.emit.bind(this);
 
     return {
-      label: 'Station',
+      label: 'more mail',
       submenu: [
         {
-          label: 'About Station',
+          label: 'About more mail',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'about' });
           },
@@ -209,7 +209,7 @@ export class BrowserXMenuManager extends EventEmitter {
       label: 'Help',
       submenu: [
         {
-          label: 'About Station',
+          label: 'About more mail',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'about' });
           },
@@ -225,7 +225,7 @@ export class BrowserXMenuManager extends EventEmitter {
           },
         },
         {
-          label: 'What\'s new in Station',
+          label: 'What\'s new in more mail',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'show-release-notes' });
           },
@@ -237,7 +237,7 @@ export class BrowserXMenuManager extends EventEmitter {
           },
         },
         {
-          label: 'Discover Station\'s features',
+          label: 'Discover more mail\'s features',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'station-features' });
           },
@@ -282,13 +282,13 @@ export class BrowserXMenuManager extends EventEmitter {
           },
         },
         {
-          label: 'What\'s new in Station',
+          label: 'What\'s new in more mail',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'show-release-notes' });
           },
         },
         {
-          label: 'Discover Station\'s features',
+          label: 'Discover more mail\'s features',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'station-features' });
           },

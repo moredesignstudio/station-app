@@ -56,7 +56,7 @@ class SettingsAutoLaunch extends React.Component<Props, {}> {
         <p className={classes!.settingName}>auto launch</p>
         <div className={classes!.item}>
           <div className={classes!.label}>
-            Launch Station on login
+            Launch more mail on login
           </div>
           <Switcher
             disabled={loading} // if no data yet we disable
