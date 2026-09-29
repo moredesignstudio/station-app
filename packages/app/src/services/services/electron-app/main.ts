@@ -171,14 +171,13 @@ export class ElectronAppServiceImpl extends ElectronAppService implements RPC.In
   }
 
   private getTrayIcon() {
-    const result = nativeImage.createFromPath(
-      isPackaged 
-        ? path.resolve(process.resourcesPath, 'icon-app.png')
-        : path.resolve(__dirname, '../../../static/icon-app.png')
+    // 22 pt menu bar image, with icon-tray@2x.png next to it for Retina screens.
+    // Shown in colour: the app icon has no single-colour glyph to use as a template image.
+    return nativeImage.createFromPath(
+      isPackaged
+        ? path.resolve(process.resourcesPath, 'icon-tray.png')
+        : path.resolve(__dirname, '../../../static/icon-tray.png')
     );
-    result.setTemplateImage(true);
-
-    return result;
   }
 
   private showAllWindows() {

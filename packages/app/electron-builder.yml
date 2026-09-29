@@ -66,6 +66,10 @@ extraResources:
     to: '.env.production'
   - from: 'src/static/icon-app.png'
     to: 'icon-app.png'
+  - from: 'src/static/icon-tray.png'
+    to: 'icon-tray.png'
+  - from: 'src/static/icon-tray@2x.png'
+    to: 'icon-tray@2x.png'
 
 files:
   - '!**/*.map'

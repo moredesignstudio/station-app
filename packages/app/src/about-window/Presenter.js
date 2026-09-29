@@ -1,4 +1,3 @@
-import { accent } from '@getstation/theme';
 import PropTypes from 'prop-types';
 import React from 'react';
 import injectSheet from 'react-jss';
@@ -7,7 +6,7 @@ import SVGInline from 'react-svg-inline';
 import OSBar from '../os-bar/OSBar';
 import AboutWindowFooter from './components/AboutWindowFooter';
 import AboutWindowVersions from './components/AboutWindowVersions';
-import { getSVG } from '../theme/api';
+import { MORE_MAIL_MARK_SVG } from './logo';
 import { isDarwin } from '../utils/process';
 
 const styles = theme => ({
@@ -61,15 +60,12 @@ class AboutWindowPresenter extends React.PureComponent {
   render() {
     const { classes } = this.props;
 
-    // The app theme colors are the flat dark surface: the logo needs the accent ramp to stay visible.
-    const inlineSVG = getSVG(accent.ramp, 80, false);
-
     return (
       <div className={classes.container}>
         { isDarwin && <OSBar /> }
 
         <div className={classes.body}>
-          <SVGInline svg={inlineSVG} />
+          <SVGInline svg={MORE_MAIL_MARK_SVG} />
 
           <div className={classes.content}>
             <AboutWindowVersions
