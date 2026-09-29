@@ -188,7 +188,7 @@ const init = () => {
 
   const bxAppMain = lazyBxAppMain();
 
-  if (!isPackaged && !process.env.STATION_DISABLE_ECX) {
+  if (!isPackaged && process.env.STATION_ENABLE_ECX && !process.env.STATION_DISABLE_ECX) {
     app.on('session-created', s => {
       // `setPreloads` is deprecated since Electron 35
       // @see https://www.electronjs.org/docs/latest/breaking-changes#deprecated-setpreloads-getpreloads-on-session

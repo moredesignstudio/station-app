@@ -1,4 +1,4 @@
-if (!process.env.STATION_DISABLE_ECX) {
+if (process.env.STATION_ENABLE_ECX && !process.env.STATION_DISABLE_ECX) {
   try {
     require('electron-chrome-extension/preload');
   } catch (e) {

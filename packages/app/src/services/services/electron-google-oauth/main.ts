@@ -1,11 +1,9 @@
-import { google } from 'googleapis';
-import { people_v1 } from 'googleapis/build/src/apis/people/v1';
 import { Credentials } from 'google-auth-library';
 import ElectronGoogleOAuth2 from '@getstation/electron-google-oauth2';
 import log from 'electron-log';
 
 import { RPC } from '../../lib/types';
-import { ElectronGoogleOAuthService, ElectronGoogleSignInResponse } from './interface';
+import { ElectronGoogleOAuthService, ElectronGoogleSignInResponse, GooglePerson } from './interface';
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
@@ -17,18 +15,16 @@ export class ElectronGoogleOAuthServiceImpl extends ElectronGoogleOAuthService i
     return client.openAuthWindowAndGetTokens(forceAddSession)
       .then(async (tokens) => {
         try {
-          const service = google.people({
-            version: 'v1',
-            auth: client.oauth2Client,
-          });
-
-          const response = await service.people.get({
-              resourceName: 'people/me',
+          // Direct People API request: loading `googleapis` would pull every Google API into memory
+          const response = await client.oauth2Client.request<GooglePerson>({
+            url: 'https://people.googleapis.com/v1/people/me',
+            params: {
               personFields: 'names,emailAddresses,photos',
-              sources: ['READ_SOURCE_TYPE_PROFILE'],
+              sources: 'READ_SOURCE_TYPE_PROFILE',
+            },
           });
 
-          return { tokens, profile: response.data as people_v1.Schema$Person };
+          return { tokens, profile: response.data };
         }
         catch (err) {
           log.error(`Google profile request error ${err}`);

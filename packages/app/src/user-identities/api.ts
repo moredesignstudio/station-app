@@ -1,11 +1,11 @@
-import { people_v1 } from 'googleapis/build/src/apis/people/v1';
 import { Credentials } from 'google-auth-library/build/src/auth/credentials';
 import { Omit } from '../types';
+import { GooglePerson } from '../services/services/electron-google-oauth/interface';
 import services from '../services/servicesManager';
 import { StationUserIdentity } from './types';
 
 // utils
-const processGoogleAuthData = (data: { profile: people_v1.Schema$Person, tokens: Credentials }): Omit<StationUserIdentity, 'identityId'> => {
+const processGoogleAuthData = (data: { profile: GooglePerson, tokens: Credentials }): Omit<StationUserIdentity, 'identityId'> => {
   const { profile, tokens } = data;
   const nameObject = profile.names ? profile.names[0] : {};
   const emailObject = profile.emailAddresses ? profile.emailAddresses[0] : {};

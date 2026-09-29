@@ -13,15 +13,42 @@ import { setSleepNotification } from '../../onboarding/duck';
 import { getSleepNotification } from '../../onboarding/selectors';
 import { getIconPath } from '../../static/helpers';
 import { updateLastPutToSleepAt } from '../../tabs/duck';
+import { getTabId } from '../../tabs/get';
 import { getTabs } from '../../tabs/selectors';
 import { StationState } from '../../types';
-import { STATION_CHECK_INACTIVE_TAB_EVERY_MS } from '../../utils/constants';
+import { STATION_CHECK_INACTIVE_TAB_EVERY_MS, STATION_SLEEP_AFTER_IDLE_MS } from '../../utils/constants';
 import { periodicTick, takeEveryWitness, takeLatestWitness } from '../../utils/sagas';
 import { getWindowCurrentTabId } from '../../windows/get';
 import { getWindows } from '../../windows/selectors';
 import { tabWebcontentsToKill } from '../api';
 import { removeWebcontents } from '../duck';
-import { getTabWebcontents } from '../selectors';
+import { getTabWebcontents, isWebcontentsMounted } from '../selectors';
+
+// Last time each loaded tab was seen on screen, or first seen loaded.
+// `lastActivityAt` only records when a tab was opened, so without this a tab
+// used for an hour and then left would count as idle for an hour right away.
+const lastSeenAt = new Map<string, number>();
+
+const refreshLastSeenAt = (tabWebcontents: any, currentlyVisibleTabIds: string[], now: number) => {
+  const mountedTabIds = new Set<string>(
+    tabWebcontents
+      .filter(isWebcontentsMounted)
+      .map((twc: any) => getTabId(twc))
+      .valueSeq()
+      .toArray()
+  );
+
+  // forget tabs that are no longer loaded, so they get a fresh start when loaded again
+  for (const tabId of Array.from(lastSeenAt.keys())) {
+    if (!mountedTabIds.has(tabId)) lastSeenAt.delete(tabId);
+  }
+  mountedTabIds.forEach((tabId) => {
+    if (!lastSeenAt.has(tabId)) lastSeenAt.set(tabId, now);
+  });
+  currentlyVisibleTabIds.forEach((tabId) => {
+    if (tabId) lastSeenAt.set(tabId, now);
+  });
+};
 
 function* checkSleepyTabs(): SagaIterator {
   log.debug('Checking sleepy tabs');
@@ -37,11 +64,18 @@ function* checkSleepyTabs(): SagaIterator {
   const manifestURLs = yield select(getInstalledManifestURLs);
   const manifests: Map<string, BxAppManifest> = yield call(getAllManifests, bxApp, manifestURLs);
 
-  const mountedTabsToKill = tabWebcontentsToKill(applications, appSettings, tabWebcontents, manifests, tabs, currentlyVisibleTabIds);
+  const now: number = yield call(Date.now);
+  refreshLastSeenAt(tabWebcontents, currentlyVisibleTabIds, now);
+
+  const mountedTabsToKill = tabWebcontentsToKill(
+    applications, appSettings, tabWebcontents, manifests, tabs, currentlyVisibleTabIds,
+    { idleLimitMs: STATION_SLEEP_AFTER_IDLE_MS, lastSeenAt, now }
+  );
 
   // @ts-ignore Fixed with Immutable 4 https://github.com/facebook/immutable-js/issues/1183
   for (const [tabId] of mountedTabsToKill.valueSeq()) {
     log.debug('Putting to sleep', tabId);
+    lastSeenAt.delete(tabId);
     yield put(updateLastPutToSleepAt(tabId, Date.now()));
     yield put(removeWebcontents(tabId));
   }

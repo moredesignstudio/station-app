@@ -24,8 +24,11 @@ import { TabWebContentsServiceImpl } from '../services/tab-webcontents/main';
 import { URLRouterHelperServiceImpl } from '../services/url-router-helper/main';
 import { GlobalServices, ServicesInitializerImpl, ServicesInitializerNode } from '../types';
 
-const ChromeExtensionsServiceImpl: ChromeExtensionsService = process.env.STATION_DISABLE_ECX ?
-  require('../services/ecx/dummy').ChromeExtensionsServiceDummy : require('../services/ecx/main').ChromeExtensionsServiceImpl;
+// Chrome extension support is off by default: it loads into every app page and costs memory.
+// Set STATION_ENABLE_ECX=1 in the .env file to turn it back on.
+const isEcxEnabled = Boolean(process.env.STATION_ENABLE_ECX) && !process.env.STATION_DISABLE_ECX;
+const ChromeExtensionsServiceImpl: ChromeExtensionsService = isEcxEnabled ?
+  require('../services/ecx/main').ChromeExtensionsServiceImpl : require('../services/ecx/dummy').ChromeExtensionsServiceDummy;
 
 export const getWorkerPeerHandler = (duplex: Duplex) => {
   const channel: RPCChannel = rpcchannel(duplex, {

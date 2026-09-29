@@ -25,14 +25,38 @@ function filterAlwaysLoaded(
   return isAlwaysLoaded(manifest, settings);
 }
 
+export type TabsToKillOptions = {
+  // Maximum number of background tabs kept loaded (visible and `alwaysLoaded` tabs are not counted)
+  maxActiveTabs?: number,
+  // Background tabs unused for longer than this are put to sleep. 0 or undefined disables it.
+  idleLimitMs?: number,
+  // Last time each tab was seen in use, in addition to its `lastActivityAt`
+  lastSeenAt?: Map<string, number>,
+  now?: number,
+};
+
 export function tabWebcontentsToKill(
   applications: ApplicationsImmutable,
   appSettings: ApplicationsSettingsImmutable,
   tabWebcontents: Immutable.Map<string, any>,
   manifests: Map<string, BxAppManifest>,
   tabs: StationTabsImmutable,
-  currentlyVisibleTabIds: string[]
+  currentlyVisibleTabIds: string[],
+  options: TabsToKillOptions = {}
 ): Immutable.Set<[string, Immutable.Map<string, any>]> {
+  const {
+    maxActiveTabs = STATION_MAX_ACTIVE_TABS,
+    idleLimitMs,
+    lastSeenAt,
+    now = Date.now(),
+  } = options;
+
+  const lastUsedAt = (tabId: string): number => Math.max(
+    getLastActivityAt(tabs.get(tabId)!) || 0,
+    (lastSeenAt && lastSeenAt.get(tabId)) || 0
+  );
+  const isIdleTooLong = (tabId: string): boolean =>
+    Boolean(idleLimitMs && idleLimitMs > 0 && now - lastUsedAt(tabId) > idleLimitMs);
 
   // All mounted tabs
   const mountedTabs = Immutable.Set(tabWebcontents
@@ -51,15 +75,16 @@ export function tabWebcontentsToKill(
   const whiteListTabsAlwaysLoadedOrVisible = whiteListTabsAlwaysLoaded.merge(whiteListTabsVisible);
 
   // Tabs that we can't kill plus the rest of mounted tabs ordered
-  // by activity up to STATION_MAX_ACTIVE_TABS
+  // by activity up to `maxActiveTabs`, skipping tabs idle for longer than `idleLimitMs`
   // We ignore `alwaysLoaded` if we want this to remain efficient
-  const seatsAvailable = STATION_MAX_ACTIVE_TABS - whiteListTabsVisible.size;
+  const seatsAvailable = maxActiveTabs - whiteListTabsVisible.size;
 
   let tabsAllowedToStay: Immutable.Iterable<any, any> = Immutable.Set();
   if (seatsAvailable > 0) {
     tabsAllowedToStay = mountedTabs
       .subtract(whiteListTabsAlwaysLoadedOrVisible)
-      .sortBy(([tabId]) => getLastActivityAt(tabs.get(tabId)!))
+      .filter(([tabId]) => !isIdleTooLong(tabId))
+      .sortBy(([tabId]) => lastUsedAt(tabId))
       .reverse()
       .slice(0, seatsAvailable);
   }
