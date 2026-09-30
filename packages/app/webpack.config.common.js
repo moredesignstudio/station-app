@@ -2,6 +2,11 @@ require('./webpack.monkeypatch-crypto');
 const path = require('path');
 const webpack = require('webpack');
 
+// Build-time secrets (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) from the untracked
+// `.env` at the repo root, see `.env.example`. Variables already set in the
+// environment, as on CI, take precedence.
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+
 /* eslint-disable no-param-reassign */
 
 /**
@@ -95,6 +100,9 @@ const mutateWebpackConfig = config => {
   mutateAlias(config);
 
   if (config.mode === 'production') {
+    if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+      console.warn('\n⚠️  GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET is not set: "Sign in with Google" will not work in this build. See .env.example.\n');
+    }
     config.plugins.push(
       new webpack.DefinePlugin({
         'process.env.GOOGLE_CLIENT_ID': JSON.stringify(

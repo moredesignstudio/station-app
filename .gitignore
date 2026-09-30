@@ -5,6 +5,9 @@ logs
 # certs
 certs/
 
+# Local build secrets (see .env.example)
+.env
+
 # Runtime data
 pids
 *.pid

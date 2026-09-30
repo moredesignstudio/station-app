@@ -139,6 +139,8 @@ To package apps for the local platform:
 $ yarn run build
 ```
 
+"Sign in with Google" needs a Google OAuth client compiled into the build: put `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in a `.env` file at the repository root (see `.env.example`). The build warns when they are missing.
+
 #### Code signing
 The application will be automatically signed by the CI on the `release` branch
 
