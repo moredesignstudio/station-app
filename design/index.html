@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>more mail · design review</title>
+  <link rel="icon" href="/brand/more-mail-icon.png">
+  <link rel="stylesheet" href="shared/board.css">
+  <script type="module" src="shared/board.mjs"></script>
+</head>
+<body>
+  <header class="toolbar">
+    <div class="brand">
+      <img src="/brand/more-mail-mark-dark-bg.svg" alt="" width="22" height="16">
+      <span>design review</span>
+    </div>
+    <div class="group" role="group" aria-label="Proposal">
+      <select id="proposal" aria-label="Proposal"></select>
+    </div>
+    <div id="options" class="group options"></div>
+    <div class="group segmented" role="group" aria-label="View">
+      <button data-view="proposal" title="Show the proposal (C flips)">proposal</button>
+      <button data-view="current" title="Show the current app (C flips)">current</button>
+      <button data-view="split" title="Side by side (S)">split</button>
+    </div>
+    <div class="group segmented" role="group" aria-label="Web content">
+      <button data-web="light" title="Web app content in light mode (W)">web light</button>
+      <button data-web="dark" title="Web app content in dark mode (W)">web dark</button>
+    </div>
+    <div class="group">
+      <select id="zoom" aria-label="Zoom">
+        <option value="fit">fit</option>
+        <option value="0.5">50%</option>
+        <option value="0.75">75%</option>
+        <option value="1">100%</option>
+      </select>
+    </div>
+    <div class="group segmented" role="group" aria-label="Motion">
+      <button id="motion" title="Animations on/off (M)">motion</button>
+      <button id="replay" title="Replay every screen (R)">replay ↻</button>
+    </div>
+    <div class="spacer"></div>
+    <div class="group segmented" role="group" aria-label="Panels">
+      <button data-panel="tweak" title="Tweak tokens (T)">tweak</button>
+      <button data-panel="checks" title="Contrast checks (K)">checks <span id="checks-badge" class="count"></span></button>
+      <button data-panel="notes" title="Proposal notes (N)">notes</button>
+    </div>
+  </header>
+
+  <div id="notice" class="notice" hidden></div>
+
+  <div class="layout">
+    <main id="canvas" class="canvas"></main>
+    <aside id="panel" class="panel" hidden>
+      <section data-panel="tweak">
+        <header>
+          <h2>Tweak <span class="dim" id="tweak-target"></span></h2>
+          <p class="dim">Edits apply live to the proposal. Save writes them to <code>tweaks.css</code> in the proposal folder.</p>
+          <div class="actions">
+            <button id="tweak-save" class="primary">Save to proposal</button>
+            <button id="tweak-copy">Copy CSS</button>
+            <button id="tweak-discard">Discard</button>
+          </div>
+        </header>
+        <div id="tweak-list" class="tokens"></div>
+      </section>
+      <section data-panel="checks">
+        <header>
+          <h2>Contrast checks</h2>
+          <p class="dim">WCAG 2.1 ratios for token pairs, current vs proposal. Same checks as <code>yarn design:check</code>.</p>
+        </header>
+        <div id="checks-list"></div>
+      </section>
+      <section data-panel="notes">
+        <div id="notes" class="markdown"></div>
+      </section>
+    </aside>
+  </div>
+</body>
+</html>

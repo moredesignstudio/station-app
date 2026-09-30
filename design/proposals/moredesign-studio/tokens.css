@@ -1,0 +1,85 @@
+/* More Design studio skin: the website's palette, type and glass carried
+   into the app. Values come from the studio's tailwind.config.js and
+   globals.css (yarn design:pull); names in comments are the Tailwind ones. */
+
+:root {
+  /* surface: the site's near-black page, blue-grey glass, midnight cards */
+  --surface-base: #080C13;            /* black */
+  --surface-sidebar: #080C13;         /* black */
+  --surface-panel: #1C2029;           /* more-gray-950 */
+  --surface-elevated: #1C1929;        /* midnight-elevated */
+  --surface-inset: #11141B;
+  --surface-scrim: rgba(8, 12, 19, 0.64);
+
+  /* fill: milk instead of pure white, same steps */
+  --fill-subtle: rgba(248, 249, 250, 0.04);
+  --fill-hover: rgba(248, 249, 250, 0.07);
+  --fill-active: rgba(248, 249, 250, 0.10);
+  --fill-selected: rgba(248, 249, 250, 0.13);
+  --fill-strong: rgba(248, 249, 250, 0.18);
+
+  --border-subtle: rgba(248, 249, 250, 0.06);
+  --border-default: rgba(248, 249, 250, 0.10);
+  --border-strong: #4E5561;           /* more-gray-800, the pill outline */
+
+  /* text */
+  --text-primary: #F8F9FA;            /* more-milk */
+  --text-secondary: #ACB5BD;          /* more-gray-650 */
+  --text-tertiary: #7D8591;           /* new step between gray-650 and gray-800 */
+  --text-disabled: #4E5561;           /* more-gray-800 */
+  --text-inverse: #100D1E;            /* more-midnight */
+  --text-on-accent: #100D1E;
+
+  /* accent: the site is monochrome, primary actions are milk pills.
+     The gradient is the one spark: see --gradient-brand below. */
+  --accent-default: #F8F9FA;
+  --accent-hover: #DDE2E5;            /* more-gray-300, as the site's pill hover */
+  --accent-active: #B4BCC4;           /* more-gray-400 */
+  --accent-subtle: rgba(248, 249, 250, 0.10);
+  --accent-border: rgba(248, 249, 250, 0.55);
+  --accent-text: #F8F9FA;
+  --accent-ramp-1: #00FFB2;
+  --accent-ramp-2: #4EAACC;
+  --accent-ramp-3: #9D55E5;
+  --accent-ramp-4: #EB00FF;
+
+  /* status: the site's error / success, the same Untitled UI family for the rest */
+  --status-success: #17B26A;          /* more-success */
+  --status-success-subtle: rgba(23, 178, 106, 0.14);
+  --status-warning: #F79009;
+  --status-warning-subtle: rgba(247, 144, 9, 0.14);
+  --status-danger: #F97066;
+  --status-danger-hover: #FDA29B;     /* more-error-light */
+  --status-danger-subtle: rgba(240, 68, 56, 0.16);
+  --status-danger-border: rgba(240, 68, 56, 0.40);
+  --status-info: #53B1FD;
+  --status-info-subtle: rgba(46, 144, 250, 0.14);
+  --status-badge: #F04438;            /* more-error: solid, like Slack's unread counts */
+  --status-favorite: #FEC84B;
+
+  /* radius: 9px inputs, 16px cards, pills for buttons and tags */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 9px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  --shadow-panel: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(248, 249, 250, 0.07);
+  --shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(248, 249, 250, 0.08);
+  --shadow-tooltip: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(248, 249, 250, 0.08);
+  --shadow-focus: 0 0 0 2px rgba(248, 249, 250, 0.85);
+  --shadow-focus-inset: inset 0 0 0 1px rgba(248, 249, 250, 0.7);
+
+  --font-sans: "Freizeit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  /* New tokens (not in tokens.ts yet) */
+  --gradient-brand: radial-gradient(67.23% 67.23% at 38.46% 33.79%, #00FFB2 0%, #EB00FF 100%);   /* more-main-gradient */
+  --glass-bg: rgba(28, 32, 41, 0.8);  /* .light-glass, exactly as on the website */
+  --glass-blur: 24px;
+  --font-grotesk: "DetoGrotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+  --text-on-badge: #F8F9FA;
+  --on-glass-secondary: #DDE2E5;      /* more-gray-300: glass over a white page needs lighter text */
+  --on-glass-tertiary: #B4BCC4;       /* more-gray-400 */
+  --focus-ring: #F8F9FA;
+}

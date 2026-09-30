@@ -1,0 +1,10 @@
+/* The studio's typefaces, served from design/.studio (run `yarn design:pull`).
+   Same weights the website loads in src/fonts/Fonts.ts. */
+
+@font-face { font-family: "Freizeit"; font-weight: 400; font-display: block; src: url("../../.studio/fonts/Freizeit-Regular.otf") format("opentype"); }
+@font-face { font-family: "Freizeit"; font-weight: 500; font-display: block; src: url("../../.studio/fonts/Freizeit-Medium.otf") format("opentype"); }
+@font-face { font-family: "Freizeit"; font-weight: 700; font-display: block; src: url("../../.studio/fonts/Freizeit-Bold.otf") format("opentype"); }
+
+@font-face { font-family: "DetoGrotesk"; font-weight: 400; font-display: block; src: url("../../.studio/fonts/DetoGrotesk-Regular.woff2") format("woff2"); }
+@font-face { font-family: "DetoGrotesk"; font-weight: 500; font-display: block; src: url("../../.studio/fonts/DetoGrotesk-Medium.woff2") format("woff2"); }
+@font-face { font-family: "DetoGrotesk"; font-weight: 700; font-display: block; src: url("../../.studio/fonts/DetoGrotesk-Bold.woff2") format("woff2"); }

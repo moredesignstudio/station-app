@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Quick switch</title>
+  <script src="../shared/frame.js"></script>
+</head>
+<body>
+  <div class="window">
+    <nav data-part="dock" data-active="gmail-studio"></nav>
+    <main class="content">
+      <div data-part="web"></div>
+    </main>
+
+    <!-- BangPresenter.tsx, BangInput.tsx, BangList.tsx, BangItem.tsx, BangBottom.tsx -->
+    <div class="scrim">
+      <section class="qs">
+        <div class="qs-input">
+          <span data-part="icon" data-name="search"></span>
+          <div class="field">br<span class="caret"></span></div>
+          <span class="hint"><span class="kbd">↵</span> open</span>
+        </div>
+        <div class="qs-list">
+          <p class="section-label">Opened pages</p>
+          <div class="qs-item highlighted"><span data-part="appDisc" data-app="gmail"></span><div class="text"><p class="label">Brand review — v3 exports</p><p class="context">Gmail · hello@studio.example</p></div><span class="caret-icon" data-part="icon" data-name="ret"></span></div>
+          <div class="qs-item"><span data-part="appDisc" data-app="drive"></span><div class="text"><p class="label">Brand guidelines 2026</p><p class="context">Google Drive · Shared with you</p></div></div>
+          <div class="qs-item"><span data-part="appDisc" data-app="slack"></span><div class="text"><p class="label">#brand-refresh</p><p class="context">Slack · Studio</p></div></div>
+          <p class="section-label" style="margin-top: 8px;">Apps</p>
+          <div class="qs-item"><span data-part="appDisc" data-app="calendar"></span><div class="text"><p class="label">Google Calendar</p><p class="context">Brainstorm · today 14:00</p></div></div>
+          <div class="qs-item"><span data-part="appDisc" data-app="icloud"></span><div class="text"><p class="label">iCloud Mail</p><p class="context">Inbox</p></div></div>
+          <div class="qs-item"><span data-part="appDisc" data-app="whatsapp"></span><div class="text"><p class="label">WhatsApp</p><p class="context">Chats</p></div></div>
+          <p class="section-label" style="margin-top: 8px;">Last opened</p>
+          <div class="qs-item"><span data-part="appDisc" data-app="gmail"></span><div class="text"><p class="label">Proofs for the autumn catalogue</p><p class="context">Gmail · 12 minutes ago</p></div></div>
+          <div class="qs-item"><span data-part="appDisc" data-app="drive"></span><div class="text"><p class="label">Q4 budget</p><p class="context">Google Drive · yesterday</p></div></div>
+        </div>
+        <div class="qs-bottom">
+          <div class="nav">
+            <span><span class="kbd">TAB</span><span class="kbd">↑</span><span class="kbd">↓</span> Navigate</span>
+            <span><span class="kbd">ESC</span> Close</span>
+          </div>
+          <span class="icon-btn" data-part="icon" data-name="cog"></span>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="../shared/icons.js"></script>
+  <script src="../shared/parts.js"></script>
+</body>
+</html>

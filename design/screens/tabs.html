@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tabs popover</title>
+  <script src="../shared/frame.js"></script>
+</head>
+<body>
+  <div class="window">
+    <nav data-part="dock" data-active="gmail-studio"></nav>
+    <main class="content">
+      <div data-part="web"></div>
+    </main>
+
+    <!-- Subdock for the hovered dock app (Subdock.tsx, SubdockHead.tsx, SubdockPanel/*) -->
+    <section class="subdock at-first-app">
+      <header class="subdock-head">
+        <div class="titles">
+          <strong>Gmail</strong>
+          <small>hello@studio.example</small>
+        </div>
+        <div class="actions">
+          <span class="icon-btn" data-part="icon" data-name="bell"></span>
+          <span class="icon-btn" data-part="icon" data-name="cog"></span>
+        </div>
+      </header>
+      <div class="subdock-section" style="padding-top: 6px;">
+        <ul class="subdock-list">
+          <li class="subdock-item active"><span class="fav" style="background:#e75a4d"></span><span class="txt">Home</span></li>
+        </ul>
+      </div>
+      <div class="subdock-section">
+        <header><p class="section-label">Pinned pages</p></header>
+        <ul class="subdock-list">
+          <li class="subdock-item"><span class="fav" style="background:#e75a4d"></span><span class="txt">Clients</span></li>
+          <li class="subdock-item"><span class="fav" style="background:#e75a4d"></span><span class="txt">Invoices</span></li>
+        </ul>
+      </div>
+      <div class="subdock-section">
+        <header><p class="section-label">Opened pages <span class="count">6</span></p><span class="icon-btn" data-part="icon" data-name="plus"></span></header>
+        <ul class="subdock-list">
+          <li class="subdock-item hover"><span class="fav" style="background:#e75a4d"></span><span class="txt">Brand review — v3 exports</span><span class="buttons"><span class="icon-btn" data-part="icon" data-name="star"></span><span class="icon-btn" data-part="icon" data-name="cross"></span></span></li>
+          <li class="subdock-item"><span class="fav" style="background:#e75a4d"></span><span class="txt">Proofs for the autumn catalogue</span></li>
+          <li class="subdock-item"><span class="fav" style="background:#e75a4d"></span><span class="txt">Workshop recap + next steps</span></li>
+          <li class="subdock-item"><span class="fav" style="background:#e75a4d"></span><span class="txt">Search results — "invoice"</span></li>
+          <li class="subdock-item"><span class="fav" style="background:#e75a4d"></span><span class="txt">Drafts (2)</span></li>
+          <li class="subdock-item"><span class="fav" style="background:#e75a4d"></span><span class="txt">Illustrations for onboarding</span></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <script src="../shared/icons.js"></script>
+  <script src="../shared/parts.js"></script>
+</body>
+</html>

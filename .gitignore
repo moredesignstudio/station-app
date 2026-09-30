@@ -60,3 +60,7 @@ yalc.lock
 # Generated files
 **/*generated.ts
 **/*generated.tsx
+
+# Studio styling pulled by design/scripts/pull-studio.sh (licensed fonts, never commit)
+design/.studio/
+design/.studio.tmp/

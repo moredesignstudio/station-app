@@ -1,0 +1,104 @@
+{
+  "screens": [
+    {
+      "id": "main",
+      "title": "Main window",
+      "file": "screens/main.html",
+      "width": 1280,
+      "height": 800,
+      "note": "dock, web content, dock tooltip"
+    },
+    {
+      "id": "tabs",
+      "title": "Tabs popover",
+      "file": "screens/tabs.html",
+      "width": 1280,
+      "height": 800,
+      "note": "subdock of the hovered app"
+    },
+    {
+      "id": "quick-switch",
+      "title": "Quick switch",
+      "file": "screens/quick-switch.html",
+      "width": 1280,
+      "height": 800,
+      "note": "⌘T palette"
+    },
+    {
+      "id": "settings",
+      "title": "Settings",
+      "file": "screens/settings.html",
+      "width": 1280,
+      "height": 800,
+      "note": "General tab, buttons, toggles"
+    }
+  ],
+  "proposals": [
+    {
+      "id": "moredesign-studio",
+      "title": "More Design studio skin",
+      "status": "approved",
+      "summary": "The studio website carried into the app: Slack-like frame with native traffic lights, a labelled rail with black-and-white inactive icons, glass popovers, Freizeit, and motion.",
+      "options": [
+        {
+          "id": "topbar",
+          "title": "top bar",
+          "choices": [
+            {
+              "id": "today",
+              "title": "today at a glance (chosen)"
+            },
+            {
+              "id": "title",
+              "title": "where you are"
+            },
+            {
+              "id": "pages",
+              "title": "open pages pill"
+            },
+            {
+              "id": "glow",
+              "title": "wordmark + ambient light"
+            }
+          ]
+        },
+        {
+          "id": "inactive",
+          "title": "inactive icons",
+          "choices": [
+            {
+              "id": "duotone",
+              "title": "duotone (chosen)"
+            },
+            {
+              "id": "bw",
+              "title": "black & white"
+            },
+            {
+              "id": "onebit",
+              "title": "1-bit"
+            },
+            {
+              "id": "soft",
+              "title": "soft grey (now)"
+            }
+          ]
+        },
+        {
+          "id": "labels",
+          "title": "rail labels",
+          "choices": [
+            {
+              "id": "off",
+              "title": "no labels (chosen)"
+            },
+            {
+              "id": "on",
+              "title": "labels"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

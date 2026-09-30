@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <script src="../shared/frame.js"></script>
+</head>
+<body>
+  <div class="window">
+    <nav data-part="dock" data-active="gmail-studio"></nav>
+    <main class="content">
+      <div data-part="web"></div>
+    </main>
+
+    <!-- Overlay.tsx + settings/Container.tsx + SettingsPanelGeneral.tsx -->
+    <section class="settings">
+      <span class="btn ghost close" data-part="icon" data-name="cross"></span>
+      <header class="settings-head"><h1>Settings</h1></header>
+      <div class="settings-body">
+        <ul class="settings-nav">
+          <li class="nav-item active">General</li>
+          <li class="nav-item">Quick-Switch</li>
+          <li class="nav-item">My Apps</li>
+        </ul>
+        <div class="settings-panel">
+          <div class="settings-title">
+            <h2>more mail <small>version 4.0.0-b1</small></h2>
+            <div style="text-align: right;">
+              <button class="btn primary small">Quit to install the latest version</button>
+              <p style="margin: 6px 0 0; font-size: 12px; color: var(--text-tertiary);">New version available (4.0.1)</p>
+            </div>
+          </div>
+          <div class="block">
+            <p class="section-label">Auto launch</p>
+            <div class="row"><span>Launch more mail on login</span><span class="toggle on"></span></div>
+          </div>
+          <div class="block">
+            <p class="section-label">Downloads</p>
+            <div class="row"><span>Location:</span><span class="path">~/Downloads</span><button class="btn secondary xsmall">Change</button></div>
+            <div class="row"><span>Ask where to save each file before downloading</span><span class="toggle"></span></div>
+          </div>
+          <div class="block">
+            <p class="section-label">Developer tools</p>
+            <button class="btn secondary xsmall">Open Process Manager</button>
+          </div>
+          <div class="block">
+            <p class="section-label">Open source info</p>
+            <p>more mail is built on Station, an open-source project. Its code is available on Github.</p>
+            <button class="btn secondary xsmall" style="margin-top: 12px;">Open Github</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="../shared/icons.js"></script>
+  <script src="../shared/parts.js"></script>
+</body>
+</html>

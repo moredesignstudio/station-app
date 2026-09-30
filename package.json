@@ -19,7 +19,12 @@
     "release": "yarn clean && yarn workspaces foreach --all --topological run release",
     "dev": "yarn workspaces foreach --all --topological run dev",
     "lint": "yarn workspaces foreach --all --topological run lint",
-    "test": "yarn workspaces foreach --all run test"
+    "test": "yarn workspaces foreach --all run test",
+    "design": "node design/serve.mjs",
+    "design:pull": "bash design/scripts/pull-studio.sh",
+    "design:tokens": "node --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON design/scripts/tokens.mjs generate",
+    "design:check": "node --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON design/scripts/tokens.mjs check",
+    "design:diff": "node --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON design/scripts/tokens.mjs diff"
   },
   "workspaces": [
     "packages/*"
