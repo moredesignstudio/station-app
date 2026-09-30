@@ -65,7 +65,7 @@ export type NAVIGATE_TO_APPLICATION_TAB_AUTO = 'browserX/applications/NAVIGATE_T
 
 export type ApplicationConfigData = { identityId?: string, subdomain?: string, customURL?: string };
 export type ChangeSelectedAppVia = 'keyboard_shortcut_ctrl_num' | 'keyboard_shortcut_ctrl_alt_arrow' | 'mouse_click' |
-  'settings-configure-account' | 'app-installation' | 'app-reset' | 'close-tab' | null;
+  'settings-configure-account' | 'app-installation' | 'app-reset' | 'close-tab' | 'top-bar-unread' | null;
 
 // Action Types
 export type CreateApplicationAction = {

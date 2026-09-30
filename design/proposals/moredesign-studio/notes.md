@@ -13,6 +13,12 @@ Chosen on the board: **today at a glance** in the "where you are" style, **duoto
 - Card frame, glass popovers and palette, settings inside the card, pill buttons, lowercase labels, Freizeit (used when installed, not bundled).
 - Not in the app yet: the next calendar event in the top bar (needs calendar data), and the hover highlight gliding between popover rows (the rows do slide in).
 
+## Round 3 (after using the app)
+
+- No unread badge on apps for now. If one comes back, it's a small blue "something new" dot; the rail buttons already use one.
+- The glow is tighter (6px blur, no spread) and takes the colors of what the icon shows: the profile picture's characteristic color (sampled, weighted by saturation) or the app's own color.
+- Unread in the top bar was wrong: pages of one account were added up, and any dot or "99+" turned the total into "new messages". Now it's the highest count per app, added across the rail; clicking it goes to the next app with unread (`top-bar/unread.ts`, tested in `test/jest/top-bar`).
+
 ## Round 2 changes (after review)
 
 - **Frame like Slack:** a full-width top bar holds the native macOS traffic lights, the rail sits below it, and the web app is a rounded card with an 8px gutter.

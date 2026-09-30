@@ -2,14 +2,17 @@ import * as React from 'react';
 // @ts-ignore no declaration file
 import injectSheet from 'react-jss';
 import * as classNames from 'classnames';
-import { fill as fillTokens, motion, status, surface, text } from '@getstation/theme';
+import { fill as fillTokens, motion, text } from '@getstation/theme';
 
+import { getImageColor } from './imageColor';
 import { RAIL_DUOTONE_FILTER_ID } from './RailFilters';
 
 /**
  * An app in the rail. Inactive apps are drawn in duotone (midnight → milk);
- * the active app is in full color with a soft light in its own color. An
- * account shows its profile picture, without the small app icon.
+ * the active app is in full color with a tight glow in the colors of what it
+ * shows: the account's profile picture, or the app's own color. An account
+ * shows its profile picture, without the small app icon. No unread badge for
+ * now: new messages show as a brief bleed into color.
  * See design/proposals/moredesign-studio for the motion spec.
  */
 
@@ -28,10 +31,6 @@ interface Classes {
   disc: string,
   glyph: string,
   picture: string,
-  badge: string,
-  dot: string,
-  pop: string,
-  quiet: string,
 }
 
 export interface OwnProps {
@@ -64,7 +63,8 @@ type Props = OwnProps & GraphQLProps;
 interface State {
   arrive: boolean,
   bleed: boolean,
-  pop: boolean,
+  /** The profile picture's color, once sampled. */
+  pictureColor: string | null,
 }
 
 const ICON = 32;
@@ -95,7 +95,7 @@ const badgeValue = (badge: Props['badge']) => {
   },
   active: {
     '& $color': { opacity: 1 },
-    '& $glow': { opacity: 0.55, transform: 'scale(1.1)' },
+    '& $glow': { opacity: 0.6, transform: 'scale(1)' },
   },
   // becoming the active app: its light blooms, the icon pops
   arrive: {
@@ -110,6 +110,7 @@ const badgeValue = (badge: Props['badge']) => {
   scaleUpAnimation: {
     animation: 'app-dock-icon-scale-up .5s cubic-bezier(0.2, 0, 0, 1)',
   },
+  // a tight light right around the icon, in the colors of what it shows
   glow: {
     position: 'absolute',
     top: 6,
@@ -118,12 +119,11 @@ const badgeValue = (badge: Props['badge']) => {
     height: ICON,
     marginLeft: -ICON / 2,
     borderRadius: '50%',
-    backgroundColor: 'var(--app-color)',
-    // kept inside the 68px rail so the scroll area never clips it
-    filter: 'blur(9px)',
+    backgroundColor: 'var(--glow-color)',
+    filter: 'blur(6px)',
     opacity: 0,
     transform: 'scale(0.6)',
-    transition: `opacity ${motion.slow} ${motion.easeOut}, transform ${motion.slow} ${motion.easeOut}`,
+    transition: `opacity ${motion.slow} ${motion.easeOut}, transform ${motion.slow} ${motion.easeOut}, background-color ${motion.slow}`,
     pointerEvents: 'none',
   },
   icon: {
@@ -169,47 +169,10 @@ const badgeValue = (badge: Props['badge']) => {
     display: 'block',
     objectFit: 'cover',
   },
-  // unread: solid counts, like Slack; never a gradient
-  badge: {
-    position: 'absolute',
-    zIndex: 2,
-    top: 3,
-    left: 36,
-    minWidth: 16,
-    height: 16,
-    padding: [0, 4],
-    boxSizing: 'border-box',
-    borderRadius: 8,
-    backgroundColor: status.badge,
-    color: text.primary,
-    fontSize: 10,
-    fontWeight: 700,
-    lineHeight: '16px',
-    textAlign: 'center',
-    boxShadow: `0 0 0 2px ${surface.sidebar}`,
-    transition: `background-color ${motion.base}, color ${motion.base}, box-shadow ${motion.base}`,
-  },
-  dot: {
-    minWidth: 0,
-    width: 9,
-    height: 9,
-    padding: 0,
-    top: 6,
-    left: 40,
-  },
-  pop: {
-    animation: `rail-badge-pop 560ms ${motion.easeSpring}`,
-  },
-  // focus mode: counts become quiet rings
-  quiet: {
-    backgroundColor: 'transparent',
-    color: 'transparent',
-    boxShadow: `inset 0 0 0 1.5px ${text.tertiary}, 0 0 0 2px ${surface.sidebar}`,
-  },
   '@keyframes rail-bloom': {
-    '0%': { opacity: 0, transform: 'scale(0.4)' },
-    '35%': { opacity: 0.9, transform: 'scale(1.45)' },
-    '100%': { opacity: 0.55, transform: 'scale(1.1)' },
+    '0%': { opacity: 0, transform: 'scale(0.5)' },
+    '35%': { opacity: 0.85, transform: 'scale(1.2)' },
+    '100%': { opacity: 0.6, transform: 'scale(1)' },
   },
   '@keyframes rail-pop': {
     '0%': { transform: 'scale(0.86)' },
@@ -224,11 +187,6 @@ const badgeValue = (badge: Props['badge']) => {
     '16%': { transform: 'scale(1.12)' },
     '30%': { transform: 'scale(1)' },
   },
-  '@keyframes rail-badge-pop': {
-    '0%': { transform: 'scale(0.2)' },
-    '55%': { transform: 'scale(1.3)' },
-    '100%': { transform: 'scale(1)' },
-  },
   '@keyframes app-dock-icon-scale-up': {
     '0%': { transform: 'scale(0)' },
     '90%': { transform: 'scale(1.1)' },
@@ -242,33 +200,52 @@ export class AppDockIcon extends React.PureComponent<Props, State> {
     onOverStateChange: () => { },
   };
 
-  state: State = { arrive: false, bleed: false, pop: false };
+  state: State = { arrive: false, bleed: false, pictureColor: null };
 
   private timers: ReturnType<typeof setTimeout>[] = [];
+  private mounted = false;
+
+  componentDidMount() {
+    this.mounted = true;
+    this.samplePicture();
+  }
 
   componentDidUpdate(prevProps: Props) {
-    const { active, badge } = this.props;
+    const { active, badge, logoURL, isInstanceLogoInDockIcon } = this.props;
     if (active && !prevProps.active) this.flash('arrive', ARRIVE_MS);
 
     const before = badgeValue(prevProps.badge);
     const now = badgeValue(badge);
     const grew = now && (!before || (typeof now === 'number' && typeof before === 'number' && now > before));
-    if (grew) {
-      this.flash('pop', 600);
-      if (!active) this.flash('bleed', BLEED_MS);
+    if (grew && !active) this.flash('bleed', BLEED_MS);
+
+    if (logoURL !== prevProps.logoURL || isInstanceLogoInDockIcon !== prevProps.isInstanceLogoInDockIcon) {
+      this.samplePicture();
     }
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     this.timers.forEach(timer => clearTimeout(timer));
   }
 
+  samplePicture() {
+    const { isInstanceLogoInDockIcon, logoURL } = this.props;
+    if (!isInstanceLogoInDockIcon || !logoURL) {
+      if (this.state.pictureColor) this.setState({ pictureColor: null });
+      return;
+    }
+    getImageColor(logoURL).then(pictureColor => {
+      if (this.mounted && this.props.logoURL === logoURL) this.setState({ pictureColor });
+    });
+  }
+
   // Restart a one-shot animation: drop the class for a frame, then add it back.
-  flash(key: keyof State, ms: number) {
-    this.setState({ [key]: false } as Pick<State, keyof State>, () => {
+  flash(key: 'arrive' | 'bleed', ms: number) {
+    this.setState({ [key]: false } as Pick<State, 'arrive' | 'bleed'>, () => {
       requestAnimationFrame(() => {
-        this.setState({ [key]: true } as Pick<State, keyof State>);
-        this.timers.push(setTimeout(() => this.setState({ [key]: false } as Pick<State, keyof State>), ms));
+        this.setState({ [key]: true } as Pick<State, 'arrive' | 'bleed'>);
+        this.timers.push(setTimeout(() => this.setState({ [key]: false } as Pick<State, 'arrive' | 'bleed'>), ms));
       });
     });
   }
@@ -293,27 +270,11 @@ export class AppDockIcon extends React.PureComponent<Props, State> {
     );
   }
 
-  renderBadge() {
-    const { classes, badge, snoozed } = this.props;
-    const value = badgeValue(badge);
-    if (!value) return null;
-    const isCount = typeof value === 'number' || /^\d+\+?$/.test(String(value));
-    return (
-      <span
-        className={classNames(classes!.badge, {
-          [classes!.dot]: !isCount,
-          [classes!.pop]: this.state.pop,
-          [classes!.quiet]: Boolean(snoozed),
-        })}
-      >
-        {isCount ? value : null}
-      </span>
-    );
-  }
-
   render() {
     const { classes, loading, active, dramaticEnter, themeColor, onClick, onRightClick, iconRef } = this.props;
     if (loading) return null;
+
+    const appColor = themeColor || text.secondary;
 
     return (
       <div ref={iconRef}>
@@ -331,14 +292,16 @@ export class AppDockIcon extends React.PureComponent<Props, State> {
               [classes!.bleed]: this.state.bleed,
               [classes!.scaleUpAnimation]: dramaticEnter,
             })}
-            style={{ ['--app-color' as any]: themeColor || text.secondary }}
+            style={{
+              ['--app-color' as any]: appColor,
+              ['--glow-color' as any]: this.state.pictureColor || appColor,
+            }}
           >
             <span className={classes!.glow} />
             <span className={classes!.icon}>
               {this.renderFace(classes!.mono)}
               {this.renderFace(classes!.color)}
             </span>
-            {this.renderBadge()}
           </div>
         </a>
       </div>

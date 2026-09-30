@@ -82,6 +82,26 @@ window.__proposalReady = function () {
   var $$ = function (sel, el) { return Array.prototype.slice.call((el || document).querySelectorAll(sel)); };
   var restart = function (el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
 
+  // The glow takes the colors of the profile picture (same sampling as
+  // packages/app/src/dock/components/imageColor.ts).
+  $$('.rail-item.account img').forEach(function (img) {
+    var sample = function () {
+      var c = document.createElement('canvas');
+      c.width = c.height = 24;
+      var ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, 24, 24);
+      var d = ctx.getImageData(0, 0, 24, 24).data;
+      var r = 0, g = 0, b = 0, t = 0;
+      for (var i = 0; i < d.length; i += 4) {
+        var max = Math.max(d[i], d[i + 1], d[i + 2]), min = Math.min(d[i], d[i + 1], d[i + 2]);
+        var s = max ? (max - min) / max : 0, w = (d[i + 3] / 255) * (0.1 + s * s);
+        r += d[i] * w; g += d[i + 1] * w; b += d[i + 2] * w; t += w;
+      }
+      if (t) img.closest('.rail-item').style.setProperty('--glow-color', 'rgb(' + Math.round(r / t) + ',' + Math.round(g / t) + ',' + Math.round(b / t) + ')');
+    };
+    if (img.complete) sample(); else img.addEventListener('load', sample);
+  });
+
   // Rail: click to switch app. The glow blooms, the old one fades, the page swaps.
   $$('.rail-item').forEach(function (item) {
     item.addEventListener('click', function () {

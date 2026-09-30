@@ -90,14 +90,15 @@ const SIZE = 32;
     borderRadius: '50%',
     boxShadow: `0 0 0 1px ${fillTokens.strong}`,
   },
+  // "something new": a small blue dot
   badge: {
     position: 'absolute',
     top: 0,
     right: 0,
-    width: 9,
-    height: 9,
+    width: 8,
+    height: 8,
     borderRadius: '50%',
-    backgroundColor: status.badge,
+    backgroundColor: status.info,
     boxShadow: `0 0 0 2px ${surface.sidebar}`,
   },
 })

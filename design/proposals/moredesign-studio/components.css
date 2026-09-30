@@ -275,3 +275,16 @@ html.focus .badge { background: transparent; color: transparent; box-shadow: ins
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
 }
+
+/* ————————————————— Round 3 (after using the app)
+   No unread badge on apps for now (later: a small blue dot). The glow is
+   tighter and takes the colors of what the icon shows: the profile picture
+   (sampled in structure.js) or the app's own color. Rail buttons use a blue
+   "something new" dot. */
+.rail-item .badge { display: none; }
+.rail-item .glow { background: var(--glow-color, var(--app-color)); filter: blur(6px); }
+.rail-item.active .glow { opacity: 0.6; transform: scale(1); }
+@keyframes bloom { 0% { opacity: 0; transform: scale(0.5); } 35% { opacity: 0.85; transform: scale(1.2); } 100% { opacity: 0.6; transform: scale(1); } }
+.round .badge.dot { width: 8px; height: 8px; background: var(--status-info); }
+.tb-today > span:first-child { cursor: default; transition: color var(--dur-base) var(--ease-out); }
+.tb-today > span:first-child:hover { color: var(--text-primary); }

@@ -1,6 +1,5 @@
 import { ThemeTypes } from '@getstation/theme';
 import * as classNames from 'classnames';
-import * as Immutable from 'immutable';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -9,16 +8,20 @@ import { bindActionCreators, Dispatch } from 'redux';
 
 // @ts-ignore: no declaration file
 import { getForeFrontNavigationStateProperty } from '../applications/utils';
-import { getApplicationsForDock } from '../dock/selectors';
+import { changeSelectedApp } from '../applications/duck';
+import { getActiveApplicationId } from '../nav/selectors';
 import { INFINITE, SYNC_WITH_OS } from '../notification-center/constants';
 import { resetSnoozeDuration, setSnoozeDuration } from '../notification-center/duck';
 import { getSnoozeDuration, getSnoozeState } from '../notification-center/selectors';
 import { StationState } from '../types';
 
+import { getUnread } from './selectors';
+import { Unread } from './unread';
+
 /**
  * The top bar: holds the native traffic lights (macOS), drags the window,
- * and shows "today at a glance": unread messages across the rail and the
- * focus switch. A thin line runs under it while the current page loads.
+ * and shows "today at a glance": unread messages across the rail (click to
+ * go to the next app with unread) and the focus switch. A thin line runs under it while the current page loads.
  * See design/proposals/moredesign-studio.
  */
 
@@ -27,6 +30,7 @@ interface Classes {
   today: string,
   slash: string,
   count: string,
+  unread: string,
   focus: string,
   switch: string,
   switchOn: string,
@@ -36,7 +40,8 @@ interface Classes {
 }
 
 interface StateProps {
-  unread: number | string | null,
+  unread: Unread,
+  activeApplicationId?: string,
   isLoading: boolean,
   isSnoozed: boolean,
   syncWithOS: boolean,
@@ -45,6 +50,7 @@ interface StateProps {
 interface DispatchProps {
   setSnooze: (duration: string) => any,
   resetSnooze: () => any,
+  selectApp: (applicationId: string) => any,
 }
 
 interface OwnProps {
@@ -53,13 +59,6 @@ interface OwnProps {
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
-
-const sumBadges = (total: number | string | null, badge: any) => {
-  if (!badge) return total;
-  if (!total) return badge;
-  if (Number.isInteger(total) && Number.isInteger(badge)) return (total as number) + badge;
-  return '•';
-};
 
 const styles = (theme: ThemeTypes) => ({
   container: {
@@ -87,6 +86,15 @@ const styles = (theme: ThemeTypes) => ({
   count: {
     color: theme.text.primary,
     fontWeight: 500,
+  },
+  // clickable: goes to the next app with unread messages
+  unread: {
+    cursor: 'default',
+    WebkitAppRegion: 'no-drag',
+    transition: `color ${theme.motion.base} ${theme.motion.easeOut}`,
+    '&:hover': {
+      color: theme.text.primary,
+    },
   },
   focus: {
     display: 'inline-flex',
@@ -171,11 +179,24 @@ class TopBarImpl extends React.PureComponent<Props> {
     else setSnooze(INFINITE);
   }
 
+  goToUnread = () => {
+    const { unread, activeApplicationId, selectApp } = this.props;
+    const ids = unread.applicationIds;
+    if (!ids.length) return;
+    const next = ids[(ids.indexOf(activeApplicationId || '') + 1) % ids.length];
+    selectApp(next);
+  }
+
   renderUnread() {
     const { classes, unread } = this.props;
-    if (!unread) return <span>all caught up</span>;
-    if (unread === '•') return <span className={classes!.count}>new messages</span>;
-    return <span><span className={classes!.count}>{unread}</span> unread</span>;
+    if (!unread.count && !unread.hasActivity) return <span>all caught up</span>;
+    return (
+      <span className={classes!.unread} onClick={this.goToUnread} title="Go to the next app with unread messages">
+        {unread.count
+          ? <><span className={classes!.count}>{unread.count > 999 ? '999+' : unread.count}</span> unread</>
+          : 'something new'}
+      </span>
+    );
   }
 
   render() {
@@ -206,9 +227,8 @@ class TopBarImpl extends React.PureComponent<Props> {
 
 const TopBar = connect<StateProps, DispatchProps, OwnProps>(
   (state: StationState) => ({
-    unread: getApplicationsForDock(state)
-      .map((application: Immutable.Map<string, any>) => application && application.get('badge'))
-      .reduce(sumBadges, null),
+    unread: getUnread(state),
+    activeApplicationId: getActiveApplicationId(state),
     isLoading: Boolean(getForeFrontNavigationStateProperty(state, 'isLoading')),
     isSnoozed: getSnoozeState(state),
     syncWithOS: getSnoozeDuration(state) === SYNC_WITH_OS,
@@ -217,6 +237,7 @@ const TopBar = connect<StateProps, DispatchProps, OwnProps>(
     {
       setSnooze: (duration: string) => setSnoozeDuration('top-bar', duration),
       resetSnooze: () => resetSnoozeDuration('top-bar'),
+      selectApp: (applicationId: string) => changeSelectedApp(applicationId, 'top-bar-unread'),
     },
     dispatch
   )
