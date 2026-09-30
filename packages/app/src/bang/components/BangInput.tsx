@@ -34,7 +34,7 @@ export interface Props {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 12,
+    gap: '12px',
     minHeight: 56,
     cursor: 'text',
     padding: [16, 20],
@@ -54,7 +54,7 @@ export interface Props {
     padding: 0,
     backgroundColor: 'transparent',
     color: theme.text.primary,
-    ...theme.fontMixin(15, 500),
+    ...theme.fontMixin(17, 400),
     lineHeight: '24px',
     caretColor: theme.accent.default,
     '&::placeholder': {
@@ -74,7 +74,7 @@ export interface Props {
   navigation: {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 6,
+    gap: '6px',
     flexShrink: 0,
     fontSize: 11,
     color: theme.text.tertiary,

@@ -31,7 +31,7 @@ export interface Props {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: '12px',
     margin: [8, 0],
     padding: 12,
     backgroundColor: theme.fill.subtle,

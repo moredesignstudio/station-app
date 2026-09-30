@@ -58,10 +58,16 @@ type Props = OwnProps & StateFromProps;
     flexDirection: 'column',
     alignSelf: 'flex-start',
     marginTop: 50,
-    backgroundColor: theme.surface.panel,
-    borderRadius: theme.radius.xl,
+    // glass, dropping in over the frosted card
+    backgroundColor: theme.glass.background,
+    backdropFilter: `blur(${theme.glass.blur}px)`,
+    borderRadius: 24,
     boxShadow: theme.shadow.modal,
     overflow: 'hidden',
+    animation: `bang-in ${theme.motion.slow} ${theme.motion.easeOut} both`,
+  },
+  '@keyframes bang-in': {
+    from: { opacity: 0, transform: 'translateY(-10px) scale(0.97)' },
   },
 }))
 class BangPresenterImpl extends React.PureComponent<Props, {}> {

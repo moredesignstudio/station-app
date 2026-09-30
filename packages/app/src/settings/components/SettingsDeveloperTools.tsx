@@ -27,7 +27,7 @@ const styles = (theme: Theme) => ({
   item: {
     display: 'flex',
     alignItems: 'center',
-    gap: 16,
+    gap: '16px',
   },
   settingName: {
     ...theme.mixins.sectionLabel(),

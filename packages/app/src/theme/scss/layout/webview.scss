@@ -7,16 +7,24 @@
 
 //== Variables
 
+// The web app sits in a rounded card next to the rail, under the top bar.
 .l-webview {
   flex: 1 1 auto;
+  min-width: 0;
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
+  margin: 0 $frame-gap $frame-gap 0;
+  border-radius: $frame-radius;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px $border-default;
   background-color: $surface-base;
 }
 
+// Loading now shows as a thin line in the top bar (top-bar/TopBar.tsx).
 .l-webview__loader {
+  display: none;
   position: absolute;
   top:0;
   left: 0;
@@ -49,7 +57,13 @@
 .l-webview__tab--visible {
   background-color: $surface-base;
   z-index: $zindex-ultra;
+  animation: page-swap 420ms $ease-out;
   @include scrolling();
+}
+
+// Switching app or page: the page rises into place.
+@keyframes page-swap {
+  from { opacity: 0.25; transform: translateY(6px) }
 }
 
 .l-webview__tab > div,

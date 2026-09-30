@@ -54,7 +54,7 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 16,
+    gap: '16px',
     marginBottom: 16,
   },
   thin: {

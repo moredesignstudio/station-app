@@ -1,8 +1,17 @@
 # More Design studio skin
 
-**Status:** in review, round 2 · **Source:** moredesign.studio (GitLab `moredesign/moredesign-studio-next-js`, pulled with `yarn design:pull`)
+**Status:** shipped (round 2) · **Source:** moredesign.studio (GitLab `moredesign/moredesign-studio-next-js`, pulled with `yarn design:pull`)
 
 The app icon already speaks the studio's language. This carries the website into the app: its palette, Freizeit, the glass menu and pills. Structure follows Slack's frame (not its colors).
+
+## Shipped
+
+Chosen on the board: **today at a glance** in the "where you are" style, **duotone** inactive icons, **no labels**. In the app:
+
+- Top bar (`top-bar/TopBar.tsx`): native traffic lights (`titleBarStyle: 'hidden'`), unread across the rail, the focus switch, "notifications paused", and the loading line.
+- Rail (`AppDockIcon.tsx`, `NativeAppDockIcon.tsx`, `DockTopSection.tsx`): brand tile, duotone + color layers, the glow, solid counts, round buttons with the moon for focus.
+- Card frame, glass popovers and palette, settings inside the card, pill buttons, lowercase labels, Freizeit (used when installed, not bundled).
+- Not in the app yet: the next calendar event in the top bar (needs calendar data), and the hover highlight gliding between popover rows (the rows do slide in).
 
 ## Round 2 changes (after review)
 

@@ -1,12 +1,14 @@
-import {
-  fill as fillTokens, Icon, IconSymbol, radius, status, surface, text, Tooltip, transition,
-} from '@getstation/theme';
+import { fill as fillTokens, Icon, IconSymbol, motion, status, surface, text, Tooltip } from '@getstation/theme';
 import * as classNames from 'classnames';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
-import * as shortid from 'shortid';
 export import IconSymbol = IconSymbol;
+
+/**
+ * A round button at the bottom of the rail (add apps, focus mode,
+ * notifications, update). `active` is its pressed / open state.
+ */
 
 export enum Size {
   HALF, NORMAL, BIG,
@@ -14,12 +16,11 @@ export enum Size {
 
 interface Classes {
   dockIcon: string,
-  sizeHalf: string,
-  sizeBig: string,
-  inner: string,
-  imageRing: string,
   active: string,
   disabled: string,
+  spinOnHover: string,
+  image: string,
+  badge: string,
 }
 
 interface Props {
@@ -36,6 +37,7 @@ interface Props {
   color?: string,
   disabled?: boolean,
   tooltip?: string,
+  /** Kept for API compatibility; every rail button is the same round size now. */
   size?: Size,
 }
 
@@ -43,36 +45,60 @@ interface State {
   canRenderImage: boolean,
 }
 
+const SIZE = 32;
+
 @injectSheet({
   dockIcon: {
-    display: 'block',
-    margin: [2, 0],
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: SIZE,
+    height: SIZE,
+    margin: [0, 'auto'],
+    borderRadius: '50%',
     color: text.secondary,
-    transition: `color ${transition.fast}`,
+    backgroundColor: fillTokens.active,
+    cursor: 'default',
+    transition: `background-color ${motion.quick}, color ${motion.quick}, transform ${motion.base} ${motion.easeSpring}`,
+    '& svg': {
+      transition: `transform ${motion.slow} ${motion.easeSpring}`,
+    },
     '&:not($disabled):not($active):hover': {
       color: text.primary,
-      '& $inner': { fill: fillTokens.hover },
+      backgroundColor: fillTokens.strong,
+    },
+    '&:not($disabled):active': {
+      transform: 'scale(0.9)',
     },
   },
-  sizeHalf: {
-    margin: 0,
-  },
-  sizeBig: {
-    margin: [4, 0],
-  },
-  inner: {
-    fill: 'transparent',
-    transition: `fill ${transition.fast}`,
-  },
-  imageRing: {
-    fill: fillTokens.strong,
+  // the "+" turns a quarter on hover
+  spinOnHover: {
+    '&:hover svg': { transform: 'rotate(90deg)' },
   },
   active: {
-    color: text.primary,
-    '& $inner': { fill: fillTokens.selected },
+    color: text.inverse,
+    backgroundColor: text.primary,
+    '& svg': { transform: 'rotate(-24deg)' },
   },
   disabled: {
     color: text.disabled,
+  },
+  image: {
+    width: 18,
+    height: 18,
+    borderRadius: '50%',
+    boxShadow: `0 0 0 1px ${fillTokens.strong}`,
+  },
+  badge: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: 9,
+    height: 9,
+    borderRadius: '50%',
+    backgroundColor: status.badge,
+    boxShadow: `0 0 0 2px ${surface.sidebar}`,
   },
 })
 export default class NativeAppDockIcon extends React.PureComponent<Props, State> {
@@ -86,146 +112,41 @@ export default class NativeAppDockIcon extends React.PureComponent<Props, State>
     onMouseLeave: () => {},
   };
 
-  imageId: string;
-  img: SVGImageElement | null;
+  state: State = { canRenderImage: true };
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      canRenderImage: true,
-    };
-
-    this.imageId = `icon-img-${shortid.generate()}`;
-  }
-
-  componentDidMount() {
-    if (this.img) {
-      (this.img as any).onerror = () => {
-        if (this.state.canRenderImage) {
-          this.setState({ canRenderImage: false });
-        }
-      };
-    }
-  }
-
-  renderImg() {
-    const { classes } = this.props;
-    return (
-      <g>
-        <circle cx="25" cy="12" r="9" className={classes!.imageRing} />
-        <circle cx="25" cy="12" r="8" fill={`url(#${this.imageId})`} />
-      </g>
-    );
-  }
-
-  renderIcon() {
-    const { iconSymbolId, color } = this.props;
-
-    // `currentColor` lets the icon follow the hover / active / disabled
-    // color set on the root svg
-    return (
-      <Icon symbolId={iconSymbolId} color={color || 'currentColor'} />
-    );
-  }
-
-  renderBadge() {
-    const { badge, iconSymbolId } = this.props;
-
-    if (!badge) return null;
-
-    // center of the badge
-    let center = { cx: 36, cy: 7 };
-
-    // for notificaton icon, for easthetism we'd like to place
-    // the badge exactly on the dot of the icon
-    if (iconSymbolId === IconSymbol.NOTIFICATION) {
-      center = { ...center, cx: 30 };
-    }
-
-    return (
-      <g>
-        <circle {...center} r="3.5" fill={surface.sidebar} />
-        <circle {...center} r="2.5" fill={status.badge} />
-      </g>
-    );
-  }
-
-  renderSvg() {
-    const {
-      classes, onMouseEnter, onMouseLeave, active, disabled, onClick, imageURL,
-      fallbackImageURL, size,
-    } = this.props;
-    const { canRenderImage } = this.state;
-
-    const sizeClassNames = {
-      [Size.HALF]: classes!.sizeHalf,
-      [Size.NORMAL]: '',
-      [Size.BIG]: classes!.sizeBig,
-    };
-
-    const className = classNames(
-      classes!.dockIcon,
-      sizeClassNames[size!],
-      {
-        [classes!.active]: active,
-        [classes!.disabled]: disabled,
-      }
-    );
-
-    const SizesProps = {
-      [Size.HALF]: {
-        width: 25, height: 24, viewBox: '0 0 25 24', x: 0, y: 0, rx: radius.md, rectWidth: 25,
-      },
-      [Size.NORMAL]: {
-        width: 50, height: 24, viewBox: '0 0 50 24', x: 4, y: 0, rx: radius.md, rectWidth: 42,
-      },
-      [Size.BIG]: {
-        width: 50, height: 32, viewBox: '0 0 50 32', x: 4, y: 0, rx: radius.md, rectWidth: 42,
-      },
-    };
-
-    const props = SizesProps[size!];
-
-    return (
-      <svg
-        width={props.width}
-        height={props.height}
-        viewBox={props.viewBox}
-        className={className}
-        onClick={onClick}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
-        { imageURL &&
-          <defs>
-            <pattern id={this.imageId} width="100%" height="100%" x="0">
-              <image ref={img => this.img = img} xlinkHref={canRenderImage ? imageURL : fallbackImageURL} width="16" height="16" />
-            </pattern>
-          </defs>
-        }
-
-        <g>
-          <rect
-            className={classes!.inner}
-            width={props.rectWidth}
-            height={props.height}
-            x={props.x}
-            y={props.y}
-            rx={props.rx}
-          />
-          {imageURL ? this.renderImg() : this.renderIcon()}
-          {this.renderBadge()}
-        </g>
-      </svg>
-    );
+  handleImageError = () => {
+    if (this.state.canRenderImage) this.setState({ canRenderImage: false });
   }
 
   render() {
-    const { tooltip } = this.props;
+    const {
+      classes, className, tooltip, iconSymbolId, color, imageURL, fallbackImageURL,
+      onClick, onMouseEnter, onMouseLeave, active, disabled, badge,
+    } = this.props;
 
     return (
-      <Tooltip className={this.props.className} placement="right" tooltip={tooltip}>
-        {this.renderSvg()}
+      <Tooltip className={className} placement="right" tooltip={tooltip}>
+        <div
+          className={classNames(classes!.dockIcon, {
+            [classes!.active]: active,
+            [classes!.disabled]: disabled,
+            [classes!.spinOnHover]: iconSymbolId === IconSymbol.PLUS,
+          })}
+          onClick={onClick}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
+          {imageURL
+            ? <img
+              className={classes!.image}
+              src={this.state.canRenderImage ? imageURL : fallbackImageURL}
+              onError={this.handleImageError}
+              alt=""
+            />
+            : <Icon symbolId={iconSymbolId} size={22} color={color || 'currentColor'} />
+          }
+          {badge && <span className={classes!.badge} />}
+        </div>
       </Tooltip>
     );
   }

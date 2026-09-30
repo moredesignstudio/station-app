@@ -9,11 +9,11 @@ $title-height: 36px;
 $favicon-size: 20px;
 
 .l-subview {
-  bottom: 0;
+  bottom: $frame-gap;
   left: $app-size + ($gutter * 3);
   position: fixed;
-  right: 0;
-  top: 0;
+  right: $frame-gap;
+  top: $topbar-height;
   transform-origin: center bottom;
   @include animation(fadeIn 300ms 1 ease-in-out);
 

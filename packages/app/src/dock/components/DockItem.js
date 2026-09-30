@@ -51,7 +51,8 @@ class DockItem extends React.PureComponent {
     const popperModifiers = {
       keepTogether: { enabled: false },
       preventOverflow: { enabled: true, boundariesElement: 'viewport' },
-      offset: { offset: '-15, 35' },
+      // opens 6px from the rail, a little above the icon
+      offset: { offset: '-10, 6' },
       computeStyle: { gpuAcceleration: false }
     };
 

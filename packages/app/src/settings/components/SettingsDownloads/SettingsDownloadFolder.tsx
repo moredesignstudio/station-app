@@ -42,7 +42,7 @@ const styles = (theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 12,
+    gap: '12px',
     maxWidth: 600,
     padding: [14, 0],
     borderTop: `1px solid ${theme.border.subtle}`,
@@ -65,7 +65,7 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-    gap: 8,
+    gap: '8px',
     minWidth: 0,
   },
   downloadFolderVal: {
@@ -91,7 +91,7 @@ const styles = (theme: Theme) => ({
   promptDownloadSection: {
     display: 'flex',
     alignItems: 'center',
-    gap: 16,
+    gap: '16px',
   },
   settingsValue: {
     marginLeft: 'auto',

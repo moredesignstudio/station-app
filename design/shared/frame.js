@@ -5,25 +5,34 @@
 // query (?topbar=pages → <html data-topbar="pages">), exposes a small API the
 // review board drives, and live-reloads when a screen is opened on its own.
 (function () {
+  // Proposals that have shipped, oldest first. "current" is the baseline mock
+  // (app.css, parts.js) plus these, so the board shows the app as it is now.
+  // Add a proposal here when it ships (see README, step 6).
+  var SHIPPED = ['moredesign-studio'];
+
   var script = document.currentScript;
   var designRoot = new URL('../', script.src);
   var params = new URLSearchParams(location.search);
   var proposal = params.get('p') || 'current';
   var html = document.documentElement;
 
+  var layers = SHIPPED.slice();
+  if (proposal !== 'current' && layers.indexOf(proposal) < 0) layers.push(proposal);
+
   var sheets = ['tokens/current.css', 'shared/web.css', 'shared/app.css'];
-  if (proposal !== 'current') {
+  layers.forEach(function (id) {
     ['fonts.css', 'tokens.css', 'components.css', 'tweaks.css'].forEach(function (file) {
-      sheets.push('proposals/' + proposal + '/' + file);
+      sheets.push('proposals/' + id + '/' + file);
     });
-  }
+  });
   // Parser-inserted so the first paint already has the right styles.
   sheets.forEach(function (href) {
     document.write('<link rel="stylesheet" data-design="' + href + '" href="' + new URL(href, designRoot).href + '">');
   });
-  if (proposal !== 'current') {
-    document.write('<script src="' + new URL('proposals/' + proposal + '/structure.js', designRoot).href + '"><\/script>');
-  }
+  // Structure changes: the last layer wins (each sets window.__proposalStructure).
+  layers.forEach(function (id) {
+    document.write('<script src="' + new URL('proposals/' + id + '/structure.js', designRoot).href + '"><\/script>');
+  });
 
   html.dataset.proposal = proposal;
   html.dataset.web = params.get('web') || 'light';

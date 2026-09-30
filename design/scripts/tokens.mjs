@@ -18,7 +18,7 @@ const variablesScss = join(repo, 'packages/app/src/theme/scss/common/variables.s
 const currentCss = join(design, 'tokens/current.css');
 const appCss = join(design, 'shared/app.css');
 
-const GROUPS = ['surface', 'fill', 'border', 'text', 'accent', 'status', 'radius', 'shadow', 'font', 'kbd', 'traffic', 'transition'];
+const GROUPS = ['surface', 'fill', 'border', 'text', 'accent', 'status', 'radius', 'shadow', 'font', 'kbd', 'traffic', 'transition', 'motion', 'glass', 'layout'];
 
 const kebab = s => s.replace(/[A-Z]/g, c => '-' + c.toLowerCase());
 const cssValue = v => (typeof v === 'number' ? `${v}px` : String(v));

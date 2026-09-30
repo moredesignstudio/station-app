@@ -21,7 +21,7 @@ const styles = (theme: ThemeTypes) => createStyles({
     maxWidth: 600,
     display: 'flex',
     alignItems: 'center',
-    gap: 6,
+    gap: '6px',
     color: theme.text.primary,
     overflow: 'hidden',
     backgroundColor: theme.fill.subtle,

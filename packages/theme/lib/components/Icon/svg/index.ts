@@ -39,6 +39,7 @@ import LinkChainSvg from './LinkChainSvg';
 import LoadingSvg from './LoadingSvg';
 import LockSvg from './LockSvg';
 import MarkReadSvg from './MarkReadSvg';
+import MoonSvg from './MoonSvg';
 import NotificationSvg from './NotificationSvg';
 import NudgeSvg from './NudgeSvg';
 import PencilSvg from './PencilSvg';
@@ -102,6 +103,7 @@ export enum SvgSymbol {
   LOADING = 'loading',
   LOCK = 'lock',
   MARK_READ = 'mark-read',
+  MOON = 'moon',
   NOTIFICATION = 'notification',
   NUDGE = 'nudge',
   PENCIL = 'pencil',
@@ -170,6 +172,7 @@ const components: SvgComponents = {
   [SvgSymbol.LOADING]: LoadingSvg,
   [SvgSymbol.LOCK]: LockSvg,
   [SvgSymbol.MARK_READ]: MarkReadSvg,
+  [SvgSymbol.MOON]: MoonSvg,
   [SvgSymbol.NOTIFICATION]: NotificationSvg,
   [SvgSymbol.NUDGE]: NudgeSvg,
   [SvgSymbol.PENCIL]: PencilSvg,

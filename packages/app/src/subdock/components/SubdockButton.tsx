@@ -29,8 +29,8 @@ const styles = (theme: Theme) => ({
     height: 24,
     width: 24,
     marginLeft: 4,
-    borderRadius: theme.radius.sm,
-    color: theme.text.tertiary,
+    borderRadius: theme.radius.pill,
+    color: theme.glass.textTertiary,
     cursor: 'default',
     transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}`,
     '&:hover': {

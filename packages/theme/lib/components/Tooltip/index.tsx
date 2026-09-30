@@ -27,19 +27,21 @@ const styles = {
     width: 'max-content',
     maxWidth: 240,
     margin: [0, 0, 0, 2] as any,
-    padding: [5, 8] as any,
+    padding: [5, 10] as any,
     ...theme.fontMixin(12, 500),
     lineHeight: '16px',
     textAlign: 'center' as 'center',
     color: theme.text.primary,
-    backgroundColor: theme.surface.elevated,
+    // a small glass pill, like the website's menu
+    backgroundColor: theme.glass.background,
+    backdropFilter: `blur(${theme.glass.blur}px)`,
     boxShadow: theme.shadow.tooltip,
-    borderRadius: theme.radius.md,
+    borderRadius: theme.radius.pill,
     zIndex: theme.$zindexUltime,
     pointerEvents: 'none' as 'none',
   },
   alternate: {
-    borderRadius: theme.radius.md,
+    borderRadius: theme.radius.pill,
   },
 };
 

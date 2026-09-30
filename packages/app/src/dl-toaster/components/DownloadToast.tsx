@@ -87,7 +87,7 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 10,
+    gap: '10px',
     padding: [12, 10, 12, 12],
     fontSize: 12,
     lineHeight: '16px',

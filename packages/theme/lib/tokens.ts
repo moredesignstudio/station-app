@@ -1,10 +1,10 @@
 /**
- * Station dark design tokens.
+ * more mail design tokens: the More Design studio website carried into the app.
  *
- * A warm, low-contrast charcoal palette in the spirit of Claude Code and
- * Notion in dark mode: neutral surfaces, translucent white fills for
- * interaction states, hairline borders, and a single terracotta accent
- * reserved for primary actions and focus.
+ * The site's near-black page, blue-grey glass for panels, midnight cards,
+ * milk text, and monochrome actions (milk pills with midnight text). Values
+ * come from the studio's tailwind.config.js; see
+ * design/proposals/moredesign-studio for the reasoning and the review board.
  *
  * Everything in the app UI should be expressed with these tokens rather
  * than hard-coded colors.
@@ -12,91 +12,98 @@
 
 export const surface = {
   /** App background: behind webviews, overlays, empty states. */
-  base: '#1B1A19',
-  /** The 50px dock rail. */
-  sidebar: '#151413',
+  base: '#080C13',
+  /** The rail (left) and the top bar. */
+  sidebar: '#080C13',
   /** Subdock, quick-switch, popovers, cards. */
-  panel: '#232221',
+  panel: '#1C2029',
   /** Modals, inputs on panels, tooltips, hover cards. */
-  elevated: '#2B2A28',
+  elevated: '#1C1929',
   /** Wells: bottom bars, code / kbd rows, grouped sections. */
-  inset: '#141312',
+  inset: '#11141B',
   /** Dimming layer behind modals and overlays. */
-  scrim: 'rgba(0, 0, 0, 0.55)',
+  scrim: 'rgba(8, 12, 19, 0.64)',
 };
 
 /** Translucent white fills for interactive states on any dark surface. */
 export const fill = {
-  subtle: 'rgba(255, 255, 255, 0.04)',
-  hover: 'rgba(255, 255, 255, 0.06)',
-  active: 'rgba(255, 255, 255, 0.09)',
-  selected: 'rgba(255, 255, 255, 0.12)',
-  strong: 'rgba(255, 255, 255, 0.16)',
+  subtle: 'rgba(248, 249, 250, 0.04)',
+  hover: 'rgba(248, 249, 250, 0.07)',
+  active: 'rgba(248, 249, 250, 0.10)',
+  selected: 'rgba(248, 249, 250, 0.13)',
+  strong: 'rgba(248, 249, 250, 0.18)',
 };
 
 export const border = {
-  subtle: 'rgba(255, 255, 255, 0.06)',
-  default: 'rgba(255, 255, 255, 0.10)',
-  strong: 'rgba(255, 255, 255, 0.18)',
+  subtle: 'rgba(248, 249, 250, 0.06)',
+  default: 'rgba(248, 249, 250, 0.10)',
+  strong: '#4E5561',
 };
 
 export const text = {
-  primary: '#ECEAE6',
-  secondary: '#A9A69F',
-  tertiary: '#78756E',
-  disabled: '#55534E',
-  inverse: '#1B1A19',
-  onAccent: '#FFFFFF',
+  primary: '#F8F9FA',
+  secondary: '#ACB5BD',
+  tertiary: '#7D8591',
+  disabled: '#4E5561',
+  inverse: '#100D1E',
+  onAccent: '#100D1E',
 };
 
+/**
+ * The site is monochrome: primary actions are milk pills with midnight text.
+ * Color comes from the apps themselves (the active app, unread counts).
+ */
 export const accent = {
-  default: '#D97757',
-  hover: '#E38A6C',
-  active: '#C4674A',
-  subtle: 'rgba(217, 119, 87, 0.14)',
-  border: 'rgba(217, 119, 87, 0.45)',
-  /** Accent used as text on dark surfaces (slightly lighter for contrast). */
-  text: '#E8956F',
-  /** Four stops used for the Station logo gradient. */
-  ramp: ['#E8956F', '#D97757', '#C4674A', '#A8563C'],
+  default: '#F8F9FA',
+  hover: '#DDE2E5',
+  active: '#B4BCC4',
+  subtle: 'rgba(248, 249, 250, 0.10)',
+  border: 'rgba(248, 249, 250, 0.55)',
+  /** Accent used as text on dark surfaces. */
+  text: '#F8F9FA',
+  /** The brand gradient (mint → magenta, as in the app icon), in four stops. */
+  ramp: ['#00FFB2', '#4EAACC', '#9D55E5', '#EB00FF'],
 };
 
 export const status = {
-  success: '#6FBF8A',
-  successSubtle: 'rgba(111, 191, 138, 0.14)',
-  warning: '#D9A441',
-  warningSubtle: 'rgba(217, 164, 65, 0.14)',
-  danger: '#E5625B',
-  dangerHover: '#EE7770',
-  dangerSubtle: 'rgba(229, 98, 91, 0.14)',
-  dangerBorder: 'rgba(229, 98, 91, 0.35)',
-  info: '#6FA3E6',
-  infoSubtle: 'rgba(111, 163, 230, 0.14)',
-  /** Unread / notification dot. */
-  badge: '#E5625B',
+  success: '#17B26A',
+  successSubtle: 'rgba(23, 178, 106, 0.14)',
+  warning: '#F79009',
+  warningSubtle: 'rgba(247, 144, 9, 0.14)',
+  danger: '#F97066',
+  dangerHover: '#FDA29B',
+  dangerSubtle: 'rgba(240, 68, 56, 0.16)',
+  dangerBorder: 'rgba(240, 68, 56, 0.40)',
+  info: '#53B1FD',
+  infoSubtle: 'rgba(46, 144, 250, 0.14)',
+  /** Unread counts and dots: solid, never a gradient. */
+  badge: '#F04438',
   /** Pinned / favorite star. */
-  favorite: '#D9A441',
+  favorite: '#FEC84B',
 };
 
 export const radius = {
-  xs: 3,
-  sm: 4,
-  md: 6,
-  lg: 8,
-  xl: 12,
+  xs: 4,
+  sm: 6,
+  /** Inputs (the site's rounded-9px). */
+  md: 9,
+  lg: 12,
+  /** Cards and popovers (the site's rounded-2xl). */
+  xl: 16,
   pill: 999,
 };
 
 export const shadow = {
-  panel: '0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06)',
-  modal: '0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08)',
-  tooltip: '0 4px 12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08)',
-  focus: '0 0 0 2px rgba(217, 119, 87, 0.45)',
-  focusInset: 'inset 0 0 0 1px rgba(217, 119, 87, 0.6)',
+  panel: '0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(248, 249, 250, 0.07)',
+  modal: '0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(248, 249, 250, 0.08)',
+  tooltip: '0 4px 12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(248, 249, 250, 0.08)',
+  focus: '0 0 0 2px rgba(248, 249, 250, 0.85)',
+  focusInset: 'inset 0 0 0 1px rgba(248, 249, 250, 0.7)',
 };
 
 export const font = {
-  sans: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, ' +
+  /** Freizeit is used when it is installed on the Mac (it is not bundled: licensed). */
+  sans: '"Freizeit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, ' +
     '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
   mono: '"SF Mono", ui-monospace, Menlo, Consolas, "Liberation Mono", monospace',
 };
@@ -121,9 +128,40 @@ export const traffic = {
 };
 
 export const transition = {
-  fast: '120ms ease-out',
-  normal: '200ms ease-out',
-  slow: '300ms ease-out',
+  fast: '140ms cubic-bezier(0.16, 1, 0.3, 1)',
+  normal: '240ms cubic-bezier(0.16, 1, 0.3, 1)',
+  slow: '420ms cubic-bezier(0.16, 1, 0.3, 1)',
+};
+
+/**
+ * Motion. `easeOut` for arrivals (panels, glows, rows), `easeSpring` for
+ * things you touch (a small overshoot), `easeInOut` for moving between places.
+ */
+export const motion = {
+  easeOut: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  easeSpring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  easeInOut: 'cubic-bezier(0.65, 0, 0.35, 1)',
+  quick: '140ms',
+  base: '240ms',
+  slow: '420ms',
+  story: '1600ms',
+};
+
+/** Frosted popovers over web content: the website's `.light-glass`. */
+export const glass = {
+  background: 'rgba(28, 32, 41, 0.8)',
+  blur: 24,
+  /** Text on glass is one step lighter so it stays readable over white pages. */
+  textSecondary: '#DDE2E5',
+  textTertiary: '#B4BCC4',
+};
+
+/** The window frame: a top bar, the rail, and the web app as a card. */
+export const layout = {
+  topBarHeight: 40,
+  railWidth: 68,
+  frameGap: 8,
+  frameRadius: 12,
 };
 
 export const dark = {
@@ -139,6 +177,9 @@ export const dark = {
   kbd,
   traffic,
   transition,
+  motion,
+  glass,
+  layout,
 };
 
 export type DarkTokens = typeof dark;
@@ -165,13 +206,13 @@ export const kbdMixin = () => ({
   verticalAlign: 'middle',
 });
 
-/** Mixin: small uppercase section label (Notion-style). */
+/** Mixin: small lowercase section label (like the website's labels). */
 export const sectionLabelMixin = () => ({
   color: text.tertiary,
-  fontSize: 11,
-  fontWeight: 600,
-  letterSpacing: '0.04em',
-  textTransform: 'uppercase' as 'uppercase',
+  fontSize: 12,
+  fontWeight: 500,
+  letterSpacing: 0,
+  textTransform: 'lowercase' as 'lowercase',
 });
 
 /** Mixin: thin dark scrollbar for scrollable panels. */

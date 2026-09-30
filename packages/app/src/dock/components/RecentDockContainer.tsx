@@ -8,7 +8,6 @@ import * as PopperJS from 'popper.js';
 
 import { ActivityEntry } from '../../activity/queries@local.gql.generated';
 
-import RecentDockIcon from './RecentDockIcon';
 import RecentSubdock, { Props as RecentSubdockProps } from './RecentSubdock';
 interface OwnProps {
   highlightedItemId?: string,
@@ -35,7 +34,7 @@ class RecentDockContainer extends React.PureComponent<Props, State> {
 
   private static popperModifiers: PopperJS.Modifiers = {
     preventOverflow: { enabled: true, boundariesElement: 'viewport' },
-    offset: { offset: '-52, 5' },
+    offset: { offset: '0, 8' },
     computeStyle: { gpuAcceleration: false },
   };
 
@@ -67,15 +66,6 @@ class RecentDockContainer extends React.PureComponent<Props, State> {
     this.props.stopCycling();
   }
 
-  onClickIcon = () => {
-    const { recentApplications } = this.props;
-    if (this.timeoutSubdock !== null) {
-      clearTimeout(this.timeoutSubdock);
-      this.timeoutSubdock = null;
-    }
-    this.handleSelectItem(recentApplications[0], 'click-recent-dock-icon', 0);
-  }
-
   render() {
     const {
       recentApplications, onWillUnmount, onDidMount,
@@ -90,12 +80,8 @@ class RecentDockContainer extends React.PureComponent<Props, State> {
         <Reference>
           {({ ref }) => (
             <div ref={ref}>
-              <RecentDockIcon
-                onMouseEnter={() => this.onOverStateChange(true)}
-                onMouseLeave={() => this.onOverStateChange(false)}
-                onClickIcon={this.onClickIcon}
-                recentApplication={recentApplications[0]}
-              />
+              {/* No recents button in the rail any more; this empty anchor
+                  places the list that Ctrl+Tab cycling still shows. */}
             </div>
           )}
 

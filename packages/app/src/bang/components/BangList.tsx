@@ -106,7 +106,7 @@ const itemIsCollapsed = (
   categoryLabel: {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 6,
+    gap: '6px',
   },
   results: {
     marginTop: 4,
@@ -127,7 +127,7 @@ const itemIsCollapsed = (
   expandSection: {
     display: 'flex',
     alignItems: 'center',
-    gap: 6,
+    gap: '6px',
   },
   expandSectionIcon: {
     display: 'block',

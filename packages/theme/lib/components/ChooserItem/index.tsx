@@ -22,7 +22,7 @@ const styles = (theme: ThemeTypes) => createStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 12,
+    gap: '12px',
     backgroundColor: theme.fill.subtle,
     boxShadow: `inset 0 0 0 1px ${theme.border.subtle}`,
     borderRadius: theme.radius.lg,

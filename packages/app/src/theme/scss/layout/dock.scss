@@ -34,11 +34,14 @@ $app-dot-size: 18px;
 }
 
 //== Scrolling area
+//== Scrolling area: the apps in the rail
 .l-dock__scroll {
   flex: 1 1 auto;
-  padding-bottom: 30px;
-  padding-right: 30px;
-  width: calc(100%);
+  min-height: 0;
+  width: 100%;
+  // room for the active app's glow above the first icon
+  padding-top: 14px;
+  padding-bottom: 12px;
   @include scrolling();
 
   &::-webkit-scrollbar {

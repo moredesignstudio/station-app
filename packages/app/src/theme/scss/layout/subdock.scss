@@ -40,11 +40,10 @@ $favicon-size: 16px;
     flex: 1 0 100%;
     display: block;
     line-height: 1.2em;
-    letter-spacing: -0.01em;
-    @include font(13px, 600);
+    @include font(15px, 500);
   }
   small {
-    color: $text-tertiary;
+    color: $glass-text-tertiary;
     display: block;
     flex: 1 0 100%;
     @include font(11px);
@@ -54,7 +53,7 @@ $favicon-size: 16px;
 
   //== Variants
   &.l-subdock__head--active {
-    strong { @include font(13px, 600) }
+    strong { @include font(15px, 500) }
   }
   .l-subdock--notification & {
     align-items: center;

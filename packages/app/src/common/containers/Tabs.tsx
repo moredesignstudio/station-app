@@ -30,7 +30,7 @@ const styles = (theme: Theme) => ({
     margin: 0,
     display: 'flex',
     flexDirection: 'column',
-    gap: 2,
+    gap: '2px',
   },
   panel: {
     flex: 1,

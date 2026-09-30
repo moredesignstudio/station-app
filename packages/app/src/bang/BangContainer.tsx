@@ -34,8 +34,9 @@ export interface DispatchProps {
 export type Props = OwnProps & StateProps & DispatchProps;
 
 @injectSheet(() => ({
+  // The rail has no search button any more; ⌘T still opens the palette.
   bangIcon: {
-    opacity: .6,
+    display: 'none',
   },
 }))
 class BangContainerImpl extends React.PureComponent<Props> {

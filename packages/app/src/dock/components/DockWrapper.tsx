@@ -3,6 +3,8 @@ import * as React from 'react';
 import injectSheet from 'react-jss';
 import { GradientType, ThemeTypes, withGradient } from '@getstation/theme';
 
+import RailFilters from './RailFilters';
+
 interface Classes {
   container: string,
 }
@@ -14,15 +16,17 @@ interface Props {
 }
 
 const styles = (theme: ThemeTypes) => ({
+  // The rail: sits on the window background, next to the web app card.
   container: {
     display: 'flex',
-    flex: '0 0 50px',
+    flex: `0 0 ${theme.layout.railWidth}px`,
     flexDirection: 'column',
     position: 'relative',
-    width: 50,
+    width: theme.layout.railWidth,
     zIndex: 4,
+    padding: [4, 0, 14],
+    boxSizing: 'border-box',
     backgroundImage: (props: Props) => props.themeGradient,
-    borderRight: `1px solid ${theme.border.subtle}`,
   },
 });
 
@@ -33,6 +37,7 @@ class DockWrapper extends React.PureComponent<Props, {}> {
 
     return (
       <div onClick={onClickDock} className={classes!.container}>
+        <RailFilters />
         {children}
       </div>
     );

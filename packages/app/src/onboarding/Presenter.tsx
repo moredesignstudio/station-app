@@ -5,7 +5,6 @@ import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
 import { MinimalApplication } from '../applications/graphql/withApplications';
-import TrafficLights from '../dock/components/TrafficLights';
 import { OnboardingDockIcon } from './components/OnboardingDockIcon';
 import OnboardingStepAppStore from './components/OnboardingStepAppStore';
 
@@ -18,7 +17,6 @@ export interface Classes {
   container: string,
   section: string,
   sectionHeader: string,
-  trafficLights: string,
   illustration: string,
   onboardingDock: string,
   hideOnboardingDock: string,
@@ -85,16 +83,10 @@ const styles = (theme: ThemeTypes) => ({
   sectionHeader: {
     padding: [60, 60, 0, 60],
     width: '100%',
-    // the only logo asset is black on transparent: invert it for the dark pane
     '& img': {
-      filter: 'invert(1)',
-      opacity: 0.92,
+      display: 'block',
+      height: 28,
     },
-  },
-  trafficLights: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
   },
   illustration: {
     flex: 1,
@@ -211,9 +203,7 @@ class Presenter extends React.PureComponent<Props, State> {
 
   render() {
     const {
-      classes, applications, step,
-      isWindowFocused, onCloseWindow, onMinimizeWindow,
-      onExpandWindow, isDarwin, searchInputValue, handleSearchInputValue,
+      classes, applications, step, searchInputValue, handleSearchInputValue,
     } = this.props;
 
     const { selectedApplications, isLoading } = this.state;
@@ -221,21 +211,11 @@ class Presenter extends React.PureComponent<Props, State> {
     return (
       <div className={classes!.container}>
         <div id="portal-powered-by-station" />
-        {isDarwin &&
-          <div className={classes!.trafficLights}>
-            <TrafficLights
-              focused={isWindowFocused}
-              handleClose={onCloseWindow}
-              handleMinimize={onMinimizeWindow}
-              handleExpand={onExpandWindow}
-              allHover={true}
-            />
-          </div>
-        }
+        {/* The window's traffic lights are native now (MainWindowManager.ts). */}
 
         <div className={classes!.section}>
           <div className={classes!.sectionHeader}>
-            <img src="static/logos/station-logo-full-black.svg" alt="" />
+            <img src="static/logos/more-mail-logo-dark-bg.svg" alt="more mail" />
           </div>
 
           <SlideX step={step}>

@@ -41,8 +41,8 @@ window.__proposalStructure = function (parts, h) {
       '</div>' +
       // Chosen: today's content, set like "where you are" (plain text and slashes).
       '<div class="tb tb-today">' +
+        // Shipped without the next event: that needs calendar data (see notes).
         '<span><b>3</b> unread</span><i>/</i>' +
-        '<span class="event"><span class="dot" style="background:' + h.apps.calendar.color + '"></span>brainstorm · 14:00</span><i>/</i>' +
         '<span class="focus-pill"><span class="switch"></span>focus</span>' +
         '<span class="progress"></span>' +
       '</div>' +

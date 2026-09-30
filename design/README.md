@@ -109,7 +109,9 @@ Only after the proposal is approved on the board:
    board's current and proposal views should look the same.
 4. `yarn design:check`, `yarn build`, lint.
 5. Build and install the app, then compare it with the board screen by screen.
-6. Set the proposal's status in `manifest.json` to `shipped`.
+6. Set the proposal's status in `manifest.json` to `shipped` and add it to `SHIPPED` in
+   `shared/frame.js`: the board's "current" is the baseline mock plus every shipped
+   proposal, so it keeps showing the app as it is.
 
 ## Keeping the screens honest
 

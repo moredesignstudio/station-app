@@ -1,7 +1,6 @@
 import { updateUI } from 'redux-ui/transpiled/action-reducer';
 import classNames from 'classnames';
 import memoize from 'memoizee';
-import * as remote from '@electron/remote';
 import mod from 'mod-op';
 import PropTypes from 'prop-types';
 import { findIndex, prop, propEq, tail } from 'ramda';
@@ -47,7 +46,6 @@ import KeyboardShortcuts from './components/KeyboardShortcuts';
 import DockIconDragLayer from './DockIconDragLayer';
 import * as dockActions from './duck';
 import { getApplicationsForDock } from './selectors';
-import { isDarwin } from '../utils/process';
 import DockWrapper from './components/DockWrapper';
 import DockTopSection from './components/DockTopSection';
 import { getIsApplicationInstanceLogoInDock } from '../application-settings/selectors';
@@ -55,15 +53,16 @@ import { logger } from '../api/logger';
 import { changeSelectedApp } from '../applications/duck';
 import { OnApplicationInstalled } from './OnApplicationInstalled';
 
-const styles = (theme) => ({
+const styles = () => ({
+  // round buttons: add apps, focus mode, notifications
   bottomSection: {
-    padding: '4px 0 2px',
-    backgroundColor: 'transparent',
-    borderTop: `1px solid ${theme.border.subtle}`,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '10px',
+    paddingTop: 8,
   },
 });
-
-const onTrafficLightClose = () => remote.getCurrentWindow().close();
 
 @injectSheet(styles)
 class DockImpl extends React.PureComponent {
@@ -475,8 +474,6 @@ class DockImpl extends React.PureComponent {
     return (
       <DockWrapper onClickDock={this.handleClickDock}>
         <DockTopSection
-          isDarwin={isDarwin}
-          onClose={onTrafficLightClose}
           isRecentSubdockVisible={isRecentSubdockVisible}
           showRecentSubdock={this.handleShowRecentSubdock}
           hideRecentSubdock={this.handleHideRecentSubdock}

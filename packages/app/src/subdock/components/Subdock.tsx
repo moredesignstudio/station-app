@@ -36,17 +36,24 @@ interface Props {
 }
 
 @injectSheet((theme: Theme) => ({
+  // The website's glass, sliding out of the rail.
   container: {
     display: 'flex',
     flexDirection: 'column',
     width: 280,
     zIndex: 4,
-    borderRadius: theme.radius.lg,
+    borderRadius: theme.radius.xl,
     maxHeight: '98vh',
     overflow: 'hidden',
-    backgroundColor: theme.surface.panel,
+    backgroundColor: theme.glass.background,
+    backdropFilter: `blur(${theme.glass.blur}px)`,
     boxShadow: theme.shadow.panel,
     color: theme.text.primary,
+    transformOrigin: 'left top',
+    animation: `subdock-in 380ms ${theme.motion.easeOut} both`,
+  },
+  '@keyframes subdock-in': {
+    from: { opacity: 0, transform: 'translateX(-10px) scale(0.98)' },
   },
   panels: {
     flex: '1 1 auto',

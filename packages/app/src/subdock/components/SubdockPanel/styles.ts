@@ -37,15 +37,16 @@ export const subdockListStyle = (theme: Theme) => ({
       transition: `opacity ${theme.transition.slow}`,
     },
     '&::before': {
-      background: `linear-gradient(${theme.surface.panel}, transparent)`,
+      background: `linear-gradient(${theme.glass.background}, transparent)`,
     },
     '&::after': {
       bottom: 0,
-      background: `linear-gradient(transparent, ${theme.surface.panel})`,
+      background: `linear-gradient(transparent, ${theme.glass.background})`,
     },
   },
   title: {
     ...theme.mixins.sectionLabel(),
+    color: theme.glass.textTertiary,
     display: 'flex',
     alignItems: 'center',
     margin: 0,

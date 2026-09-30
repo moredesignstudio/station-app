@@ -36,7 +36,7 @@ const styles = (theme: Theme) => ({
   item: {
     display: 'flex',
     alignItems: 'center',
-    gap: 16,
+    gap: '16px',
   },
   label: {
     ...theme.fontMixin(13),
@@ -58,7 +58,7 @@ const styles = (theme: Theme) => ({
   },
   content: {
     columnCount: 2,
-    columnGap: 64,
+    columnGap: '64px',
     lineHeight: '2.2em',
   },
 });

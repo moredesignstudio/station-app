@@ -1,4 +1,3 @@
-import { accent } from '@getstation/theme';
 import * as React from 'react';
 import NativeAppDockIcon, { IconSymbol } from '../../dock/components/NativeAppDockIcon';
 import { osName } from '../../utils/process';
@@ -15,16 +14,16 @@ export default class FocusModeDockIcon extends React.PureComponent<Props, {}> {
 
     const tooltipContent =
       syncWithOS ? `${osName} is in Do Not Disturb mode` :
-      `${isSnoozed ? 'Enable' : 'Disable' } Notifications`;
+      isSnoozed ? 'Focus: notifications paused' : 'Focus: pause notifications';
 
     return (
       <NativeAppDockIcon
         className="appcues-subdock-focus"
-        iconSymbolId={isSnoozed ? IconSymbol.BELL_OFF : IconSymbol.BELL}
+        iconSymbolId={IconSymbol.MOON}
         onClick={onClick}
+        active={isSnoozed && !syncWithOS}
         disabled={syncWithOS}
         tooltip={tooltipContent}
-        color={(isSnoozed && !syncWithOS) ? accent.default : undefined}
       />
     );
   }

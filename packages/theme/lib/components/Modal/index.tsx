@@ -116,7 +116,7 @@ const styles = (theme: ThemeTypes) => createStyles({
     whiteSpace: 'nowrap',
     display: 'flex',
     justifyContent: 'flex-end',
-    gap: 8,
+    gap: '8px',
     padding: '8px 24px 24px',
     '& button': {
       flexBasis: ({ onContinue }: OwnProps) => onContinue ? '50%' : '100%',

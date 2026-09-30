@@ -12,7 +12,7 @@ import ShortcutsOverlay from '../app/components/ShortcutsOverlay';
 import LoadingScreen from '../app/containers/LoadingScreen';
 import { mainAppReady, setKbdShortcutsVisibility, toggleMaximize } from '../app/duck';
 import ApplicationScene from '../applications/ApplicationScene';
-import TransparentTitleBar from '../components/TransparentTitleBar';
+import TopBar from '../top-bar/TopBar';
 import Dialogs from '../dialogs/Dialogs';
 import DownloadToaster from '../dl-toaster/DownloadToaster';
 import Dock from '../dock/Dock';
@@ -90,7 +90,7 @@ export default class App extends React.PureComponent {
 
     return (
       <div className={classNames('l-container', `cursor-${cursorIcon}`, { 'l-fullscreen': fullScreen })}>
-        <TransparentTitleBar onDoubleClick={this.props.onToggleMaximize} />
+        <TopBar onDoubleClick={this.props.onToggleMaximize} />
         <div className="l-appcontainer">
           <Dock />
           <ApplicationScene />

@@ -42,21 +42,27 @@ export type Props = HocProps & DefaultProps & {
 };
 
 const styles = (theme: Theme) => ({
+  // Fills the web app card: next to the rail, under the top bar.
   container: {
     position: 'fixed',
     display: 'flex',
     flexDirection: 'column',
-    top: 0,
-    bottom: 0,
-    left: 50,
-    right: 0,
+    top: theme.layout.topBarHeight,
+    bottom: theme.layout.frameGap,
+    left: theme.layout.railWidth,
+    right: theme.layout.frameGap,
     overflow: 'auto',
     zIndex: 100,
     backgroundColor: theme.surface.base,
     color: theme.text.primary,
-    borderLeft: `1px solid ${theme.border.subtle}`,
-    padding: '72px 48px 48px',
+    borderRadius: theme.layout.frameRadius,
+    boxShadow: `0 0 0 1px ${theme.border.default}`,
+    padding: '64px 48px 48px',
+    animation: `overlay-rise ${theme.motion.slow} ${theme.motion.easeOut} both`,
     ...theme.mixins.scrollbar(),
+  },
+  '@keyframes overlay-rise': {
+    from: { opacity: 0, transform: 'translateY(8px)' },
   },
   content: {
     flexGrow: 1,

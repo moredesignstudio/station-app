@@ -28,10 +28,12 @@ interface JSSProps {
 @injectSheet((theme: Theme) => ({
   container: {
     position: 'fixed',
-    top: 0,
-    bottom: 0,
-    left: 50,
-    right: 0,
+    top: theme.layout.topBarHeight,
+    bottom: theme.layout.frameGap,
+    left: theme.layout.railWidth,
+    right: theme.layout.frameGap,
+    borderRadius: theme.layout.frameRadius,
+    overflow: 'hidden',
     zIndex: 100,
     backgroundImage: (props: withGradientProps) => props.themeGradient,
     padding: '10px',

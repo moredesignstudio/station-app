@@ -35,7 +35,14 @@ const styles = (theme: Theme) => ({
     height: SUBDOCK_ITEM_HEIGHT,
     margin: '0 6px',
     padding: '0 8px 0 12px',
-    borderRadius: theme.radius.md,
+    borderRadius: theme.radius.pill,
+    // rows follow the panel in, one after another
+    animation: `subdock-row-in 460ms ${theme.motion.easeOut} both`,
+    animationDelay: '90ms',
+    '&:nth-child(2)': { animationDelay: '114ms' },
+    '&:nth-child(3)': { animationDelay: '138ms' },
+    '&:nth-child(4)': { animationDelay: '162ms' },
+    '&:nth-child(n+5)': { animationDelay: '186ms' },
     listStyleType: 'none',
     transition: `background-color ${theme.transition.fast}`,
     '&:hover': {
@@ -82,8 +89,11 @@ const styles = (theme: Theme) => ({
       opacity: 1,
     },
   },
+  '@keyframes subdock-row-in': {
+    from: { opacity: 0, transform: 'translateX(-6px)' },
+  },
   txt: {
-    color: theme.text.secondary,
+    color: theme.glass.textSecondary,
     flex: '1 1 auto',
     minWidth: 0,
     marginRight: 4,

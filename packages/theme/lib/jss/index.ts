@@ -99,20 +99,21 @@ export const theme = {
   },
   titles: {
     h1: {
-      ...fontMixin(24, 600),
-      lineHeight: '1.3em',
+      // the website's large, light headline
+      ...fontMixin(36, 400),
+      lineHeight: '44px',
       letterSpacing: '-0.01em',
       color: dark.text.primary,
       marginBottom: 12,
     },
     h2: {
-      ...fontMixin(18, 600),
+      ...fontMixin(20, 500),
       lineHeight: '28px',
       letterSpacing: '-0.005em',
       color: dark.text.primary,
     },
     h3: {
-      ...fontMixin(14, 600),
+      ...fontMixin(14, 500),
       lineHeight: '1.5em',
       color: dark.text.primary,
     },

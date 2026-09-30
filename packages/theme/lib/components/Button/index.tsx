@@ -45,7 +45,8 @@ const styles = (theme: ThemeTypes) => createStyles({
     margin: 0,
     padding: ((props: ButtonProps) => isRenderingIcon(props) ? 0 : '0 12px') as any,
     aspectRatio: ((props: ButtonProps) => isRenderingIcon(props) ? '1 / 1' : 'auto') as any,
-    borderRadius: theme.radius.md,
+    // pills, like the website's buttons
+    borderRadius: theme.radius.pill,
     height: 32,
     lineHeight: '32px',
     fontFamily: theme.font.sans,
@@ -55,7 +56,11 @@ const styles = (theme: ThemeTypes) => createStyles({
     whiteSpace: 'nowrap',
     cursor: 'pointer',
     userSelect: 'none',
-    transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}, box-shadow ${theme.transition.fast}`,
+    transition: `background-color ${theme.transition.fast}, color ${theme.transition.fast}, box-shadow ${theme.transition.fast}, transform ${theme.motion.base} ${theme.motion.easeSpring}`,
+    // a press you can feel
+    '&:active:enabled': {
+      transform: 'scale(0.96)',
+    },
     '&:disabled': {
       cursor: 'default',
       opacity: 0.4,
@@ -95,7 +100,6 @@ const styles = (theme: ThemeTypes) => createStyles({
     height: 38,
     lineHeight: '38px',
     padding: ((props: ButtonProps) => isRenderingIcon(props) ? 0 : '0 16px') as any,
-    borderRadius: theme.radius.lg,
   },
   buttonMain: {
     backgroundColor: theme.accent.default,
@@ -117,15 +121,17 @@ const styles = (theme: ThemeTypes) => createStyles({
       backgroundColor: theme.accent.active,
     },
   },
+  // the website's outlined pill (TabFilterPill)
   buttonSecondary: {
-    color: theme.text.primary,
-    backgroundColor: theme.fill.active,
-    boxShadow: `inset 0 0 0 1px ${theme.border.default}`,
+    color: theme.text.secondary,
+    backgroundColor: theme.surface.panel,
+    boxShadow: `inset 0 0 0 1px ${theme.border.strong}`,
     '&:hover:enabled': {
-      backgroundColor: theme.fill.selected,
+      color: theme.text.primary,
+      boxShadow: `inset 0 0 0 1px ${theme.text.secondary}`,
     },
     '&:active:enabled': {
-      backgroundColor: theme.fill.strong,
+      backgroundColor: theme.fill.active,
     },
   },
   buttonTertiary: {

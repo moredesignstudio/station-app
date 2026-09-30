@@ -34,12 +34,12 @@ const styles = (theme: Theme) => ({
   navigationWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 12,
+    gap: '12px',
   },
   navigation: {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 4,
+    gap: '4px',
     fontSize: ({ smallSize }: Props) => smallSize ? 10 : 11,
     color: theme.text.tertiary,
     whiteSpace: 'nowrap',

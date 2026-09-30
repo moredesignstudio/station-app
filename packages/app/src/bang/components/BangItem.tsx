@@ -57,10 +57,10 @@ interface State {
       display: 'flex',
       height: ({ smallSize }: OwnProps) => smallSize ? 40 : 48,
       alignItems: 'center',
-      gap: 10,
+      gap: '10px',
       padding: [0, 12],
       margin: [0, 8],
-      borderRadius: theme.radius.md,
+      borderRadius: theme.radius.lg,
       listStyle: 'none',
       transition: `background-color ${theme.transition.fast}`,
       '&.highlighted': {
@@ -73,7 +73,7 @@ interface State {
     content: {
       display: 'flex',
       alignItems: 'center',
-      gap: 8,
+      gap: '8px',
       flex: 1,
       minWidth: 0,
       color: theme.text.primary,

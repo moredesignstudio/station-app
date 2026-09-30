@@ -1,64 +1,65 @@
 // Variables
 // —————————————————————————————————
-// Mirrors the dark design tokens in packages/theme/lib/tokens.ts.
+// Mirrors the design tokens in packages/theme/lib/tokens.ts.
 // Keep both files in sync.
 
 //== Base
 $gutter: 10px;
-$border-radius: 6px;
-$border-radius-lg: 8px;
-$border-radius-xl: 12px;
+$border-radius: 9px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
 $img-path: "../../static/";
 
 //== Surfaces
-$surface-base: #1B1A19;      // app background
-$surface-sidebar: #151413;   // dock rail
-$surface-panel: #232221;     // subdock, quick-switch, popovers
-$surface-elevated: #2B2A28;  // modals, tooltips, inputs
-$surface-inset: #141312;     // wells, bottom bars
-$scrim: rgba(0, 0, 0, 0.55);
+$surface-base: #080C13;      // app background
+$surface-sidebar: #080C13;   // rail and top bar
+$surface-panel: #1C2029;     // subdock, quick-switch, popovers
+$surface-elevated: #1C1929;  // modals, tooltips, inputs
+$surface-inset: #11141B;     // wells, bottom bars
+$scrim: rgba(8, 12, 19, 0.64);
 
-//== Fills (translucent white on dark)
-$fill-subtle: rgba(255, 255, 255, 0.04);
-$fill-hover: rgba(255, 255, 255, 0.06);
-$fill-active: rgba(255, 255, 255, 0.09);
-$fill-selected: rgba(255, 255, 255, 0.12);
-$fill-strong: rgba(255, 255, 255, 0.16);
+//== Fills (translucent milk on dark)
+$fill-subtle: rgba(248, 249, 250, 0.04);
+$fill-hover: rgba(248, 249, 250, 0.07);
+$fill-active: rgba(248, 249, 250, 0.10);
+$fill-selected: rgba(248, 249, 250, 0.13);
+$fill-strong: rgba(248, 249, 250, 0.18);
 
 //== Borders
-$border-subtle: rgba(255, 255, 255, 0.06);
-$border-default: rgba(255, 255, 255, 0.10);
-$border-strong: rgba(255, 255, 255, 0.18);
+$border-subtle: rgba(248, 249, 250, 0.06);
+$border-default: rgba(248, 249, 250, 0.10);
+$border-strong: #4E5561;
 
 //== Text
-$text-primary: #ECEAE6;
-$text-secondary: #A9A69F;
-$text-tertiary: #78756E;
-$text-disabled: #55534E;
-$text-inverse: #1B1A19;
+$text-primary: #F8F9FA;
+$text-secondary: #ACB5BD;
+$text-tertiary: #7D8591;
+$text-disabled: #4E5561;
+$text-inverse: #100D1E;
 
 //== Accent
-$accent: #D97757;
-$accent-hover: #E38A6C;
-$accent-active: #C4674A;
-$accent-subtle: rgba(217, 119, 87, 0.14);
-$accent-border: rgba(217, 119, 87, 0.45);
-$accent-text: #E8956F;
+$accent: #F8F9FA;
+$accent-hover: #DDE2E5;
+$accent-active: #B4BCC4;
+$accent-subtle: rgba(248, 249, 250, 0.10);
+$accent-border: rgba(248, 249, 250, 0.55);
+$accent-text: #F8F9FA;
 
 //== Status
-$success: #6FBF8A;
-$warning: #D9A441;
-$danger: #E5625B;
-$info: #6FA3E6;
-$badge: #E5625B;
+$success: #17B26A;
+$warning: #F79009;
+$danger: #F97066;
+$info: #53B1FD;
+$badge: #F04438;
 $red: $danger;
 
 //== Shadows
-$shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06);
-$shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
-$shadow-focus: 0 0 0 2px rgba(217, 119, 87, 0.45);
+$shadow-panel: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(248, 249, 250, 0.07);
+$shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(248, 249, 250, 0.08);
+$shadow-focus: 0 0 0 2px rgba(248, 249, 250, 0.85);
 
 //== Fonts
+$font-sans: "Freizeit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-mono: "SF Mono", ui-monospace, Menlo, Consolas, "Liberation Mono", monospace;
 
 //== Z-indexes
@@ -76,4 +77,15 @@ $zindex-null: 0;
 //== Global variables
 $body-bkg: $surface-base;
 $osbar-height: 20px;
-$app-size: 50px;
+$app-size: 68px;          // rail width (tokens layout.railWidth)
+$topbar-height: 40px;     // layout.topBarHeight
+$frame-gap: 8px;          // layout.frameGap
+$frame-radius: 12px;      // layout.frameRadius
+
+//== Glass (tokens glass.*) and motion (tokens motion.*)
+$glass-background: rgba(28, 32, 41, 0.8);
+$glass-blur: 24px;
+$glass-text-secondary: #DDE2E5;
+$glass-text-tertiary: #B4BCC4;
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);

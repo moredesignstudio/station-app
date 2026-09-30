@@ -2,8 +2,6 @@ import { ThemeTypes } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
-import TrafficLightsContainer from './TrafficLightsContainer';
-import DockNavigation from '../../dock-navigation/DockNavigationContainer';
 import SearchWrapper from '../../bang/BangContainer';
 import RecentDockContainer from './RecentDockContainer';
 import {
@@ -17,12 +15,15 @@ import { ActivityEntry } from '../../activity/queries@local.gql.generated';
 
 interface Classes {
   container: string,
+  brand: string,
 }
+
+// The more mail icon at the top of the rail (72px for 2x screens).
+// tslint:disable-next-line:no-var-requires
+const railIcon: string = require('../../static/icon-rail.png');
 
 interface Props {
   classes?: Classes,
-  isDarwin: boolean,
-  onClose: () => any,
   handleBangWillUnmount: () => any,
   handleBangDidMount: () => any,
   handleRecentDockDidMount: () => any,
@@ -42,9 +43,38 @@ interface Props {
 
 const styles = (theme: ThemeTypes) => ({
   container: {
-    backgroundColor: 'transparent',
-    borderBottom: `1px solid ${theme.border.subtle}`,
-    paddingBottom: 4,
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingBottom: 10,
+    // a short hairline under the brand tile
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      bottom: 0,
+      left: '50%',
+      width: 24,
+      marginLeft: -12,
+      height: 1,
+      backgroundColor: theme.border.default,
+    },
+  },
+  brand: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    overflow: 'hidden',
+    boxShadow: `0 0 0 1px ${theme.border.default}`,
+    transition: `transform ${theme.motion.slow} ${theme.motion.easeSpring}`,
+    '&:hover': {
+      transform: 'scale(1.06) rotate(-4deg)',
+    },
+    '& img': {
+      display: 'block',
+      width: '100%',
+      height: '100%',
+    },
   },
 });
 
@@ -52,7 +82,7 @@ const styles = (theme: ThemeTypes) => ({
 export default class DockTopSection extends React.PureComponent<Props, {}> {
   render() {
     const {
-      classes, isDarwin, onClose, cyclingStep,
+      classes, cyclingStep,
       ctrlTabCycling, handlePaneEscape, stopCycling, recentApplications, selectItem,
       handleRecentDockDidMount, handleRecentDockWillUnmount, highlightedRecentSubdockItemId,
       setHighlightedRecentSubdockItemId, isRecentSubdockVisible, showRecentSubdock, hideRecentSubdock,
@@ -60,11 +90,11 @@ export default class DockTopSection extends React.PureComponent<Props, {}> {
 
     return (
       <div className={classes!.container}>
-        {isDarwin &&
-          <TrafficLightsContainer onClose={onClose} />
-        }
-
-        <DockNavigation />
+        {/* Traffic lights are native now (in the top bar); back / forward live on
+            ⌘[ ⌘] and the trackpad swipe. */}
+        <div className={classes!.brand} title="more mail">
+          <img src={railIcon} alt="more mail" draggable={false} />
+        </div>
 
         <SearchWrapper
           onQuit={() => handlePaneEscape('center-modal')}

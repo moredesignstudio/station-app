@@ -141,7 +141,7 @@ interface State {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 16,
+    gap: '16px',
     padding: [6, 0],
   },
   description: {

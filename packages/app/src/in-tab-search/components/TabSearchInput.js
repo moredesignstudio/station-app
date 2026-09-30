@@ -11,7 +11,7 @@ import { Icon, IconSymbol } from '@getstation/theme';
     zIndex: theme.$zIndexUltime,
     display: 'flex',
     alignItems: 'center',
-    gap: 4,
+    gap: '4px',
     // `.l-webview__tab > div` forces height: 100% in webview.scss; keep the bar at its own height
     height: '36px !important',
     padding: [6, 8],

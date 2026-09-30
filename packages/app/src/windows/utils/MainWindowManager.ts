@@ -21,9 +21,14 @@ export default class MainWindowManager extends GenericWindowManager {
       return this.window;
     }
 
+    // macOS: the native traffic lights sit inside our own top bar (top-bar/TopBar.tsx)
+    const macTitleBar: Partial<Electron.BrowserWindowConstructorOptions> = isDarwin
+      ? { titleBarStyle: 'hidden', trafficLightPosition: { x: 16, y: 13 } }
+      : {};
+
     await super.create({
       show: false,
-      frame: !isDarwin,
+      ...macTitleBar,
       icon: getResourceIconPath(),
       acceptFirstMouse: true,
       savePosition: 'main-window',

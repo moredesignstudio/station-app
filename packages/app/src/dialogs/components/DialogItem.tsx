@@ -49,9 +49,10 @@ const styles = (theme: Theme) => ({
     flexDirection: 'row',
     flexWrap: (props: Props) => actionCTAOnBottom(props) ? 'wrap' : 'inherited',
     position: 'absolute',
-    bottom: 10,
-    left: 'calc(50% + 50px)',
-    transform: 'translateX(calc(-50% - 25px))',
+    // centered at the bottom of the web app card
+    bottom: 18,
+    left: `calc(50% + ${(theme.layout.railWidth - theme.layout.frameGap) / 2}px)`,
+    transform: 'translateX(-50%)',
     width: 400,
     margin: 0,
     padding: 20,

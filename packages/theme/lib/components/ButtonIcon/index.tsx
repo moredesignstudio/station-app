@@ -40,7 +40,7 @@ const styles = {
   iconAndTextSpan: {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 4,
+    gap: '4px',
     flexDirection: ({ iconPosition }: ButtonIconProps) => positionStyle[iconPosition || 'Left'].flexDirection,
     verticalAlign: 'top',
   },
