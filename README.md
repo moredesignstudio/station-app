@@ -17,8 +17,7 @@
 - [Useful env variables for dev](#useful-env-variables-for-dev)
 - [Migrations](#migrations)
   - [Inspect DB](#inspect-db)
-- [Packaging](#packaging)
-  - [Code signing](#code-signing)
+- [Manual Packaging](#manual-packaging)
 - [Development tools](#development-tools)
 - [Releases](#releases)
 - [Select documentation topics](#docs)
@@ -133,14 +132,16 @@ Install [TablePlus](https://tableplus.io/) and create a new SQLite connection wi
 
 ## Manual Packaging
 
-To package apps for the local platform:
+To package the macOS app locally:
 
 ```bash
-$ yarn run build
+$ yarn build
+$ NODE_ENV=production yarn workspace station-desktop-app electron-builder --publish never
 ```
 
-#### Code signing
-The application will be automatically signed by the CI on the `release` branch
+The app lands in `release/mac-arm64`. It is signed when a Developer ID Application
+certificate is in your login keychain, and notarized only when `APPLE_ID`,
+`APPLE_APP_SPECIFIC_PASSWORD` and `APPLE_TEAM_ID` are set.
 
 ## Development tools
 
@@ -161,13 +162,28 @@ This repository is a yarn workspaces monorepo (`packages/*`):
 
 ## Releases
 
-1. [Draft a new release](https://github.com/getstation/desktop-app/releases/new) tagged with the desired version
-2. Apply your changes on [`release`](https://github.com/getstation/desktop-app/tree/release) branch
-3. On `release` branch, bump the version with `yarn version` to the corresponding version number
-4. Let the CI build artifacts for each platform
-5. Publish the draft
+Releases are built by GitHub Actions ([release.yml](.github/workflows/release.yml)) and published
+on this repository. Installed apps find new releases through the in-app updater.
 
-Note: you can remove artifacts and push changes over the same draft
+1. Merge the changes into `main`
+2. Tag `main` with the new version and push the tag, for example:
+   ```bash
+   $ git tag v4.1.0 && git push origin v4.1.0
+   ```
+3. The workflow builds the macOS app, signs and notarizes it, and publishes release `v4.1.0`
+
+Use plain versions like `v4.1.0`: the updater ignores pre-releases such as `v4.1.0-b1`.
+
+The workflow needs these repository secrets:
+
+| Secret | Value |
+|---|---|
+| `CSC_LINK` | Developer ID Application certificate exported as `.p12`, base64-encoded |
+| `CSC_KEY_PASSWORD` | Password of that `.p12` file |
+| `APPLE_ID` | Apple ID of the developer account |
+| `APPLE_APP_SPECIFIC_PASSWORD` | App-specific password for that Apple ID |
+| `APPLE_TEAM_ID` | Team ID from the developer account's membership details |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Optional, needed to add new Google accounts |
 
 ## Docs
 

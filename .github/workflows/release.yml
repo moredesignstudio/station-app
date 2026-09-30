@@ -1,77 +1,64 @@
 name: Release
+
+# Push a tag like v4.1.0 to build, sign, notarize and publish that version.
+# Running copies of the app pick it up through the in-app updater.
+# Use plain versions (no -b1 suffix): the updater ignores pre-releases.
 on:
   push:
-    branches:
-      - release
-jobs:
-  Linux:
-    runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
-        with:
-          node-version: "24"
-          cache: "yarn"
-      # See https://github.com/nodejs/node-gyp/blob/main/docs/Force-npm-to-use-global-node-gyp.md
-      # https://github.com/nodejs/node-gyp/blob/main/docs/Updating-npm-bundled-node-gyp.md
-      # - name: Update node-gyp
-      #   run: |
-      #     npm install --global node-gyp@8.x
-      #     npm config set node_gyp $(npm prefix -g)/lib/node_modules/node-gyp/bin/node-gyp.js
-      - name: Install dependencies
-        run: yarn install --immutable
-      # Since Electron 42 the `electron` package no longer downloads its binary in a
-      # `postinstall` script; it does so lazily on first use. Prefetch it explicitly so a
-      # download failure is reported here instead of mid-build.
-      - name: Download Electron binary
-        run: yarn workspace station-desktop-app exec install-electron
-      - name: Build and Release
-        run: yarn release
+    tags:
+      - 'v*'
 
-  MacOs:
+permissions:
+  contents: write
+
+jobs:
+  macOS:
     runs-on: macos-latest
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      # Developer ID Application certificate, exported as .p12 and base64-encoded
       CSC_LINK: ${{ secrets.CSC_LINK }}
-      AC_USERNAME: ${{ secrets.AC_USERNAME }}
-      AC_PASSWORD: ${{ secrets.AC_PASSWORD }}
-      AC_TEAM_ID: ${{ secrets.AC_TEAM_ID }}
+      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      # Notarization
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      # Optional: needed to add new Google accounts in the app
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "24"
           cache: "yarn"
+      - name: Check signing secrets
+        run: |
+          missing=""
+          for name in CSC_LINK CSC_KEY_PASSWORD APPLE_ID APPLE_APP_SPECIFIC_PASSWORD APPLE_TEAM_ID; do
+            if [ -z "${!name}" ]; then missing="$missing $name"; fi
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secrets:$missing"
+            exit 1
+          fi
       - name: Install dependencies
         run: yarn install --immutable
       - name: Download Electron binary
         run: yarn workspace station-desktop-app exec install-electron
-      - name: Build and Release
-        run: yarn release
-
-  Windows:
-    runs-on: windows-2025
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-      CSC_LINK: ${{ secrets.CSC_LINK }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
-        with:
-          node-version: "24"
-      - name: Install dependencies
-        run: yarn install --immutable
-      - name: Download Electron binary
-        run: yarn workspace station-desktop-app exec install-electron
-      - name: Build and Release
-        run: yarn release
+      - name: Set app version from tag
+        run: |
+          node -e '
+            const fs = require("fs");
+            const file = "packages/app/package.json";
+            const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
+            pkg.version = process.env.GITHUB_REF_NAME.replace(/^v/, "");
+            fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + "\n");
+            console.log("version", pkg.version);
+          '
+      - name: Build
+        run: yarn build
+      - name: Package, sign, notarize and publish
+        run: yarn workspace station-desktop-app electron-builder --mac --publish always
+        env:
+          NODE_ENV: production

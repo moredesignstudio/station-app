@@ -80,7 +80,7 @@ function* checkForUpdates() {
 }
 
 function* doOpenReleaseNotes() {
-  yield call(dispatchUrlSaga, { url: 'https://github.com/getstation/desktop-app/releases/' });
+  yield call(dispatchUrlSaga, { url: 'https://github.com/moredesignstudio/station-app/releases/' });
 }
 
 function* consumeUpdateLockFile() {

@@ -1,7 +1,21 @@
 appId: studio.moredesign.moremail
 
+# Releases are published to this fork, and the in-app updater reads them from here.
+# The repository must stay public so the app can read releases without a token.
 publish:
   provider: 'github'
+  owner: 'moredesignstudio'
+  repo: 'station-app'
+  releaseType: 'release'
+
+# Signing uses the Developer ID certificate from CSC_LINK / CSC_KEY_PASSWORD (or the login keychain).
+# Notarization runs automatically after signing when APPLE_ID, APPLE_APP_SPECIFIC_PASSWORD
+# and APPLE_TEAM_ID are set, and is skipped otherwise.
+
+# Keep the native modules installed by `yarn install`: sqlite3 ships N-API binaries that
+# already run under Electron, and windows-focus-assist is only loaded on Windows.
+# Rebuilding them needs a working C++ toolchain for nothing.
+npmRebuild: false
 
 asar: true
 # No explicit asarUnpack: an unpack pattern makes app-builder-lib resolve every
@@ -10,7 +24,6 @@ asar: true
 # electron-builder's smartUnpack already unpacks any package holding .node/.dll.
 
 afterPack: '../../scripts/after-pack.js'
-# afterSign: '../../scripts/notarize.js'
 
 directories:
   output: '../../release'
