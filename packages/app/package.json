@@ -3,7 +3,7 @@
   "productName": "more mail",
   "version": "4.0.0-b1",
   "description": "more mail",
-  "homepage": "https://github.com/moredesignstudio/station-app",
+  "homepage": "https://getstation.com",
   "author": {
     "name": "Joël Charles",
     "email": "joel.charles91@gmail.com",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:moredesignstudio/station-app.git"
+    "url": "git@github.com:getstation/desktop-app.git"
   },
   "contributors": [],
   "license": "Apache License 2.0",
