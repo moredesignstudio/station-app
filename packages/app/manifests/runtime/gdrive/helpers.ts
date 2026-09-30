@@ -1,14 +1,27 @@
 import ElectronGoogleOAuth2 from '@getstation/electron-google-oauth2';
 import { SDK, search, tabs } from '@getstation/sdk';
-import { AxiosPromise } from 'axios';
-import { google } from 'googleapis';
-import { Schema$File, Schema$FileList } from 'googleapis/build/src/apis/drive/v3';
-import { Schema$Userinfoplus } from 'googleapis/build/src/apis/oauth2/v2';
 import memoizee = require('memoizee');
 
 import { idExtractor } from './activity';
 
-const drive = google.drive('v3');
+// The fields of the Drive API resources this plugin reads.
+// Plain REST requests replace the `googleapis` package, which loads every Google API into memory.
+// @see https://developers.google.com/drive/api/reference/rest/v3/files
+export type Schema$File = {
+  kind?: string | null,
+  id?: string | null,
+  name?: string | null,
+  mimeType?: string | null,
+  webViewLink?: string | null,
+  iconLink?: string | null,
+};
+type Schema$FileList = { files?: Schema$File[] };
+// @see https://developers.google.com/identity/openid-connect/openid-connect#obtainuserinfo
+type Schema$Userinfoplus = { email?: string | null, name?: string | null, picture?: string | null };
+
+const DRIVE_FILES_URL = 'https://www.googleapis.com/drive/v3/files';
+const USERINFO_URL = 'https://www.googleapis.com/oauth2/v2/userinfo';
+
 const isBlankRegex = /^\s*$/;
 
 export class ElectronGDriveOAuth2 extends ElectronGoogleOAuth2 {
@@ -29,49 +42,34 @@ export class ElectronGDriveOAuth2 extends ElectronGoogleOAuth2 {
     // Reference: https://developers.google.com/drive/v3/reference/files/list
     // All files properties: https://developers.google.com/drive/v3/reference/files#resource
 
-    const response = await drive.files.list({
-      pageSize: 10,
-      auth: this.oauth2Client,
-      orderBy: 'viewedByMeTime desc',
-      supportsTeamDrives: true,
-      includeTeamDriveItems: true,
-      fields: 'files(kind,id,name,mimeType,webViewLink,iconLink)',
-      q: `name contains '${query}'`,
+    const response = await this.oauth2Client.request<Schema$FileList>({
+      url: DRIVE_FILES_URL,
+      params: {
+        pageSize: 10,
+        orderBy: 'viewedByMeTime desc',
+        supportsTeamDrives: true,
+        includeTeamDriveItems: true,
+        fields: 'files(kind,id,name,mimeType,webViewLink,iconLink)',
+        q: `name contains '${query}'`,
+      },
     });
-    return (response.data as Schema$FileList).files;
+    return response.data.files || [];
   }
 
   async getUserInfos(): Promise<Schema$Userinfoplus> {
-    return new Promise((resolve, reject) =>
-      google.oauth2({
-        auth: this.oauth2Client,
-        version: 'v2',
-      })
-        .userinfo.get(async (
-          error: Error,
-          response: AxiosPromise<Schema$Userinfoplus>
-        ) => {
-          if (error) {
-            return reject(error);
-          }
-
-          const { data } = await response;
-
-          return resolve(data);
-        })
-    );
+    const response = await this.oauth2Client.request<Schema$Userinfoplus>({ url: USERINFO_URL });
+    return response.data;
   }
 
   async getFile(fileId: string): Promise<Schema$File & { email: string }> {
-    const file = await drive.files.get({
-      auth: this.oauth2Client,
-      fileId,
-      fields: 'kind,id,name,mimeType,webViewLink,iconLink',
+    const file = await this.oauth2Client.request<Schema$File>({
+      url: `${DRIVE_FILES_URL}/${encodeURIComponent(fileId)}`,
+      params: { fields: 'kind,id,name,mimeType,webViewLink,iconLink' },
     });
 
     const { email } = await this.getUserInfos();
 
-    return { ...file.data as Schema$File, email };
+    return { ...file.data, email: email || '' };
   }
 }
 
