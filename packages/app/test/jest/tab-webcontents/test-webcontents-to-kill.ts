@@ -6,14 +6,14 @@ const MINUTE = 60 * 1000;
 // most recent `lastActivityAt` in the fixture
 const LAST_ACTIVITY = 1530551261738;
 
-const tabsToKill = (options?: TabsToKillOptions): string[] => {
+const tabsToKill = (options?: TabsToKillOptions, visibleTabIds: string[] = []): string[] => {
   const results = tabWebcontentsToKill(
     Immutable.fromJS(applications),
     Immutable.fromJS(appSettings),
     Immutable.fromJS(tabWebcontents),
     manifests,
     Immutable.fromJS(tabs),
-    [],
+    visibleTabIds,
     options
   );
 
@@ -54,6 +54,18 @@ describe('webcontents to kill', () => {
 
     expect(tabsIds).toEqual(expect.arrayContaining(expectedTabIds));
     expect(tabsIds).toHaveLength(expectedTabIds.length);
+  });
+
+  it('should keep 3 background tabs besides the visible one', () => {
+    const visibleTabId = 'slite-r1qAypUff/HJI6ybAhG';
+    const tabsIds = tabsToKill({}, [visibleTabId]);
+
+    // the visible tab is kept without taking one of the 3 background seats
+    expect(tabsIds).not.toContain(visibleTabId);
+    expect(tabsIds).not.toContain('clickup-r1Vks7aBG/ByeE1jQpBM');
+    expect(tabsIds).not.toContain('slite-r1qAypUff/B1XWQJO-m');
+    expect(tabsIds).not.toContain('slite-r1qAypUff/S19WLgCnM');
+    expect(tabsIds.sort()).toEqual(tabsToKill().filter(tabId => tabId !== visibleTabId).sort());
   });
 
   it('should not kill more tabs when none has been idle too long', () => {

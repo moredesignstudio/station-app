@@ -76,17 +76,15 @@ export function tabWebcontentsToKill(
 
   // Tabs that we can't kill plus the rest of mounted tabs ordered
   // by activity up to `maxActiveTabs`, skipping tabs idle for longer than `idleLimitMs`
-  // We ignore `alwaysLoaded` if we want this to remain efficient
-  const seatsAvailable = maxActiveTabs - whiteListTabsVisible.size;
-
+  // Visible and `alwaysLoaded` tabs don't take one of the `maxActiveTabs` seats
   let tabsAllowedToStay: Immutable.Iterable<any, any> = Immutable.Set();
-  if (seatsAvailable > 0) {
+  if (maxActiveTabs > 0) {
     tabsAllowedToStay = mountedTabs
       .subtract(whiteListTabsAlwaysLoadedOrVisible)
       .filter(([tabId]) => !isIdleTooLong(tabId))
       .sortBy(([tabId]) => lastUsedAt(tabId))
       .reverse()
-      .slice(0, seatsAvailable);
+      .slice(0, maxActiveTabs);
   }
 
   // Merge tabs that we can't kill
