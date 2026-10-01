@@ -4,8 +4,23 @@ const webpack = require('webpack');
 
 // Build-time secrets (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) from the untracked
 // `.env` at the repo root, see `.env.example`. Variables already set in the
-// environment, as on CI, take precedence.
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+// environment, as on CI, take precedence. A git worktree (e.g. .claude/worktrees/*)
+// has no copy of the untracked file, so fall back to the main checkout's.
+const loadDotenv = () => {
+  const fs = require('fs');
+  const candidates = [path.resolve(__dirname, '../../.env')];
+  try {
+    const commonDir = require('child_process')
+      .execSync('git rev-parse --path-format=absolute --git-common-dir', { cwd: __dirname, stdio: ['ignore', 'pipe', 'ignore'] })
+      .toString().trim();
+    candidates.push(path.resolve(commonDir, '..', '.env'));
+  } catch (e) {
+    // not a git checkout
+  }
+  const envFile = candidates.find(file => fs.existsSync(file));
+  if (envFile) require('dotenv').config({ path: envFile });
+};
+loadDotenv();
 
 /* eslint-disable no-param-reassign */
 
