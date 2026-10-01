@@ -59,8 +59,8 @@ html[data-inactive="soft"] { --inactive-filter: grayscale(1) opacity(0.55); }
 .lights i:nth-child(3) { background: var(--traffic-zoom); }
 
 .tb { display: none; align-items: center; }
-html:not([data-topbar]) .tb-today, html[data-topbar="today"] .tb-today,
-html[data-topbar="pages"] .tb-pages, html[data-topbar="title"] .tb-title, html[data-topbar="glow"] .tb-glow { display: flex; }
+html:not([data-topbar]) .tb-glow, html[data-topbar="glow"] .tb-glow,
+html[data-topbar="today"] .tb-today, html[data-topbar="pages"] .tb-pages, html[data-topbar="title"] .tb-title { display: flex; }
 
 /* Idea 1: open pages as the website's glass pill menu */
 .tb-pages {

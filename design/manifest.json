@@ -45,8 +45,12 @@
           "title": "top bar",
           "choices": [
             {
+              "id": "glow",
+              "title": "wordmark + ambient light (chosen)"
+            },
+            {
               "id": "today",
-              "title": "today at a glance (chosen)"
+              "title": "today at a glance (set aside)"
             },
             {
               "id": "title",
@@ -55,10 +59,6 @@
             {
               "id": "pages",
               "title": "open pages pill"
-            },
-            {
-              "id": "glow",
-              "title": "wordmark + ambient light"
             }
           ]
         },

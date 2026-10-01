@@ -13,6 +13,10 @@ Chosen on the board: **today at a glance** in the "where you are" style, **duoto
 - Card frame, glass popovers and palette, settings inside the card, pill buttons, lowercase labels, Freizeit (used when installed, not bundled).
 - Not in the app yet: the next calendar event in the top bar (needs calendar data), and the hover highlight gliding between popover rows (the rows do slide in).
 
+## Round 4
+
+- The top bar is now **wordmark + ambient light**: "more mail" under a slow mint→magenta light. The unread count is set aside: with real inboxes it mostly read "999+ unread", which wasn't useful. The focus switch moved out (the moon in the rail toggles focus); "notifications paused" and the loading line stay.
+
 ## Round 3 (after using the app)
 
 - No unread badge on apps for now. If one comes back, it's a small blue "something new" dot; the rail buttons already use one.
